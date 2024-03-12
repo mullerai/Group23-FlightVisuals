@@ -1,10 +1,7 @@
-Group Members:
-Aidan Muller
-Kellan O'Brien
-Conor Tiernan
-<<<<<<< Updated upstream
-Anastasia O'Donnell
-=======
->>>>>>> Stashed changes
-Conor McCarthy
-Mairead O'Dwyer
+Group Members: <br />
+Aidan Muller <br />
+Kellan O'Brien <br />
+Conor Tiernan <br />
+Anastasia O'Donnell <br />
+Conor McCarthy <br />
+Mairead O'Dwyer <br />
