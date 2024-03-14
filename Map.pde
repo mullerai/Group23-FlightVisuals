@@ -16,4 +16,7 @@ class Map {
     x = xPos;
     y = yPos;
   }
+  void drawFlight() {
+    // Code to draw a flight on map will go here
+  }
 };
