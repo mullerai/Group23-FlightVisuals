@@ -2,7 +2,9 @@ Table flightData;
 
 void setup() {
   
-  String filePath = "C:\\Users\\Dback\\Downloads\\flights2k(1).csv"; // adjust file path to wherever it is in your files
+  //String filePath = "C:\\Users\\Dback\\Downloads\\flights2k(1).csv"; // adjust file path to wherever it is in your files
+  String filePath = "../flights2k(1).csv"; // adjust file path to wherever it is in your files
+  
   
   flightData = loadTable(filePath, "csv");
   
