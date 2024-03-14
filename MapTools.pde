@@ -1,12 +1,12 @@
 static class MapTools {
-  final static float MAP_RATIO_LNG = 7.0/23.0;
-  final static float MAP_RATIO_LAT = 4.0/11.0;
-  static float longitudeToPixels(float lng, float w) {
-    float newLng = lng + 180 - 15;
-    return (newLng/360.0)*(w/MAP_RATIO_LNG);
+  final static float MAP_RATIO_LNG = 7.0/23.0; // "Stretch" map image size to properly calculate longitude as coordinate
+  final static float MAP_RATIO_LAT = 4.0/11.0; // "Stretch" map image size to properly calculate latitude as coordinate
+  static float longitudeToPixels(float lng, float w) {  // function to calculate longitude as x-coordinate, takes the longitude and image-width as argument
+    float newLng = lng + 180 - 15; // Get longitude between 0 and 360, and sub 15 because image is missing one longitudal line to west
+    return (newLng/360.0)*(w/MAP_RATIO_LNG); // Calculate pixel using equirectangular principles
   }
-  static float latitudeToPixels(float lat, float h) {
-    float newLat = (-lat)+90-15;
-    return (newLat/180.0)*(h/MAP_RATIO_LAT);
+  static float latitudeToPixels(float lat, float h) { // Function to calculate latitude as y-coordinate, takes the latitude and image-height as argument
+    float newLat = (-lat)+90-15;  // Get lat between 0 and 180, and sub 15 because image is missing one latitudal line to north
+    return (newLat/180.0)*(h/MAP_RATIO_LAT); // Calculate pixel using equirectangular principles
   }
 }
