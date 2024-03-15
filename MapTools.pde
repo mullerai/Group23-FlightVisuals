@@ -9,4 +9,9 @@ static class MapTools {
     float newLat = (-lat)+90-15;  // Get lat between 0 and 180, and sub 15 because image is missing one latitudal line to north
     return (newLat/180.0)*(h/MAP_RATIO_LAT); // Calculate pixel using equirectangular principles
   }
+  enum Setting {    // This enum functions as a tri-state boolean
+    SET,            // SET - true
+    UNSET,          // UNSET - false
+    EITHER          // EITHER - either true or false (useful in flightManager as wildcard
+  }
 }
