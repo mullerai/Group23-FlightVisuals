@@ -16,9 +16,7 @@ void setup() {
   String [] unique2 = getUniqueValues(flightData, colIndex2);
   
   
-  // for (String value : unique) {
-   // println(value);
-   //}
+  
    int amountOriginAirports = unique.length -1;
    int amountArrivalAirports = unique2.length -1;
    
@@ -33,14 +31,7 @@ void draw() {
 }
 
 
-//void printTable(Table table) {
-  //for (TableRow row : table.rows()) {
-    //for (int col = 0; col < table.getColumnCount(); col++) {
-      //print(row.getString(col) + "\t");
-    //}
-    //println(); 
-  //}
-//}
+
 
 String[] getUniqueValues(Table table, int colIndex) 
 {
@@ -65,17 +56,19 @@ ArrayList<String> uniqueValuesList = new ArrayList<String>();
 
 }
 
-int countCertainValue (Table table, int colIndex, String airportCode)
+float countCertainValue (Table table, int colIndex, String airportCode)
 {
   int result = 0;
+  int totalCount = 0;
   
   for (TableRow row : table.rows()) {
     
     String value = row.getString(colIndex);
-    value = value.trim();
+    //value = value.trim();
 
+     totalCount++;
     
-    if (value == airportCode) {
+    if (value.equals(airportCode)) {
       
       result++;
     }
@@ -83,6 +76,6 @@ int countCertainValue (Table table, int colIndex, String airportCode)
   
   
   
-  //return (result/getUniqueValues(flightData, colIndex).length - 1) * 100;
-  return result;
+
+  return (float) result / totalCount  * 100;
 }
