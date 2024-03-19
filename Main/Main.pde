@@ -19,10 +19,10 @@ void setup(){
   Button mapButton, statButton, extraButton, backButton, backStatButton, 
   backInfoButton;
   
-  mainScreen = new Screen(color(75,192,242));
-  mapScreen = new Screen(color(216, 168, 106));
-  statScreen = new Screen(color(106, 216, 165));
-  infoScreen = new Screen(color(177,128,237));
+  mainScreen = new Screen(color(139,175,176));
+  mapScreen = new Screen(color(230, 238, 238));
+  statScreen = new Screen(color(169, 196, 196));
+  infoScreen = new Screen(color(109,154,155));
   
   mapButton = new Button(100, 600, 400, 200, "Map", 100,stdFont, EVENT_BUTTON1);
   mainScreen.addButton(mapButton);
