@@ -9,12 +9,15 @@ import java.util.Date;
 
 Table flightData;
 
+
+
 //void setup() {
+  //fullScreen();
 //  size(400, 400);
 
 //  // Load the table
-//  String filePath = "../flights2k(1).csv"; // adjust file path to wherever it is in your files
-//  flightData = loadTable(filePath, "csv");
+  //String filePath = "../flights2k(1).csv"; // adjust file path to wherever it is in your files
+  //flightData = loadTable(filePath, "csv");
 
 //  // Example usage
 //  int colIndex1 = 3;
@@ -33,10 +36,18 @@ Table flightData;
   
 //  println(countCertainValue(flightData, 0, " 1/5/2022 12:00:00AM"));
 
+//float[] array = percentageOfUniqueValuesArray( flightData , 3);
+//   println(array);
+  
   
   
   
 //}
+
+//void draw (){
+
+//}
+
 
 String[] getUniqueValues(Table table, int colIndex) {
   ArrayList<String> uniqueValuesList = new ArrayList<String>();
@@ -131,4 +142,63 @@ void printTable(Table table) {
   for (TableRow row : table.rows()) {
     println(row.getString(0)); // Print only the first column for demonstration
   }
+}
+
+
+float []  percentageOfUniqueValuesArray(Table table, int colIndex)
+{
+String[] unique = getUniqueValues(table, colIndex);
+float [] result = new float[unique.length - 1];
+float temp;
+String temp1;
+
+for (int i = 0; i < result.length ; i++)
+{
+  if (i + 1 < unique.length && unique[i + 1] != null){
+  temp1 = unique[i + 1];   
+  temp = countCertainValue(table, colIndex, temp1); 
+  result[i] = temp;}
+  else
+  {
+  break;
+  }
+  
+  
+}
+return result;
+
+}
+
+void dotPlot(float[] array, String[] yLabels)
+{
+float startX = width * 0.1;
+float endX = width * 0.9;
+float startY = height * 0.1;
+float endY = height * 0.9;
+float spacing = (endX - startX) / (array.length - 1);
+
+line(startX, startY, startX, endY);
+
+  
+  for (int i = 0; i < yLabels.length; i++) {
+    float y = map(i * 10, 0, 40, endY, startY); 
+    float labelY = map(i * 10, 0, 40, endY, startY); 
+    textAlign(RIGHT, CENTER);
+    text(yLabels[i], startX - 5, labelY);
+    line(startX - 5, y, startX, y); 
+  }
+
+
+
+
+
+line(startX, endY, endX, endY);
+
+ for (int i = 0; i < array.length; i++) {
+    float x = startX + i * spacing; 
+    float y = map(array[i], 0, max(array), endY, startY); 
+    ellipse(x, y, 8, 8); 
+  }
+  
+  text("% of total flights", startX, startY + endY /2);
 }
