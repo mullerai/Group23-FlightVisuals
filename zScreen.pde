@@ -7,6 +7,7 @@ class Screen{
   ArrayList<Button> mapScreenButtonList;
   ArrayList<Button> statScreenButtonList;
   ArrayList<Button> simScreenButtonList;
+  Title newTitle;
   
   Screen(color backgroundColour){
   this.backgroundColour = backgroundColour;
@@ -47,20 +48,21 @@ class Screen{
    return EVENT_NULL;
  }
  
- void title(){
-   if(currentScreen == mainScreen){
-     text("Flight Finder", 675, 100);
-   } else if(currentScreen == mapScreen){
-     text("Map", 725, 100);
-   } else if(currentScreen == statScreen){
-     text("Statistics", 675, 100);
-   } else if(currentScreen == simScreen){
-     text("Simulation", 600, 100);
-   }
- }
- void addTitle()
+ //void title(){
+ //  if(currentScreen == mainScreen){
+ //    text("Flight Finder", 675, 100);
+ //  } else if(currentScreen == mapScreen){
+ //    text("Map", 725, 100);
+ //  } else if(currentScreen == statScreen){
+ //    text("Statistics", 675, 100);
+ //  } else if(currentScreen == simScreen){
+ //    text("Simulation", 600, 100);
+ //  }
+ //}
+ void addTitle(String message, color messageColor, int x, int y)
  {
    
+   newTitle = new Title(message, messageColor, x,y);
  
  }
  
@@ -81,6 +83,10 @@ class Screen{
      buttonList = statScreenButtonList;
    } else if(currentScreen == simScreen){
      buttonList = simScreenButtonList;
+   }
+   if (newTitle != null)
+   {
+     newTitle.draw();
    }
    for(Button button : buttonList){
      button.draw();
