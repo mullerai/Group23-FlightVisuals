@@ -1,5 +1,5 @@
 ArrayList<Button> buttonList;
-PImage planePic;
+int xpos, ypos;
 
 class Screen{
   color backgroundColour;
@@ -48,17 +48,6 @@ class Screen{
    return EVENT_NULL;
  }
  
- //void title(){
- //  if(currentScreen == mainScreen){
- //    text("Flight Finder", 675, 100);
- //  } else if(currentScreen == mapScreen){
- //    text("Map", 725, 100);
- //  } else if(currentScreen == statScreen){
- //    text("Statistics", 675, 100);
- //  } else if(currentScreen == simScreen){
- //    text("Simulation", 600, 100);
- //  }
- //}
  void addTitle(String message, color messageColor, int x, int y)
  {
    
@@ -68,8 +57,8 @@ class Screen{
  
  void placeImage(){
    if(currentScreen == mainScreen){
-     planePic = loadImage("plane.gif");
-     image(planePic, 100, 100);
+     xpos = width;
+     ypos = 400;
    }
  }
  
@@ -90,6 +79,14 @@ class Screen{
    }
    for(Button button : buttonList){
      button.draw();
+   }
+   if(planePic != null && currentScreen == mainScreen){
+     xpos -=5;
+     if(xpos < (0-planePic.width)) {
+       xpos = (width+planePic.width);
+     }
+     image(planePic, xpos, 200);
+     image(planePic, xpos - (planePic.width+100), 200);
    }
  }
 }
