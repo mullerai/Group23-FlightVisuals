@@ -9,34 +9,34 @@ import java.util.Date;
 
 Table flightData;
 
-void setup() {
-  size(400, 400);
+//void setup() {
+//  size(400, 400);
 
-  // Load the table
-  String filePath = "../flights2k(1).csv"; // adjust file path to wherever it is in your files
-  flightData = loadTable(filePath, "csv");
+//  // Load the table
+//  String filePath = "../flights2k(1).csv"; // adjust file path to wherever it is in your files
+//  flightData = loadTable(filePath, "csv");
 
-  // Example usage
-  int colIndex1 = 3;
-  int colIndex2 = 7;
+//  // Example usage
+//  int colIndex1 = 3;
+//  int colIndex2 = 7;
 
-  //printTable(flightData);
-  String[] unique = getUniqueValues(flightData, colIndex1);
-  String[] unique2 = getUniqueValues(flightData, colIndex2);
+//  //printTable(flightData);
+//  String[] unique = getUniqueValues(flightData, colIndex1);
+//  String[] unique2 = getUniqueValues(flightData, colIndex2);
 
-  int amountOriginAirports = unique.length - 1;
-  int amountArrivalAirports = unique2.length - 1;
+//  int amountOriginAirports = unique.length - 1;
+//  int amountArrivalAirports = unique2.length - 1;
 
-  //println("percentage of occurrences of 'LAX': " + countCertainValue(flightData, colIndex1, "LAX") + "%");
-//sortByDate(flightData);
-//printTable(flightData);
+//  //println("percentage of occurrences of 'LAX': " + countCertainValue(flightData, colIndex1, "LAX") + "%");
+////sortByDate(flightData);
+////printTable(flightData);
   
-  println(countCertainValue(flightData, 0, " 1/5/2022 12:00:00AM"));
+//  println(countCertainValue(flightData, 0, " 1/5/2022 12:00:00AM"));
 
   
   
   
-}
+//}
 
 String[] getUniqueValues(Table table, int colIndex) {
   ArrayList<String> uniqueValuesList = new ArrayList<String>();
