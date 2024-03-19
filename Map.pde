@@ -31,7 +31,20 @@ class Map {
     }
     return returnValue;
   }
-  void drawFlight() {
+  void drawAirport(String IATA) {
+    float[] pixelPos = getCoordinatesFromIATA(IATA);
+    pixelPos[0] = y+MapTools.latitudeToPixels(pixelPos[0], h);
+    pixelPos[1] = x+MapTools.longitudeToPixels(pixelPos[1], w);
+    circle(pixelPos[1], pixelPos[0], 10);
+  }
+  void drawFlight(Flight f) {
+    float[] pixelPos = getCoordinatesFromIATA(f.originIATA);
+    float[] pixelPos2 = getCoordinatesFromIATA(f.destinationIATA);
+    pixelPos[0] = y+MapTools.latitudeToPixels(pixelPos[0], h);
+    pixelPos[1] = x+MapTools.longitudeToPixels(pixelPos[1], w);
+    pixelPos2[0] = y+MapTools.latitudeToPixels(pixelPos2[0], h);
+    pixelPos2[1] = x+MapTools.longitudeToPixels(pixelPos2[1], w);
+    line(pixelPos[1], pixelPos[0], pixelPos2[1], pixelPos2[0]);
     // Code to draw a flight on map will go here
   }
 };
