@@ -7,6 +7,7 @@ class Screen{
   ArrayList<Button> mapScreenButtonList;
   ArrayList<Button> statScreenButtonList;
   ArrayList<Button> simScreenButtonList;
+  
   Screen(color backgroundColour){
   this.backgroundColour = backgroundColour;
   mainButtonList = new ArrayList<Button>();
