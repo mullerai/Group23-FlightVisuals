@@ -14,19 +14,4 @@ static class MapTools {
     UNSET,          // UNSET - false
     EITHER          // EITHER - either true or false (useful in flightManager as wildcard)
   }
-  static float[] getCoordinatesFromIATA(String inpIATA) {
-    String filePath = "data/usa-airports.csv"; // adjust file path to wherever it is in your files
-    float[] returnValue = new float[2];
-    returnValue[0] = -1;
-    returnValue[1] = -1;
-    flightData = loadTable(filePath, "csv");
-    for (TableRow row : table.rows()) {
-      String iata = row.getString(0);
-      if (iata.equals(inpIATA)) {
-        returnValue[0] = float.parseFloat(row.getString(5));
-        returnValue[1] = float.parseFloat(row.getString(6));
-      }
-    }
-    return returnValue;
-  }
 }
