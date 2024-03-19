@@ -66,8 +66,8 @@ class Screen{
  
  void placeImage(){
    if(currentScreen == mainScreen){
-     planePic = loadImage("planeImage.png");
-     image(planePic, 500, 200);
+     planePic = loadImage("plane.gif");
+     image(planePic, 100, 100);
    }
  }
  
