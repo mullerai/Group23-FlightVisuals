@@ -1,6 +1,6 @@
 static class MapTools {
-  final static float MAP_RATIO_LNG = 7.0/23.0; // "Stretch" map image size to properly calculate longitude as coordinate
-  final static float MAP_RATIO_LAT = 4.0/11.0; // "Stretch" map image size to properly calculate latitude as coordinate
+  final static float MAP_RATIO_LNG = 6.7/23.0; // "Stretch" map image size to properly calculate longitude as coordinate
+  final static float MAP_RATIO_LAT = 3.75/11.0; // "Stretch" map image size to properly calculate latitude as coordinate
   static float longitudeToPixels(float lng, float w) {  // function to calculate longitude as x-coordinate, takes the longitude and image-width as argument
     float newLng = lng + 180 - 15; // Get longitude between 0 and 360, and sub 15 because image is missing one longitudal line to west
     return (newLng/360.0)*(w/MAP_RATIO_LNG); // Calculate pixel using equirectangular principles
