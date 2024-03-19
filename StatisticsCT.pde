@@ -31,7 +31,6 @@ Table flightData;
 //  int amountArrivalAirports = unique2.length - 1;
 
 //  //println("percentage of occurrences of 'LAX': " + countCertainValue(flightData, colIndex1, "LAX") + "%");
-////sortByDate(flightData);
 ////printTable(flightData);
   
 //  println(countCertainValue(flightData, 0, " 1/5/2022 12:00:00AM"));
@@ -40,7 +39,10 @@ Table flightData;
 //   println(array);
   
   
-  
+//float [] array = new float [getUniqueValues(flightData, 3).length];
+//  array = percentageOfUniqueValuesArray(flightData, 3);
+//  String[] yLabels = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+//  dotPlot(array, yLabels);  
   
 //}
 
@@ -88,53 +90,7 @@ public static void swapRows(Table table, int row1, int row2) {
   table.setRow(row2, temp);
 }
 
-void sortByDate(Table table) {
-  
-  int colIndex = 0;
-  int rowCount = table.getRowCount();
-  boolean swapped;
-  
-  do {
-  swapped = false;
-  for (int i = 1; i < rowCount -1 ; i++)
-  {
-  TableRow currentRow = table.getRow(i);
-      TableRow nextRow = table.getRow(i + 1);
-      
-      String currentDateStr = currentRow.getString(0); 
-      String nextDateStr = nextRow.getString(0);
-      
-      // Parsing dates
-      String[] currentDateParts = split(currentDateStr, '/');
-      String[] nextDateParts = split(nextDateStr, '/');
-      
-      
-      int currentMonth = int(currentDateParts[0]);
-      int currentDay = int(currentDateParts[1]);
-      int currentYear = int(currentDateParts[2]);
-      
-      int nextMonth = int(nextDateParts[0]);
-      int nextDay = int(nextDateParts[1]);
-      int nextYear = int(nextDateParts[2]);
-      
-      
-      if (currentYear > nextYear || (currentYear == nextYear && currentMonth > nextMonth) ||
-          (currentYear == nextYear && currentMonth == nextMonth && currentDay > nextDay)) {
-       
-        swapRows(table, i, i + 1);
-        swapped = true;
-      }
-    }
-  
-  }while(swapped);
-  
-  
- 
-  
-  
-  
-  
-}
+
 
 
 

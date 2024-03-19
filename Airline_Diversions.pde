@@ -14,89 +14,88 @@ final int SCREENY = 360;
 StatisticsCT stat;
 
 
-void setup() {
-  fullScreen();
-  noStroke();
-  switcher = true;
+//void setup() {
+//  fullScreen();
+//  noStroke();
+//  switcher = true;
   
-  //table = loadTable("flights2k(1).csv", "header");
-  table = loadTable("flights_full (2).csv", "header");
+
+//  String filePath = "../flights2k(1).csv"; // adjust file path to wherever it is in your files
+//    table = loadTable(filePath, "csv");
+//  //table = loadTable("flights_full (2).csv", "header");
   
-  float [] array = new float [stat.percentageOfUniqueValuesArray(flightData, 3).length];
-  array = stat.percentageOfUniqueValuesArray(flightData, 3);
-  String[] yLabels = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-  stat.dotPlot(array, yLabels);
+  
  
   
-  carriers = new StringList();
-  diversions = new IntList();
-  cancellations = new IntList();
-  diversionAngles = new FloatList();
-  cancellationAngles = new FloatList();
-  totalDiversions = 0;
-  totalCancellations = 0;
+//  carriers = new StringList();
+//  diversions = new IntList();
+//  cancellations = new IntList();
+//  diversionAngles = new FloatList();
+//  cancellationAngles = new FloatList();
+//  totalDiversions = 0;
+//  totalCancellations = 0;
   
-  keyFont = loadFont("ArialMT-28.vlw");
-  keyFontTitle = loadFont("BodoniMT-Bold-28.vlw");
+//  keyFont = loadFont("ArialMT-28.vlw");
+//  keyFontTitle = loadFont("BodoniMT-Bold-28.vlw");
   
 
-  println(table.getRowCount() + " total rows in table");
+//  println(table.getRowCount() + " total rows in table");
 
-  for (TableRow row : table.rows()) {
+//  for (TableRow row : table.rows()) {
 
-    String carrier = row.getString("MKT_CARRIER");
-    int diverted = row.getInt("DIVERTED");
-    int cancelled = row.getInt("CANCELLED");
+//    String carrier = row.getString("MKT_CARRIER");
+//    int diverted = row.getInt("DIVERTED");
+//    int cancelled = row.getInt("CANCELLED");
     
-    if (!carriers.hasValue(carrier)){
-      carriers.append(carrier);
-      diversions.append(0);
-      cancellations.append(0);
-    }
+//    if (!carriers.hasValue(carrier)){
+//      carriers.append(carrier);
+//      diversions.append(0);
+//      cancellations.append(0);
+//    }
     
-    for(int i=0; i<carriers.size(); i++){
-      if (carriers.get(i).equals(carrier)){
-        if (diverted == 1){
-          diversions.add(i, 1);
-          //println(carriers.get(i) + " was diverted");
-        }
-        else if (cancelled == 1){
-          cancellations.add(i,1);
-          //println(carriers.get(i) + " was cancelled");
-        }
-        //else
-          //println(carriers.get(i) + " was normal");
-      }
-    }
-  }
+//    for(int i=0; i<carriers.size(); i++){
+//      if (carriers.get(i).equals(carrier)){
+//        if (diverted == 1){
+//          diversions.add(i, 1);
+//          //println(carriers.get(i) + " was diverted");
+//        }
+//        else if (cancelled == 1){
+//          cancellations.add(i,1);
+//          //println(carriers.get(i) + " was cancelled");
+//        }
+//        //else
+//          //println(carriers.get(i) + " was normal");
+//      }
+//    }
+//  }
   
   
-  for(int i=0; i<carriers.size(); i++){
-    println(carriers.get(i)+" had "+ diversions.get(i) +" diversions and " + cancellations.get(i) + " cancelations");
-    totalDiversions += diversions.get(i);
-    totalCancellations += cancellations.get(i);
-  }
+//  for(int i=0; i<carriers.size(); i++){
+//    println(carriers.get(i)+" had "+ diversions.get(i) +" diversions and " + cancellations.get(i) + " cancelations");
+//    totalDiversions += diversions.get(i);
+//    totalCancellations += cancellations.get(i);
+//  }
   
-  for(int i=0; i<carriers.size(); i++){
-    diversionAngles.append(((float)diversions.get(i)/(float)totalDiversions) * 360.0);
-    cancellationAngles.append(((float)cancellations.get(i)/(float)totalCancellations) * 360.0);
-  }
+//  for(int i=0; i<carriers.size(); i++){
+//    diversionAngles.append(((float)diversions.get(i)/(float)totalDiversions) * 360.0);
+//    cancellationAngles.append(((float)cancellations.get(i)/(float)totalCancellations) * 360.0);
+//  }
   
    
   
 
   
   
-}
+//}
 
-void draw() {
-  background(255);
-  //if (switcher)
-    //pieChart(300, cancellationAngles, carriers, keyFont, keyFontTitle, "Cancellations");
-  //else
-    //pieChart(300, diversionAngles, carriers, keyFont, keyFontTitle, "Diversions");
+//void draw() {
+//  background(255);
+//  //if (switcher)
+//    //pieChart(300, cancellationAngles, carriers, keyFont, keyFontTitle, "Cancellations");
+//  //else
+//    //pieChart(300, diversionAngles, carriers, keyFont, keyFontTitle, "Diversions");
       
-}
+//}
 
 void mousePressed(){
   if(switcher)
