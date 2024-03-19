@@ -20,11 +20,18 @@ void setup(){
   
   mainScreen = new Screen(color(139,175,176));
   mapScreen = new Screen(color(230, 238, 238));
+  mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
+  
   statScreen = new Screen(color(169, 196, 196));
+  statScreen.addTitle("Statistics", color(0), width/2 - 150, 100);
+  
   simScreen = new Screen(color(109,154,155));
+  simScreen.addTitle("Sim", color(0), width/2 - 150, 100);
+  
   
   mapButton = new Button(100, 600, 400, 200, "Map", 100,stdFont, EVENT_BUTTON1);
   mainScreen.addButton(mapButton);
+  mainScreen.addTitle("Menu", color(0), width/2 - 150, 100);
   
   statButton = new Button(550, 600, 400, 200, "Statistics", 100, stdFont, EVENT_BUTTON2);
   mainScreen.addButton(statButton);
@@ -62,6 +69,5 @@ void mousePressed(){
 void draw(){
   background(0);
   currentScreen.draw();
-  currentScreen.title();
   currentScreen.placeImage();
 }
