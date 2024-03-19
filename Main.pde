@@ -9,20 +9,19 @@ Screen mainScreen;
 Screen currentScreen;
 Screen mapScreen;
 Screen statScreen;
-Screen infoScreen;
+Screen simScreen;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
   fullScreen();
   textFont(stdFont);
   
-  Button mapButton, statButton, extraButton, backButton, backStatButton, 
-  backInfoButton;
+  Button mapButton, statButton, simButton, backButton;
   
   mainScreen = new Screen(color(139,175,176));
   mapScreen = new Screen(color(230, 238, 238));
   statScreen = new Screen(color(169, 196, 196));
-  infoScreen = new Screen(color(109,154,155));
+  simScreen = new Screen(color(109,154,155));
   
   mapButton = new Button(100, 600, 400, 200, "Map", 100,stdFont, EVENT_BUTTON1);
   mainScreen.addButton(mapButton);
@@ -30,13 +29,13 @@ void setup(){
   statButton = new Button(550, 600, 400, 200, "Statistics", 100, stdFont, EVENT_BUTTON2);
   mainScreen.addButton(statButton);
   
-  extraButton = new Button(1000, 600, 400, 200, "Extra Info", 100, stdFont, EVENT_BUTTON3);
-  mainScreen.addButton(extraButton);
+  simButton = new Button(1000, 600, 400, 200, "Simulation", 100, stdFont, EVENT_BUTTON3);
+  mainScreen.addButton(simButton);
   
   backButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
   mapScreen.addButton(backButton);
   statScreen.addButton(backButton);
-  infoScreen.addButton(backButton);
+  simScreen.addButton(backButton);
   currentScreen = mainScreen;
 }
 
@@ -52,7 +51,7 @@ void mousePressed(){
     break;
     
     case EVENT_BUTTON3:
-    currentScreen = infoScreen;
+    currentScreen = simScreen;
     break;
     
     case EVENT_BUTTON4:

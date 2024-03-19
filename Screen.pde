@@ -6,13 +6,13 @@ class Screen{
   ArrayList<Button> mainButtonList;
   ArrayList<Button> mapScreenButtonList;
   ArrayList<Button> statScreenButtonList;
-  ArrayList<Button> infoScreenButtonList;
+  ArrayList<Button> simScreenButtonList;
   Screen(color backgroundColour){
   this.backgroundColour = backgroundColour;
   mainButtonList = new ArrayList<Button>();
   mapScreenButtonList = new ArrayList<Button>();
   statScreenButtonList = new ArrayList<Button>();
-  infoScreenButtonList = new ArrayList<Button>();
+  simScreenButtonList = new ArrayList<Button>();
  }
 
  void addButton(Button button){
@@ -22,8 +22,8 @@ class Screen{
      mapScreenButtonList.add(button);
    } else if(this == statScreen){
      statScreenButtonList.add(button);
-   } else if(this == infoScreen){
-     infoScreenButtonList.add(button);
+   } else if(this == simScreen){
+     simScreenButtonList.add(button);
    }
 }
  
@@ -34,8 +34,8 @@ class Screen{
      buttonList = mapScreenButtonList;
    } else if(currentScreen == statScreen){
      buttonList = statScreenButtonList;
-   } else if(currentScreen == infoScreen){
-     buttonList = infoScreenButtonList;
+   } else if(currentScreen == simScreen){
+     buttonList = simScreenButtonList;
    }
    for(Button button : buttonList){
      int event = button.getEvent(mouseX, mouseY);
@@ -53,8 +53,8 @@ class Screen{
      text("Map", 725, 100);
    } else if(currentScreen == statScreen){
      text("Statistics", 675, 100);
-   } else if(currentScreen == infoScreen){
-     text("Extra Information", 600, 100);
+   } else if(currentScreen == simScreen){
+     text("Simulation", 600, 100);
    }
  }
  void addTitle()
@@ -78,8 +78,8 @@ class Screen{
      buttonList = mapScreenButtonList;
    } else if(currentScreen == statScreen){
      buttonList = statScreenButtonList;
-   } else if(currentScreen == infoScreen){
-     buttonList = infoScreenButtonList;
+   } else if(currentScreen == simScreen){
+     buttonList = simScreenButtonList;
    }
    for(Button button : buttonList){
      button.draw();
