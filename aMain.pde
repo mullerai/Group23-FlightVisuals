@@ -10,6 +10,7 @@ Screen currentScreen;
 Screen mapScreen;
 Screen statScreen;
 Screen simScreen;
+FlightManager flightManager;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
@@ -44,6 +45,8 @@ void setup(){
   statScreen.addButton(backButton);
   simScreen.addButton(backButton);
   currentScreen = mainScreen;
+  
+  flightManager = new FlightManager("flights2k(1).csv");
 }
 
 void mousePressed(){
