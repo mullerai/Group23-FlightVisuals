@@ -13,7 +13,7 @@ Screen infoScreen;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
-  fullScreen();
+  fullScreen(P2D);
   textFont(stdFont);
   
   Button mapButton, statButton, extraButton, backButton, backStatButton, 

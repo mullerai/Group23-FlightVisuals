@@ -12,6 +12,6 @@ static class MapTools {
   enum Setting {    // This enum functions as a tri-state boolean
     SET,            // SET - true
     UNSET,          // UNSET - false
-    EITHER          // EITHER - either true or false (useful in flightManager as wildcard
+    EITHER          // EITHER - either true or false (useful in flightManager as wildcard)
   }
 }
