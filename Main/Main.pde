@@ -13,7 +13,7 @@ Screen infoScreen;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
-  fullScreen();
+  fullScreen(P2D);
   textFont(stdFont);
   
   Button mapButton, statButton, extraButton, backButton, backStatButton, 
@@ -30,7 +30,7 @@ void setup(){
   statButton = new Button(550, 600, 400, 200, "Statistics", 100, stdFont, EVENT_BUTTON2);
   mainScreen.addButton(statButton);
   
-  extraButton = new Button(1000, 600, 400, 200, "Extra Info", 100, stdFont, EVENT_BUTTON3);
+  extraButton = new Button(1000, 600, 400, 200, "Simulation", 100, stdFont, EVENT_BUTTON3);
   mainScreen.addButton(extraButton);
   
   backButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
