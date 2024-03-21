@@ -12,7 +12,7 @@ Table flightData;
 
 
 //void setup() {
-  //fullScreen();
+//  fullScreen();
 //  size(400, 400);
 
 //  // Load the table
@@ -53,7 +53,7 @@ Table flightData;
 
 String[] getUniqueValues(Table table, int colIndex) {
   ArrayList<String> uniqueValuesList = new ArrayList<String>();
-
+ table.removeRow(0);
   for (TableRow row : table.rows()) {
     String value = row.getString(colIndex);
 
