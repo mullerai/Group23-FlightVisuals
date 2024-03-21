@@ -5,6 +5,7 @@ final int EVENT_BUTTON2=2;
 final int EVENT_BUTTON3=3;
 final int EVENT_BUTTON4=4;
 final int EVENT_BUTTON5=5;
+final int EVENT_BUTTON6=6;
 Screen mainScreen;
 Screen currentScreen;
 Screen mapScreen;
@@ -15,6 +16,7 @@ FlightManager flightManager;
 PImage planePic;
 PImage cloudPic;
 Map mapScreenMap;
+ArrayList<Flight> queryFlights = new ArrayList<Flight>();
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
@@ -26,7 +28,7 @@ void setup(){
   cloudPic.resize(200, 200);
   mapScreenMap = new Map(loadImage("usaLargeNoLines.png"), 450, 200);
   
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton; //toGraphScreen;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton; //toGraphScreen;
   
   mainScreen = new Screen(color(139,175,176));
   mapScreen = new Screen(color(230, 238, 238));
@@ -51,7 +53,9 @@ void setup(){
   
 
   backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
+  queryButton = new Button(100, 600, 100, 75, "Query", 100, stdFont, EVENT_BUTTON6);
   mapScreen.addButton(backToMainButton);
+  mapScreen.addButton(queryButton);
   String [] airlines = {"AA", "AS", "B6","DL", "*"};
   mapScreen.addDropdown(airlines, 300, height - 200);
   statScreen.addButton(backToMainButton);
@@ -101,6 +105,10 @@ void mousePressed(){
     currentScreen = graphScreen;
     break;
     
+    case EVENT_BUTTON6:
+    String airline = mapScreen.dropdownMenu.input;
+    queryFlights = flightManager.filterFlights("*", "*", airline,"*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+    break;
   }
 }
 void draw(){
@@ -109,6 +117,7 @@ void draw(){
 
   if (currentScreen == mapScreen) {
     mapScreenMap.draw();
+    mapScreenMap.drawFlights(queryFlights);
   }
 
 }

@@ -73,6 +73,7 @@ class dropdown
   dropdown(String[] options, int x, int y)
   {
      this.options = options;
+     this.input = options[0];
      this.x = x;
      this.y = y;
   }
