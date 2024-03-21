@@ -1,5 +1,6 @@
 ArrayList<Button> buttonList;
-PImage planePic;
+int plane_xpos, plane_ypos;
+int cloud_xpos, cloud_ypos;
 
 class Screen{
   color backgroundColour;
@@ -48,17 +49,6 @@ class Screen{
    return EVENT_NULL;
  }
  
- //void title(){
- //  if(currentScreen == mainScreen){
- //    text("Flight Finder", 675, 100);
- //  } else if(currentScreen == mapScreen){
- //    text("Map", 725, 100);
- //  } else if(currentScreen == statScreen){
- //    text("Statistics", 675, 100);
- //  } else if(currentScreen == simScreen){
- //    text("Simulation", 600, 100);
- //  }
- //}
  void addTitle(String message, color messageColor, int x, int y)
  {
    
@@ -68,8 +58,10 @@ class Screen{
  
  void placeImage(){
    if(currentScreen == mainScreen){
-     planePic = loadImage("planeImage.png");
-     image(planePic, 500, 200);
+     plane_xpos = width;
+     plane_ypos = 0;
+     cloud_xpos = width/2;
+     cloud_ypos = 400;
    }
  }
  
@@ -90,6 +82,26 @@ class Screen{
    }
    for(Button button : buttonList){
      button.draw();
+   }
+   if(planePic != null && currentScreen == mainScreen){
+     plane_xpos -=5;
+     plane_ypos +=2;
+     if(plane_xpos < (0-planePic.width)) {
+       plane_xpos = (width+planePic.width);
+       plane_ypos = 0;
+     } if(plane_ypos >= 300){
+       plane_ypos = 300;
+     }
+     image(planePic, plane_xpos, plane_ypos);
+     //image(planePic, plane_xpos - (planePic.width+100), plane_ypos);
+   }
+   if(cloudPic != null && currentScreen == mainScreen){
+     cloud_xpos += 2;
+     if(cloud_xpos > (width+cloudPic.width)){
+       cloud_xpos = 0;
+     }
+     image(cloudPic, cloud_xpos, 400);
+     image(cloudPic, cloud_xpos - (cloudPic.width + 100), 400);
    }
  }
 }

@@ -10,11 +10,18 @@ Screen currentScreen;
 Screen mapScreen;
 Screen statScreen;
 Screen simScreen;
+FlightManager flightManager;
+PImage planePic;
+PImage cloudPic;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
-  fullScreen();
+  fullScreen(P2D);
   textFont(stdFont);
+  planePic = loadImage("planePic.png");
+  planePic.resize(300, 300);
+  cloudPic = loadImage("cloud.png");
+  cloudPic.resize(200, 200);
   
   Button mapButton, statButton, simButton, backButton;
   
@@ -29,14 +36,14 @@ void setup(){
   simScreen.addTitle("Sim", color(0), width/2 - 150, 100);
   
   
-  mapButton = new Button(100, 600, 400, 200, "Map", 100,stdFont, EVENT_BUTTON1);
+  mapButton = new Button((width)/9, (4*height)/6, 300, 200, "Map", color(139,175,176) ,stdFont, EVENT_BUTTON1);
   mainScreen.addButton(mapButton);
   mainScreen.addTitle("Menu", color(0), width/2 - 150, 100);
   
-  statButton = new Button(550, 600, 400, 200, "Statistics", 100, stdFont, EVENT_BUTTON2);
+  statButton = new Button((4*width)/9, (4*height)/6, 300, 200, "Statistics", color(139,175,176), stdFont, EVENT_BUTTON2);
   mainScreen.addButton(statButton);
   
-  simButton = new Button(1000, 600, 400, 200, "Simulation", 100, stdFont, EVENT_BUTTON3);
+  simButton = new Button((7*width)/9, (4*height)/6, 300, 200, "Simulation", color(139,175,176), stdFont, EVENT_BUTTON3);
   mainScreen.addButton(simButton);
   
   backButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
@@ -44,6 +51,8 @@ void setup(){
   statScreen.addButton(backButton);
   simScreen.addButton(backButton);
   currentScreen = mainScreen;
+  
+  flightManager = new FlightManager("flights2k(1).csv");
 }
 
 void mousePressed(){
@@ -69,5 +78,5 @@ void mousePressed(){
 void draw(){
   background(0);
   currentScreen.draw();
-  currentScreen.placeImage();
+  //currentScreen.placeImage();
 }
