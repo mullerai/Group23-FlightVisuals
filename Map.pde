@@ -47,4 +47,9 @@ class Map {
     line(pixelPos[1], pixelPos[0], pixelPos2[1], pixelPos2[0]);
     // Code to draw a flight on map will go here
   }
+  void drawFlights(ArrayList<Flight> f) {
+    for (int i = 0; i < f.size(); i++) {
+      drawFlight(f.get(i));
+    }
+  }
 };
