@@ -1,4 +1,4 @@
-class Flight {
+class Flight { // All code in this class by Aidan Muller
   String date, originIATA, originState, carrier, destinationIATA, destinationState;
   int departureTime, arrivalTime, distanceTravelled;
   boolean cancelled, diverted;

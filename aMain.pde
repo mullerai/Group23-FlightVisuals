@@ -108,6 +108,7 @@ void mousePressed(){
     case EVENT_BUTTON6:
     String airline = mapScreen.dropdownMenu.input;
     queryFlights = flightManager.filterFlights("*", "*", airline,"*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+    mapScreenMap.getPixelPositions(queryFlights);
     break;
   }
 }
@@ -117,7 +118,8 @@ void draw(){
 
   if (currentScreen == mapScreen) {
     mapScreenMap.draw();
-    mapScreenMap.drawFlights(queryFlights);
+    // mapScreenMap.drawFlight(queryFlights.get(0));
+    mapScreenMap.drawPixelPositions();
   }
 
 }

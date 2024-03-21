@@ -1,7 +1,8 @@
-class Map {
+class Map {  // All code in this class by Aidan Muller
   PImage mapTexture;    // Map image texture
   int x, y;             // Map x and y position
   private int w, h;             // Map image width & height
+  float[][] pixelPositions = {};
   Map(PImage texture, int xPos, int yPos) {
     mapTexture = texture;
     x = xPos;
@@ -46,6 +47,27 @@ class Map {
     pixelPos2[1] = x+MapTools.longitudeToPixels(pixelPos2[1], w);
     line(pixelPos[1], pixelPos[0], pixelPos2[1], pixelPos2[0]);
     // Code to draw a flight on map will go here
+  }
+  void getPixelPositions(ArrayList<Flight> f) {
+    pixelPositions = new float[f.size()][4];
+    for (int i = 0; i < f.size(); i++) {
+      float[] pixelPos = getCoordinatesFromIATA(f.get(i).originIATA);
+      float[] pixelPos2 = getCoordinatesFromIATA(f.get(i).destinationIATA);
+      pixelPos[0] = y+MapTools.latitudeToPixels(pixelPos[0], h);
+      pixelPos[1] = x+MapTools.longitudeToPixels(pixelPos[1], w);
+      pixelPos2[0] = y+MapTools.latitudeToPixels(pixelPos2[0], h);
+      pixelPos2[1] = x+MapTools.longitudeToPixels(pixelPos2[1], w);
+      // line(pixelPos[1], pixelPos[0], pixelPos2[1], pixelPos2[0]);
+      pixelPositions[i][0] = pixelPos[1];
+      pixelPositions[i][1] = pixelPos[0];
+      pixelPositions[i][2] = pixelPos2[1];
+      pixelPositions[i][3] = pixelPos2[0];
+    }
+  }
+  void drawPixelPositions() {
+    for (int i = 0; i < pixelPositions.length; i++) {
+      line(pixelPositions[i][0], pixelPositions[i][1], pixelPositions[i][2], pixelPositions[i][3]);
+    }
   }
   void drawFlights(ArrayList<Flight> f) {
     for (int i = 0; i < f.size(); i++) {

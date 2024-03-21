@@ -1,6 +1,6 @@
 import java.time.Instant;
 
-class FlightManager {
+class FlightManager { // All code in this class by Aidan Muller
   ArrayList<Flight> flights;
   Table flightTable;
   String fileString;
