@@ -48,6 +48,8 @@ void setup(){
   
   backButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
   mapScreen.addButton(backButton);
+  String [] airlines = {"AA", "AS", "B6","DL", "*"};
+  mapScreen.addDropdown(airlines, 300, height - 200);
   statScreen.addButton(backButton);
   simScreen.addButton(backButton);
   currentScreen = mainScreen;
@@ -59,6 +61,7 @@ void setup(){
 
 void mousePressed(){
   int event = currentScreen.getEvent();
+  mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
   switch(event){
     case EVENT_BUTTON1:
     currentScreen = mapScreen;
@@ -80,5 +83,6 @@ void mousePressed(){
 void draw(){
   background(0);
   currentScreen.draw();
+  
   //currentScreen.placeImage();
 }

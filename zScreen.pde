@@ -9,6 +9,7 @@ class Screen{
   ArrayList<Button> statScreenButtonList;
   ArrayList<Button> simScreenButtonList;
   Title newTitle;
+  dropdown dropdownMenu;
   
   Screen(color backgroundColour){
   this.backgroundColour = backgroundColour;
@@ -54,6 +55,10 @@ class Screen{
    
    newTitle = new Title(message, messageColor, x,y);
  
+ }
+ void addDropdown(String [] options , int x, int y)
+ {
+   dropdownMenu = new dropdown(options, x, y);
  }
  
  void placeImage(){
@@ -102,6 +107,11 @@ class Screen{
      }
      image(cloudPic, cloud_xpos, 400);
      image(cloudPic, cloud_xpos - (cloudPic.width + 100), 400);
+   }
+   
+   if (dropdownMenu != null)
+   {
+     dropdownMenu.draw();
    }
  }
 }
