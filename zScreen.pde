@@ -58,7 +58,7 @@ class Screen{
  
  void placeImage(){
    if(currentScreen == mainScreen){
-     plane_xpos = width+planePic.width;
+     plane_xpos = width;
      plane_ypos = 0;
      cloud_xpos = width/2;
      cloud_ypos = 400;
