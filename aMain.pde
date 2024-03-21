@@ -12,13 +12,16 @@ Screen statScreen;
 Screen simScreen;
 FlightManager flightManager;
 PImage planePic;
+PImage cloudPic;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
   fullScreen();
   textFont(stdFont);
-  planePic = loadImage("plane.gif");
+  planePic = loadImage("planePic.png");
   planePic.resize(300, 300);
+  cloudPic = loadImage("cloud.png");
+  cloudPic.resize(200, 200);
   
   Button mapButton, statButton, simButton, backButton;
   

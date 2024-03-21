@@ -1,5 +1,6 @@
 ArrayList<Button> buttonList;
-int xpos, ypos;
+int plane_xpos, plane_ypos;
+int cloud_xpos, cloud_ypos;
 
 class Screen{
   color backgroundColour;
@@ -57,8 +58,10 @@ class Screen{
  
  void placeImage(){
    if(currentScreen == mainScreen){
-     xpos = width;
-     ypos = 400;
+     plane_xpos = width+planePic.width;
+     plane_ypos = 0;
+     cloud_xpos = width/2;
+     cloud_ypos = 400;
    }
  }
  
@@ -81,12 +84,24 @@ class Screen{
      button.draw();
    }
    if(planePic != null && currentScreen == mainScreen){
-     xpos -=5;
-     if(xpos < (0-planePic.width)) {
-       xpos = (width+planePic.width);
+     plane_xpos -=5;
+     plane_ypos +=2;
+     if(plane_xpos < (0-planePic.width)) {
+       plane_xpos = (width+planePic.width);
+       plane_ypos = 0;
+     } if(plane_ypos >= 300){
+       plane_ypos = 300;
      }
-     image(planePic, xpos, 200);
-     image(planePic, xpos - (planePic.width+100), 200);
+     image(planePic, plane_xpos, plane_ypos);
+     //image(planePic, plane_xpos - (planePic.width+100), plane_ypos);
+   }
+   if(cloudPic != null && currentScreen == mainScreen){
+     cloud_xpos += 2;
+     if(cloud_xpos > (width+cloudPic.width)){
+       cloud_xpos = 0;
+     }
+     image(cloudPic, cloud_xpos, 400);
+     image(cloudPic, cloud_xpos - (cloudPic.width + 100), 400);
    }
  }
 }
