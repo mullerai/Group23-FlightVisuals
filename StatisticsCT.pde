@@ -94,11 +94,11 @@ public static void swapRows(Table table, int row1, int row2) {
 
 
 
-void printTable(Table table) {
-  for (TableRow row : table.rows()) {
-    println(row.getString(0)); // Print only the first column for demonstration
-  }
-}
+//void printTable(Table table) {
+//  for (TableRow row : table.rows()) {
+//    println(row.getString(0)); // Print only the first column for demonstration
+//  }
+//}
 
 
 float []  percentageOfUniqueValuesArray(Table table, int colIndex)
