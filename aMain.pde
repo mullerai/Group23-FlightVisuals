@@ -13,6 +13,7 @@ Screen simScreen;
 FlightManager flightManager;
 PImage planePic;
 PImage cloudPic;
+Map mapScreenMap;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
@@ -22,6 +23,7 @@ void setup(){
   planePic.resize(300, 300);
   cloudPic = loadImage("cloud.png");
   cloudPic.resize(200, 200);
+  mapScreenMap = new Map(loadImage("usaLargeNoLines.png"), 450, 200);
   
   Button mapButton, statButton, simButton, backButton;
   
@@ -80,5 +82,8 @@ void mousePressed(){
 void draw(){
   background(0);
   currentScreen.draw();
+  if (currentScreen == mapScreen) {
+    mapScreenMap.draw();
+  }
   //currentScreen.placeImage();
 }
