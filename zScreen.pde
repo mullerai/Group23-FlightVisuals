@@ -1,4 +1,5 @@
 ArrayList<Button> buttonList;
+ArrayList<TextBox> textBoxList;
 int plane_xpos, plane_ypos;
 int cloud_xpos, cloud_ypos;
 
@@ -9,6 +10,11 @@ class Screen{
   ArrayList<Button> statScreenButtonList;
   ArrayList<Button> simScreenButtonList;
   ArrayList<Button> graphScreenButtonList;
+  ArrayList<TextBox> mainTextBoxList;
+  ArrayList<TextBox> mapScreenTextBoxList;
+  ArrayList<TextBox> statScreenTextBoxList;
+  ArrayList<TextBox> simScreenTextBoxList;
+  ArrayList<TextBox> graphScreenTextBoxList;
   Title newTitle;
   dropdown dropdownMenu;
   
@@ -19,6 +25,11 @@ class Screen{
   statScreenButtonList = new ArrayList<Button>();
   simScreenButtonList = new ArrayList<Button>();
   graphScreenButtonList = new ArrayList<Button>();
+  mainTextBoxList = new ArrayList<TextBox>();
+  mapScreenTextBoxList = new ArrayList<TextBox>();
+  statScreenTextBoxList = new ArrayList<TextBox>();
+  simScreenTextBoxList = new ArrayList<TextBox>();
+  graphScreenTextBoxList = new ArrayList<TextBox>();
  }
 
  void addButton(Button button){
@@ -80,14 +91,19 @@ class Screen{
    background(backgroundColour);
    if(currentScreen == mainScreen){
      buttonList = mainButtonList;
+     textBoxList = mainTextBoxList;
    } else if(currentScreen == mapScreen){
      buttonList = mapScreenButtonList;
+     textBoxList = mapScreenTextBoxList;
    } else if(currentScreen == statScreen){
      buttonList = statScreenButtonList;
+     textBoxList = statScreenTextBoxList;
    } else if(currentScreen == simScreen){
      buttonList = simScreenButtonList;
+     textBoxList = simScreenTextBoxList;
    } else if(currentScreen == graphScreen){
      buttonList = graphScreenButtonList;
+     textBoxList = graphScreenTextBoxList;
    }
    if (newTitle != null)
    {
@@ -95,6 +111,9 @@ class Screen{
    }
    for(Button button : buttonList){
      button.draw();
+   }
+   for (TextBox textBox : textBoxList){
+   textBox.draw();
    }
    if(planePic != null && currentScreen == mainScreen){
      plane_xpos -=5;
@@ -124,4 +143,20 @@ class Screen{
      dropdownMenu.draw();
    }
  }
+ 
+ void addTextBox (TextBox textBox)
+ {
+ if(this == mainScreen){
+      mainTextBoxList.add(textBox);
+   } else if(this == mapScreen){
+     mapScreenTextBoxList.add(textBox);
+   } else if(this == statScreen){
+     statScreenTextBoxList.add(textBox);
+   } else if(this == simScreen){
+     simScreenTextBoxList.add(textBox);
+   } else if(this == graphScreen){
+     graphScreenTextBoxList.add(textBox);
+   }
+ }
+ 
 }

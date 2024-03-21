@@ -173,7 +173,7 @@ class TextBox {
     this.selected = false;
   }
   
-  void display() {
+  void draw() {
     stroke(0);
     if (selected) {
       fill(200);
