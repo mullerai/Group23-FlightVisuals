@@ -18,7 +18,7 @@
 //    println("Date " + (i + 1) + ": " + flightsArray[i]);
 //  }
   
-//  LineGraph(flightsArray, yLabels, dateLabels);
+//  LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
 //}
 
 int countOccurrences(Table table, int column, String value) {
@@ -148,7 +148,7 @@ String[] generateYLabels(int[] flightsPerDate) {
 }
 
 
-void LineGraph(int[] array, String[] yLabels, String[] xLabels) {
+void LineGraph(int[] array, String[] yLabels, String[] xLabels, String yLabel, String xLabel) {
   float startX = width * 0.1;
   float endX = width * 0.9;
   float startY = height * 0.1;
@@ -190,6 +190,6 @@ void LineGraph(int[] array, String[] yLabels, String[] xLabels) {
   
   fill(0);
   textSize(25);
-  text("Flights", startX - 50, startY + endY /2);
-  text("January 2022", startX + endX/2, endY + 50);
+  text(yLabel, startX - 50, startY + endY /2);
+  text(xLabel, startX + endX/2, endY + 50);
 }
