@@ -17,7 +17,7 @@ PImage cloudPic;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
-  fullScreen();
+  fullScreen(P2D);
   textFont(stdFont);
   planePic = loadImage("planePic.png");
   planePic.resize(300, 300);
@@ -58,6 +58,8 @@ void setup(){
   currentScreen = mainScreen;
   
   flightManager = new FlightManager("flights2k(1).csv");
+  flightManager.loadFlights();
+  // ArrayList<Flight> a = flightManager.filterFlights("01/01/2022", "01/03/2022","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
 }
 
 void mousePressed(){
