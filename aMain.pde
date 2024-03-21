@@ -52,6 +52,7 @@ void setup(){
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
   
+  graphScreen = new Screen(color(169, 196, 196));
   backToStatButton = new Button(100, 100, 100, 75, "Back", color(169, 196, 196), stdFont, EVENT_BUTTON2);
   graphScreen.addButton(backToStatButton);
   
