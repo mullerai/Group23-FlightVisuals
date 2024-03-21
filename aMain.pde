@@ -26,7 +26,7 @@ void setup(){
   cloudPic.resize(200, 200);
   mapScreenMap = new Map(loadImage("usaLargeNoLines.png"), 450, 200);
   
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton; //toGraphScreen;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton; // toGraphScreen;
   
   mainScreen = new Screen(color(139,175,176));
   mapScreen = new Screen(color(230, 238, 238));
