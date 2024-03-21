@@ -16,7 +16,7 @@ PImage cloudPic;
 
 void setup(){
   stdFont=loadFont("Chalkboard-30.vlw");
-  fullScreen();
+  fullScreen(P2D);
   textFont(stdFont);
   planePic = loadImage("planePic.png");
   planePic.resize(300, 300);
