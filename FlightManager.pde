@@ -45,8 +45,11 @@ class FlightManager {
     return newDate;
   }
   long getTimeStampFromDate(String date) {
+    if (!date.equals("*")) {
     Instant givenDate = Instant.parse(String.format("%sT00:00:00Z", convertDate(date)));
     return givenDate.getEpochSecond();
+    }
+    return 0;
   }
   ArrayList<Flight> filterFlights(String d, String d1, String c, String oIATA, String oState, String dIATA, String dState, int t, MapTools.Setting cd, MapTools.Setting dd, int dis) { // d and d1 are date ranges
                                                                                                                                                                                        // String wildcard  *

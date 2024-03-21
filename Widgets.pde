@@ -73,6 +73,7 @@ class dropdown
   dropdown(String[] options, int x, int y)
   {
      this.options = options;
+     this.input = options[0];
      this.x = x;
      this.y = y;
   }
@@ -88,8 +89,8 @@ class dropdown
     if (dropdownActive) {
     for (int i = 0; i < options.length; i++) {
       fill(155);
-     if (mouseX > x - dropdownWidth/2 && 
-    mouseX < x + dropdownWidth/2 && mouseY > y - dropdownHeight/2 + (i+1) * optionHeight &&
+     if (mouseX > x - dropdownWidth && 
+    mouseX < x + dropdownWidth && mouseY > y - dropdownHeight/2 + (i+1) * optionHeight &&
     mouseY < y - dropdownHeight/2 + (i+2) * optionHeight)
       {
         fill(255);
@@ -108,9 +109,10 @@ class dropdown
     {
       dropdownActive = !dropdownActive;
     }
+    
     if (dropdownActive) {
       for (int i = 0; i < options.length; i++) {
-      if (mouseX > x - dropdownWidth/2 && mouseX < x + dropdownWidth/2 && 
+      if (mouseX > x - dropdownWidth && mouseX < x + dropdownWidth && 
       mouseY > y - dropdownHeight/2 + (i+1) * optionHeight &&
     mouseY < y - dropdownHeight/2 + (i+2) * optionHeight) {
         input = options[i];
