@@ -10,6 +10,7 @@ Screen currentScreen;
 Screen mapScreen;
 Screen statScreen;
 Screen simScreen;
+Screen graphScreen;
 FlightManager flightManager;
 PImage planePic;
 PImage cloudPic;
@@ -25,7 +26,7 @@ void setup(){
   cloudPic.resize(200, 200);
   mapScreenMap = new Map(loadImage("usaLargeNoLines.png"), 450, 200);
   
-  Button mapButton, statButton, simButton, backButton;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton;
   
   mainScreen = new Screen(color(139,175,176));
   mapScreen = new Screen(color(230, 238, 238));
@@ -48,10 +49,14 @@ void setup(){
   simButton = new Button((7*width)/9, (4*height)/6, 300, 200, "Simulation", color(139,175,176), stdFont, EVENT_BUTTON3);
   mainScreen.addButton(simButton);
   
-  backButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
-  mapScreen.addButton(backButton);
-  statScreen.addButton(backButton);
-  simScreen.addButton(backButton);
+  backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
+  mapScreen.addButton(backToMainButton);
+  statScreen.addButton(backToMainButton);
+  simScreen.addButton(backToMainButton);
+  
+  backToStatButton = new Button(100, 100, 100, 75, "Back", color(169, 196, 196), stdFont, EVENT_BUTTON2);
+  graphScreen.addButton(backToStatButton);
+  
   currentScreen = mainScreen;
   
   flightManager = new FlightManager("flights2k(1).csv");
@@ -77,6 +82,8 @@ void mousePressed(){
     case EVENT_BUTTON4:
     currentScreen = mainScreen;
     break;
+    
+    
   }
 }
 void draw(){
