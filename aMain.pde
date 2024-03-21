@@ -26,7 +26,7 @@ void setup(){
   cloudPic.resize(200, 200);
   mapScreenMap = new Map(loadImage("usaLargeNoLines.png"), 450, 200);
   
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton; //toGraphScreen;
   
   mainScreen = new Screen(color(139,175,176));
   mapScreen = new Screen(color(230, 238, 238));
@@ -55,9 +55,12 @@ void setup(){
   simScreen.addButton(backToMainButton);
   
   graphScreen = new Screen(color(169, 196, 196));
+  graphScreen.addTitle("Graphs", color(0), width/2-150, 100);
   backToStatButton = new Button(100, 100, 100, 75, "Back", color(169, 196, 196), stdFont, EVENT_BUTTON2);
   graphScreen.addButton(backToStatButton);
   
+  //toGraphScreen = new Button(200, 200, 100, 75, "Graphs", color(169, 196, 196), stdFont, EVENT_BUTTON5);
+  //statScreen.addButton(toGraphScreen);
   currentScreen = mainScreen;
   
   flightManager = new FlightManager("flights2k(1).csv");
@@ -84,6 +87,9 @@ void mousePressed(){
     currentScreen = mainScreen;
     break;
     
+    case EVENT_BUTTON5:
+    currentScreen = graphScreen;
+    break;
     
   }
 }
