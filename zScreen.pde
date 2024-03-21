@@ -8,6 +8,7 @@ class Screen{
   ArrayList<Button> mapScreenButtonList;
   ArrayList<Button> statScreenButtonList;
   ArrayList<Button> simScreenButtonList;
+  ArrayList<Button> graphScreenButtonList;
   Title newTitle;
   dropdown dropdownMenu;
   
@@ -17,6 +18,7 @@ class Screen{
   mapScreenButtonList = new ArrayList<Button>();
   statScreenButtonList = new ArrayList<Button>();
   simScreenButtonList = new ArrayList<Button>();
+  graphScreenButtonList = new ArrayList<Button>();
  }
 
  void addButton(Button button){
@@ -28,6 +30,8 @@ class Screen{
      statScreenButtonList.add(button);
    } else if(this == simScreen){
      simScreenButtonList.add(button);
+   } else if(this == graphScreen){
+     graphScreenButtonList.add(button);
    }
 }
  
@@ -40,6 +44,8 @@ class Screen{
      buttonList = statScreenButtonList;
    } else if(currentScreen == simScreen){
      buttonList = simScreenButtonList;
+   } else if(currentScreen == graphScreen){
+     buttonList = graphScreenButtonList;
    }
    for(Button button : buttonList){
      int event = button.getEvent(mouseX, mouseY);
@@ -80,6 +86,8 @@ class Screen{
      buttonList = statScreenButtonList;
    } else if(currentScreen == simScreen){
      buttonList = simScreenButtonList;
+   } else if(currentScreen == graphScreen){
+     buttonList = graphScreenButtonList;
    }
    if (newTitle != null)
    {
@@ -98,7 +106,6 @@ class Screen{
        plane_ypos = 300;
      }
      image(planePic, plane_xpos, plane_ypos);
-     //image(planePic, plane_xpos - (planePic.width+100), plane_ypos);
    }
    if(cloudPic != null && currentScreen == mainScreen){
      cloud_xpos += 2;
@@ -107,6 +114,9 @@ class Screen{
      }
      image(cloudPic, cloud_xpos, 400);
      image(cloudPic, cloud_xpos - (cloudPic.width + 100), 400);
+     image(cloudPic, cloud_xpos + 10, 200);
+     image(cloudPic, cloud_xpos + 10, 200);
+     image(cloudPic, cloud_xpos + 10, 200);
    }
    
    if (dropdownMenu != null)
