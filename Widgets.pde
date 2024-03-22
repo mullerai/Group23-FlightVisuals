@@ -184,10 +184,10 @@ class TextBox {
     rect(x, y, w, h);
     fill(0);
     textSize(15);
-    textAlign(LEFT, CENTER);
-    text(text, x + 5, y + h/2);
-    textSize(20);
-    text("Enter Start Date ",x, y-15);
+    //textAlign(LEFT, CENTER);
+    //text(text, x + 5, y + h/2);
+    //textSize(20);
+    //text("Enter Start Date ",x, y-15);
   }
   
   boolean contains(float px, float py) {

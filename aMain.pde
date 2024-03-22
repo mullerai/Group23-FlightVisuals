@@ -53,7 +53,7 @@ void setup(){
   mainScreen.addButton(simButton);
   
  
- statText = new TextBox (width / 2, (4 * height) / 2, 300, 200, "example");
+ statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "example");
  statScreen.addTextBox(statText);  
   
 
