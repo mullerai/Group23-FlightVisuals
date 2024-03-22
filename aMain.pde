@@ -54,7 +54,7 @@ void setup(){
   
  
  statText = new TextBox (width / 2, (4 * height) / 2, 300, 200, "example");
- statScreen.addTextBox(statText);  // will add an add textbox button after
+ statScreen.addTextBox(statText);  
   
 
   backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
