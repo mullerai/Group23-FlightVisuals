@@ -1,66 +1,69 @@
 class Button
 {
-  
+
   int EVENT_NULL = 0;
   int x, y, width, height;
   int GAP_HEIGHT;
   int GAP_WIDTH;
-  String label; int event;
+  String label;
+  int event;
   color buttonColor, labelColor = color(0);
   PFont buttonFont;
   color originalColour;
-  
-  
-  Button(int x,int y, int width, int height, String label,
-  color buttonColor, PFont buttonFont, int event)
+
+
+  Button(int x, int y, int width, int height, String label,
+    color buttonColor, PFont buttonFont, int event)
   {
-  this.x=x; this.y=y; this.width = width; this.height= height;
-  GAP_HEIGHT = height/3;
-  GAP_WIDTH = width/10;
-  this.label=label; this.event=event;
-  this.buttonColor=buttonColor; this.buttonFont=buttonFont;
-  this.buttonColor= buttonColor;
-  this.originalColour = buttonColor;
+    this.x=x;
+    this.y=y;
+    this.width = width;
+    this.height= height;
+    GAP_HEIGHT = height/3;
+    GAP_WIDTH = width/10;
+    this.label=label;
+    this.event=event;
+    this.buttonColor=buttonColor;
+    this.buttonFont=buttonFont;
+    this.buttonColor= buttonColor;
+    this.originalColour = buttonColor;
   }
-  
+
   void draw()
   {
     stroke(0);
     strokeWeight(3);
     fill(buttonColor);
-    rect(x,y,width,height,5);
+    rect(x, y, width, height, 5);
     fill(labelColor);
     textFont(buttonFont);
     text(label, x+GAP_WIDTH, y+height-GAP_HEIGHT);
     changeColour(mouseX, mouseY);
-    
   }
-  
+
   int getEvent(int mX, int mY)
   {
-    if(mX>x && mX < x+width && mY >y && mY <y+height)
+    if (mX>x && mX < x+width && mY >y && mY <y+height)
     {
       return event;
     }
-      return EVENT_NULL;
-   }
-   
-   void changeColour(int mX, int mY)
-   {
-     if(mX>x && mX < x+width && mY >y && mY <y+height)
+    return EVENT_NULL;
+  }
+
+  void changeColour(int mX, int mY)
+  {
+    if (mX>x && mX < x+width && mY >y && mY <y+height)
     {
-      this.buttonColor = color(169,196,196);
-    }
-    else
+      this.buttonColor = color(169, 196, 196);
+    } else
     {
       this.buttonColor = originalColour;
-
     }
   }
 }
 
 class dropdown
-{  
+{
   boolean dropdownActive = false;
   int dropdownWidth = 150;
   int dropdownHeight = 30;
@@ -69,13 +72,13 @@ class dropdown
   int x;
   int y;
   String input;
-  
+
   dropdown(String[] options, int x, int y)
   {
-     this.options = options;
-     this.input = options[0];
-     this.x = x;
-     this.y = y;
+    this.options = options;
+    this.input = options[0];
+    this.x = x;
+    this.y = y;
   }
   void draw()
   {
@@ -85,42 +88,42 @@ class dropdown
     textSize(16);
     textAlign(CENTER, CENTER);
     text((input == null)?"Select Airline":input, x + 75, y + 15);
-    
+
     if (dropdownActive) {
-    for (int i = 0; i < options.length; i++) {
-      fill(155);
-     if (mouseX > x - dropdownWidth && 
-    mouseX < x + dropdownWidth && mouseY > y - dropdownHeight/2 + (i+1) * optionHeight &&
-    mouseY < y - dropdownHeight/2 + (i+2) * optionHeight)
-      {
-        fill(255);
+      for (int i = 0; i < options.length; i++) {
+        fill(155);
+        if (mouseX > x &&
+          mouseX < x + dropdownWidth && mouseY > y + (i+1) * optionHeight &&
+          mouseY < y + (i+1)*optionHeight + optionHeight)
+        {
+          fill(255);
+        }
+        rect(x, y + (i+1) * optionHeight, dropdownWidth, optionHeight);
+        fill(0);
+        text(options[i], x + 75, y + (i+1) * optionHeight + optionHeight/2);
       }
-      rect(x,y + (i+1) * optionHeight, dropdownWidth, optionHeight);
-      fill(0);
-      text(options[i], x + 75, y + (i+1) * optionHeight + optionHeight/2);
     }
-  }
   }
   void checkMouseOver(float mouseX, float mouseY)
   {
-    if (mouseX > x && 
-    mouseX < x+150 && mouseY > y - dropdownHeight/2 && 
-    mouseY < y + dropdownHeight/2) 
+    if (dropdownActive) {
+      for (int i = 0; i < options.length; i++) {
+        if (mouseX > x &&
+          mouseX < x + dropdownWidth && mouseY > y + (i+1) * optionHeight &&
+          mouseY < y + (i+1)*optionHeight + optionHeight)
+        {
+          input = options[i];
+          dropdownActive = false;
+        }
+      }
+    }
+    if (mouseX > x &&
+      mouseX < x+dropdownWidth && mouseY > y &&
+      mouseY <= (y+dropdownHeight))
     {
       dropdownActive = !dropdownActive;
     }
-    
-    if (dropdownActive) {
-      for (int i = 0; i < options.length; i++) {
-      if (mouseX > x - dropdownWidth && mouseX < x + dropdownWidth && 
-      mouseY > y - dropdownHeight/2 + (i+1) * optionHeight &&
-    mouseY < y - dropdownHeight/2 + (i+2) * optionHeight) {
-        input = options[i];
-        dropdownActive = false;
-    }
-    }
   }
-}
   String getInput()
   {
     return input;
@@ -135,10 +138,10 @@ class Checkbox {
     this.x = x;
     this.y = y;
     this.size = size;
-    checked = false; 
+    checked = false;
   }
 
- 
+
   boolean isMouseOver() {
     return mouseX > x && mouseX < x + size && mouseY > y && mouseY < y + size;
   }
@@ -147,7 +150,7 @@ class Checkbox {
     stroke(0);
     fill(255);
     rect(x, y, size, size);
-    
+
     if (checked) {
       line(x, y, x + size, y + size);
       line(x + size, y, x, y + size);
@@ -163,7 +166,7 @@ class TextBox {
   float x, y, w, h;
   String text;
   boolean selected;
-  
+
   TextBox(float x, float y, float w, float h, String text) {
     this.x = x;
     this.y = y;
@@ -172,7 +175,7 @@ class TextBox {
     this.text = text;
     this.selected = false;
   }
-  
+
   void draw() {
     stroke(0);
     if (selected) {
@@ -180,7 +183,7 @@ class TextBox {
     } else {
       fill(255);
     }
-    
+
     rect(x, y, w, h);
     fill(0);
     textSize(15);
@@ -189,29 +192,24 @@ class TextBox {
     //textSize(20);
     //text("Enter Start Date ",x, y-15);
   }
-  
+
   boolean contains(float px, float py) {
     return px > x && px < x + w && py > y && py < y + h;
   }
-  
+
   void setSelected(boolean selected) {
     this.selected = selected;
   }
-  
+
   boolean isSelected() {
     return selected;
   }
-  
+
   void setText(String text) {
     this.text = text;
   }
-  
+
   String getText() {
     return text;
   }
 }
-
-
-
-
-   
