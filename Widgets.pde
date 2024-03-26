@@ -19,8 +19,8 @@ class Button
     this.y=y;
     this.width = width;
     this.height= height;
-    GAP_HEIGHT = height/3;
-    GAP_WIDTH = width/10;
+    GAP_HEIGHT = height/2;
+    GAP_WIDTH = width/2;
     this.label=label;
     this.event=event;
     this.buttonColor=buttonColor;
@@ -37,6 +37,7 @@ class Button
     rect(x, y, width, height, 5);
     fill(labelColor);
     textFont(buttonFont);
+    textAlign(CENTER, CENTER);
     text(label, x+GAP_WIDTH, y+height-GAP_HEIGHT);
     changeColour(mouseX, mouseY);
   }
