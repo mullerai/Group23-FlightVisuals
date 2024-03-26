@@ -171,14 +171,16 @@ class TextBox {
   float x, y, w, h;
   String text;
   boolean selected;
+  String label;
 
-  TextBox(float x, float y, float w, float h, String text) {
+  TextBox(float x, float y, float w, float h, String text, String label) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.text = text;
     this.selected = false;
+    this.label = label;
   }
 
   void draw() {
@@ -192,10 +194,10 @@ class TextBox {
     rect(x, y, w, h);
     fill(0);
     textSize(15);
-    //textAlign(LEFT, CENTER);
-    //text(text, x + 5, y + h/2);
-    //textSize(20);
-    //text("Enter Start Date ",x, y-15);
+    textAlign(LEFT, CENTER);
+    text(text, x + 5, y + h/2);
+    textSize(20);
+    text(label,x, y-15);
   }
 
   boolean contains(float px, float py) {

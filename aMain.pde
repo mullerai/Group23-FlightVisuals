@@ -53,7 +53,7 @@ void setup(){
   mainScreen.addButton(simButton);
   
  
- statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "example");
+ statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "Enter text Here", "Name" );
  statScreen.addTextBox(statText);  
   
 
@@ -89,6 +89,16 @@ void setup(){
 void mousePressed(){
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
+  
+  for (TextBox textBox: textBoxList)
+  {
+    if (textBox.contains(mouseX, mouseY)) {
+      textBox.setSelected(true);
+    } else {
+      textBox.setSelected(false);
+  }
+  }
+  
   switch(event){
     case EVENT_BUTTON1:
     currentScreen = mapScreen;
@@ -128,3 +138,19 @@ void draw(){
   }
 
 }
+
+void keyPressed() {
+  for (TextBox textBox : textBoxList)
+  {
+  if (textBox.isSelected() && key != ENTER) {
+    if (key == BACKSPACE && textBox.getText().length() > 0) {
+      textBox.setText(textBox.getText().substring(0, textBox.getText().length() - 1));
+    } else if (key != CODED) {
+      textBox.setText(textBox.getText() + key);
+    }
+  }
+  if (key == ENTER)
+  {
+    System.out.print(textBox.getText());
+  }
+}}
