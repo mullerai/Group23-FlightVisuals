@@ -63,6 +63,8 @@ void setup(){
   mapScreen.addButton(queryButton);
   String [] airlines = {"AA", "AS", "B6","DL", "F9", "G4", "HA", "NK", "UA", "WN", "*"};
   mapScreen.addDropdown(airlines, width -400, 200, "Select Airline");
+  mapScreen.addTextBox(new TextBox(width -200, 200, 100, 50, "YYYYMMDD", "Enter Start Date"));
+  mapScreen.addTextBox(new TextBox(width -200, 400, 100, 50, "YYYYMMDD", "Enter End Date"));
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
   
