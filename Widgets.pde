@@ -72,13 +72,15 @@ class dropdown
   int x;
   int y;
   String input;
+  String label;
 
-  dropdown(String[] options, int x, int y)
+  dropdown(String[] options, int x, int y, String label)
   {
     this.options = options;
     this.input = options[0];
     this.x = x;
     this.y = y;
+    this.label = label;
   }
   void draw()
   {
@@ -88,6 +90,8 @@ class dropdown
     textSize(16);
     textAlign(CENTER, CENTER);
     text((input == null)?"Select Airline":input, x + 75, y + 15);
+    textSize(16);
+    text(label, x + 45, y -15);
 
     if (dropdownActive) {
       for (int i = 0; i < options.length; i++) {

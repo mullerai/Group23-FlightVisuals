@@ -61,8 +61,8 @@ void setup(){
   queryButton = new Button(100, 600, 100, 75, "Query", 100, stdFont, EVENT_BUTTON6);
   mapScreen.addButton(backToMainButton);
   mapScreen.addButton(queryButton);
-  String [] airlines = {"AA", "AS", "B6","DL", "*"};
-  mapScreen.addDropdown(airlines, 300, height - 200);
+  String [] airlines = {"AA", "AS", "B6","DL", "F9", "G4", "HA", "NK", "UA", "WN", "*"};
+  mapScreen.addDropdown(airlines, width -400, 200, "Select Airline");
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
   
