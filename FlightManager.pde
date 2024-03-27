@@ -44,21 +44,35 @@ class FlightManager { // All code in this class by Aidan Muller
     String newDate = String.format("%s-%s-%s", year, month, day);
     return newDate;
   }
+  boolean isInteger(String s) {
+    try {
+      Integer.parseInt(s);
+      return true;
+    }
+    catch (Exception e) {
+      return false;
+    }
+  }
   long getTimeStampFromDate(String date) {
     if (!date.equals("*")) {
-    Instant givenDate = Instant.parse(String.format("%sT00:00:00Z", convertDate(date)));
-    return givenDate.getEpochSecond();
+      try {
+        Instant givenDate = Instant.parse(String.format("%sT00:00:00Z", convertDate(date)));
+        return givenDate.getEpochSecond();
+      }
+      catch (Exception e) {
+        return 0;
+      }
     }
     return 0;
   }
   ArrayList<Flight> filterFlights(String d, String d1, String c, String oIATA, String oState, String dIATA, String dState, int t, MapTools.Setting cd, MapTools.Setting dd, int dis) { // d and d1 are date ranges
-                                                                                                                                                                                       // String wildcard  *
-                                                                                                                                                                                       // MapTools.Setting wildcard is MapTools.Setting.EITHER
-                                                                                                                                                                                       // int wildcard is -1
+    // String wildcard  *
+    // MapTools.Setting wildcard is MapTools.Setting.EITHER
+    // int wildcard is -1
     // Uses MapTools.Setting in file MapTools
     ArrayList<Flight> returnFlights = new ArrayList<Flight>();
     for (Flight flight : flights) {
-      if ((!(getTimeStampFromDate(flight.date)<=getTimeStampFromDate(d1) && getTimeStampFromDate(flight.date)>=getTimeStampFromDate(d)) && !d.equals("*")) ||
+      if ((!(getTimeStampFromDate(flight.date)<=getTimeStampFromDate(d1) && getTimeStampFromDate(flight.date)>=getTimeStampFromDate(d)) && (!d.equals("*")||!d1.equals("*"))) ||
         (!flight.carrier.equals(c) && !c.equals("*")) ||
         (!flight.originIATA.equals(oIATA) && !oIATA.equals("*")) ||
         (!flight.originState.equals(oState) && !oState.equals("*")) ||

@@ -63,8 +63,8 @@ void setup(){
   mapScreen.addButton(queryButton);
   String [] airlines = {"AA", "AS", "B6","DL", "F9", "G4", "HA", "NK", "UA", "WN", "*"};
   mapScreen.addDropdown(airlines, width -400, 200, "Select Airline");
-  mapScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "YYYYMMDD", "Enter Start Date"));
-  mapScreen.addTextBox(new TextBox(width -200, 400, 150, 50, "YYYYMMDD", "Enter End Date"));
+  mapScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "MM/DD/YYYY", "Enter Start Date/*"));
+  mapScreen.addTextBox(new TextBox(width -200, 400, 150, 50, "MM/DD/YYYY", "Enter End Date/*"));
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
   
@@ -124,7 +124,7 @@ void mousePressed(){
     
     case EVENT_BUTTON6:
     String airline = mapScreen.dropdownMenu.input;
-    queryFlights = flightManager.filterFlights("*", "*", airline,"*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+    queryFlights = flightManager.filterFlights(mapScreen.mapScreenTextBoxList.get(0).text, mapScreen.mapScreenTextBoxList.get(1).text, airline,"*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
     mapScreenMap.getPixelPositions(queryFlights);
     break;
   }
@@ -146,7 +146,7 @@ void keyPressed() {
   if (textBox.isSelected() && key != ENTER) {
     if (key == BACKSPACE && textBox.getText().length() > 0) {
       textBox.setText(textBox.getText().substring(0, textBox.getText().length() - 1));
-    } else if (key != CODED) {
+    } else if (key != CODED && key != BACKSPACE) {
       textBox.setText(textBox.getText() + key);
     }
   }
