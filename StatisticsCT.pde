@@ -51,83 +51,88 @@ Table flightData;
 //}
 
 
-String[] getUniqueValues(Table table, int colIndex) {
-  ArrayList<String> uniqueValuesList = new ArrayList<String>();
- table.removeRow(0);
-  for (TableRow row : table.rows()) {
-    String value = row.getString(colIndex);
-
-    if (!uniqueValuesList.contains(value)) {
-      uniqueValuesList.add(value);
-    }
-  }
-
-  String[] uniqueValuesArray = new String[uniqueValuesList.size()];
-  uniqueValuesList.toArray(uniqueValuesArray);
-
-  return uniqueValuesArray;
-}
-
-float countCertainValue(Table table, int colIndex, String airportCode) {
-  int result = 0;
-  int totalCount = 0;
-
-  for (TableRow row : table.rows()) {
-    String value = row.getString(colIndex);
-    totalCount++;
-
-    if (value.equals(airportCode)) {
-      result++;
-    }
-  }
-
-  return (float) result / totalCount * 100;
-}
-
-public static void swapRows(Table table, int row1, int row2) {
-  TableRow temp = table.getRow(row1);
-  table.setRow(row1, table.getRow(row2));
-  table.setRow(row2, temp);
-}
-
-
-
-
-
-//void printTable(Table table) {
+//String[] getUniqueValues(Table table, int colIndex) {
+//  ArrayList<String> uniqueValuesList = new ArrayList<String>();
+// table.removeRow(0);
 //  for (TableRow row : table.rows()) {
-//    println(row.getString(0)); // Print only the first column for demonstration
+//    String value = row.getString(colIndex);
+
+//    if (!uniqueValuesList.contains(value)) {
+//      uniqueValuesList.add(value);
+//    }
 //  }
+
+//  String[] uniqueValuesArray = new String[uniqueValuesList.size()];
+//  uniqueValuesList.toArray(uniqueValuesArray);
+
+//  return uniqueValuesArray;
+//}
+
+//float countCertainValue(Table table, int colIndex, String airportCode) {
+//  int result = 0;
+//  int totalCount = 0;
+
+//  for (TableRow row : table.rows()) {
+//    String value = row.getString(colIndex);
+//    totalCount++;
+
+//    if (value.equals(airportCode)) {
+//      result++;
+//    }
+//  }
+
+//  return (float) result / totalCount * 100;
+//}
+
+//public static void swapRows(Table table, int row1, int row2) {
+//  TableRow temp = table.getRow(row1);
+//  table.setRow(row1, table.getRow(row2));
+//  table.setRow(row2, temp);
 //}
 
 
-float []  percentageOfUniqueValuesArray(Table table, int colIndex)
-{
-String[] unique = getUniqueValues(table, colIndex);
-float [] result = new float[unique.length - 1];
-float temp;
-String temp1;
 
-for (int i = 0; i < result.length ; i++)
-{
-  if (i + 1 < unique.length && unique[i + 1] != null){
-  temp1 = unique[i + 1];   
-  temp = countCertainValue(table, colIndex, temp1); 
-  result[i] = temp;}
-  else
-  {
-  break;
-  }
+
+
+////void printTable(Table table) {
+////  for (TableRow row : table.rows()) {
+////    println(row.getString(0)); // Print only the first column for demonstration
+////  }
+////}
+
+
+//float []  percentageOfUniqueValuesArray(Table table, int colIndex)
+//{
+//String[] unique = getUniqueValues(table, colIndex);
+//float [] result = new float[unique.length - 1];
+//float temp;
+//String temp1;
+
+//for (int i = 0; i < result.length ; i++)
+//{
+//  if (i + 1 < unique.length && unique[i + 1] != null){
+//  temp1 = unique[i + 1];   
+//  temp = countCertainValue(table, colIndex, temp1); 
+//  result[i] = temp;}
+//  else
+//  {
+//  break;
+//  }
   
   
-}
-return result;
+//}
+//return result;
 
-}
+//}
 
-void dotPlot(float[] array, String[] yLabels)
+void dotPlotDeparture(ArrayList<Flight> f , String[] yLabels, String filePath)
 {
-float startX = width * 0.1;
+Table fData;
+  fData = loadTable(filePath, "csv");
+  //float [] array = new float [getUniqueValues(flightData, 3).length];
+//  array = percentageOfUniqueValuesArray(flightData, 3);
+
+  float startX = width * 0.1;
 float endX = width * 0.9;
 float startY = height * 0.1;
 float endY = height * 0.9;
@@ -158,3 +163,15 @@ line(startX, endY, endX, endY);
   
   text("% of total flights", startX, startY + endY /2);
 }
+
+
+//ArrayList<Flight> getUniqueValues(Table table, int colIndex) {
+//  ArrayList<Flight> uniqueValuesList = new ArrayList<String>();
+// uniqueValuesList.remove(0);
+//  for ()) {
+//    String value = row.getString(colIndex);
+
+//    if (!uniqueValuesList.contains(value)) {
+//      uniqueValuesList.add(value);
+//    }
+//  }
