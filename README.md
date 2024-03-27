@@ -16,3 +16,20 @@ Tasks - Week 18/03/2024 - 23/03/2024
 - Filter flights by date to return Array of flights in that date range - AM
 - Widgets to handle user input text boxes, dropdown - AOD
 - Heatmaps 
+
+
+Tasks - Week 27/03/2024
+- Queries - Map Screen
+    - Date Range
+    - Carrier
+    - Origin Airport Code
+    - Origin State
+    - Dest Airport code
+    - Dest State
+    - Dep Time
+    -  Time
+ 
+- Graph Queries
+- Sort By
+- Simulation
+- 
