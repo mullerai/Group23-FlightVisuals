@@ -45,7 +45,9 @@ class Map {  // All code in this class by Aidan Muller
     pixelPos[1] = x+MapTools.longitudeToPixels(pixelPos[1], w);
     pixelPos2[0] = y+MapTools.latitudeToPixels(pixelPos2[0], h);
     pixelPos2[1] = x+MapTools.longitudeToPixels(pixelPos2[1], w);
+    color(255);
     line(pixelPos[1], pixelPos[0], pixelPos2[1], pixelPos2[0]);
+    color(0);
     // Code to draw a flight on map will go here
   }
   void getPixelPositions(ArrayList<Flight> f) {
@@ -57,6 +59,7 @@ class Map {  // All code in this class by Aidan Muller
       pixelPos[1] = x+MapTools.longitudeToPixels(pixelPos[1], w);
       pixelPos2[0] = y+MapTools.latitudeToPixels(pixelPos2[0], h);
       pixelPos2[1] = x+MapTools.longitudeToPixels(pixelPos2[1], w);
+      if (pixelPos2[1]-x > 800) println(f.get(i).destinationIATA);
       // line(pixelPos[1], pixelPos[0], pixelPos2[1], pixelPos2[0]);
       pixelPositions[i][0] = pixelPos[1];
       pixelPositions[i][1] = pixelPos[0];
@@ -65,9 +68,11 @@ class Map {  // All code in this class by Aidan Muller
     }
   }
   void drawPixelPositions() {
+    stroke(255, 255, 255);
     for (int i = 0; i < pixelPositions.length; i++) {
       line(pixelPositions[i][0], pixelPositions[i][1], pixelPositions[i][2], pixelPositions[i][3]);
     }
+    stroke(0, 0, 0);
   }
   void drawFlights(ArrayList<Flight> f) {
     for (int i = 0; i < f.size(); i++) {

@@ -34,10 +34,10 @@ class Button
     stroke(0);
     strokeWeight(3);
     fill(buttonColor);
-    rect(x, y, width, height, 5);
+    rect(x, y, this.width, this.height, 5);
     fill(labelColor);
     textFont(buttonFont);
-    text(label, x+GAP_WIDTH, y+height-GAP_HEIGHT);
+    text(label, this.x+GAP_WIDTH, y+height-GAP_HEIGHT);
     changeColour(mouseX, mouseY);
   }
 

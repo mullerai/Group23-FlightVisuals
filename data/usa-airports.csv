@@ -46,8 +46,8 @@ iata,name,city,state,country,latitude,longitude
 0C4,Pender Municipal,Pender,NE,USA,42.11388722,-96.72892556
 0D1,South Haven Municipal,South Haven,MI,USA,42.35083333,-86.25613889
 0D8,Gettysburg Municipal,Gettysburg,SD,USA,44.98730556,-99.9535
-0E0,Moriarty,Moriarty,NM,USA,34.98560639,-106.0094661
-0E8,Crownpoint,Crownpoint,NM,USA,35.71765889,-108.2015961
+0,Moriarty,Moriarty,NM,USA,34.98560639,-106.0094661
+0,Crownpoint,Crownpoint,NM,USA,35.71765889,-108.2015961
 0F2,Bowie Municipal,Bowie,TX,USA,33.60166667,-97.77556
 0F4,Loup City Municipal,Loup City,NE,USA,41.29028694,-98.99064278
 0F7,Fountainhead Lodge Airpark,Eufaula,OK,USA,35.38898833,-95.60165111
@@ -3375,3 +3375,4 @@ ZER,Schuylkill Cty/Joe Zerbey,Pottsville,PA,USA,40.70644889,-76.37314667
 ZPH,Zephyrhills Municipal,Zephyrhills,FL,USA,28.22806472,-82.15591639
 ZUN,Black Rock,Zuni,NM,USA,35.08322694,-108.7917769
 ZZV,Zanesville Municipal,Zanesville,OH,USA,39.94445833,-81.89210528
+AZA,,,,,33.308677,-111.65779

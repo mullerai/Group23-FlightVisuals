@@ -26,7 +26,7 @@ void setup(){
   planePic.resize(300, 300);
   cloudPic = loadImage("cloud.png");
   cloudPic.resize(200, 200);
-  mapScreenMap = new Map(loadImage("usaLargeNoLines.png"), 450, 200);
+  mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
   
   Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton;
   TextBox statText;
@@ -89,6 +89,7 @@ void setup(){
 void mousePressed(){
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
+  print(currentScreen==mainScreen);
   switch(event){
     case EVENT_BUTTON1:
     currentScreen = mapScreen;
@@ -120,7 +121,6 @@ void mousePressed(){
 void draw(){
   background(0);
   currentScreen.draw();
-
   if (currentScreen == mapScreen) {
     mapScreenMap.draw();
     // mapScreenMap.drawFlight(queryFlights.get(0));
