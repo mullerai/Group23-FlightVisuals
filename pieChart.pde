@@ -5,7 +5,7 @@ class pieChart{
   PFont font;
   PFont title;
   String TITLE;
-  pieChart(float diameter, FloatList data, StringList airlines, PFont font, PFont title, String TITLE){
+  pieChart(float diameter, FloatList data, StringList airlines, PFont font, PFont title, String TITLE){ //data is just a list of angles
     this.diameter = diameter;
     this.data = data;
     this.airlines = airlines;
