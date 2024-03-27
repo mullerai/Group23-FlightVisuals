@@ -10,9 +10,20 @@ static class MapTools {
   }
   static float latitudeToPixels(float lat, float h) { // Function to calculate latitude as y-coordinate, takes the latitude and image-height as argument
     //float newLat = (-lat)+90-15;  // Get lat between 0 and 180, and sub 15 because image is missing one latitudal line to north
-    float newLat = (-lat)-1+90;  // Get lat between 0 and 180, and sub 5 because image is missing one latitudal line to north
+    float newLat = (-lat)+90;  // Get lat between 0 and 180, and sub 5 because image is missing one latitudal line to north
     // println(h/MAP_RATIO_LAT2);
     return (newLat/180.0)*(h/MAP_RATIO_LAT2); // Calculate pixel using equirectangular principles
+  }
+  static String convertMinutesToTime(int mins) {
+    mins = mins%1440;
+    int hours = mins/60;
+    mins = mins-(hours*60);
+    String minsString, hoursString;
+    if (mins < 10) minsString = String.format("0%d", mins);
+    else minsString = String.format("%d", mins);
+    if (hours < 10) hoursString = String.format("0%d", hours);
+    else hoursString = String.format("%d", hours);
+    return String.format("%s:%s", hoursString, minsString);
   }
   enum Setting {    // This enum functions as a tri-state boolean
     SET,            // SET - true

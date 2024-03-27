@@ -1,3 +1,5 @@
+import java.util.Date;
+
 PFont stdFont;
 final int EVENT_NULL=0;
 final int EVENT_BUTTON1=1;
@@ -16,9 +18,14 @@ FlightManager flightManager;
 PImage planePic;
 PImage cloudPic;
 Map mapScreenMap;
+Map simScreenMap;
+int simulatedMinutes = 0;
+boolean simulationStarted = false;
+int lastTime = 0;
 ArrayList<Flight> queryFlights = new ArrayList<Flight>();
+Date currentDate = new Date();
 
-void setup(){
+void setup() {
   stdFont=loadFont("Chalkboard-30.vlw");
   fullScreen(P2D);
   textFont(stdFont);
@@ -27,41 +34,43 @@ void setup(){
   cloudPic = loadImage("cloud.png");
   cloudPic.resize(200, 200);
   mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
-  
+  simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
+
   Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton;
   TextBox statText;
-  
-  mainScreen = new Screen(color(139,175,176));
+
+  mainScreen = new Screen(color(139, 175, 176));
   mapScreen = new Screen(color(230, 238, 238));
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
-  
+
   statScreen = new Screen(color(169, 196, 196));
   statScreen.addTitle("Statistics", color(0), width/2 - 150, 100);
-  
-  simScreen = new Screen(color(109,154,155));
-  simScreen.addTitle("Sim", color(0), width/2 - 150, 100);
-  
-  
-  mapButton = new Button((width)/9, (4*height)/6, 300, 200, "Map", color(139,175,176) ,stdFont, EVENT_BUTTON1);
+
+  simScreen = new Screen(color(109, 154, 155));
+  // simScreen.addTitle("Sim", color(0), width/2 - 150, 100);
+  simScreen.addTitle(MapTools.convertMinutesToTime(simulatedMinutes), color(0), width/2-150, 100);
+  simScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "MM/DD/YYYY", "Enter Date"));
+
+  mapButton = new Button((width)/9, (4*height)/6, 300, 200, "Map", color(139, 175, 176), stdFont, EVENT_BUTTON1);
   mainScreen.addButton(mapButton);
   mainScreen.addTitle("Menu", color(0), width/2 - 150, 100);
-  
-  statButton = new Button((4*width)/9, (4*height)/6, 300, 200, "Statistics", color(139,175,176), stdFont, EVENT_BUTTON2);
+
+  statButton = new Button((4*width)/9, (4*height)/6, 300, 200, "Statistics", color(139, 175, 176), stdFont, EVENT_BUTTON2);
   mainScreen.addButton(statButton);
-  
-  simButton = new Button((7*width)/9, (4*height)/6, 300, 200, "Simulation", color(139,175,176), stdFont, EVENT_BUTTON3);
+
+  simButton = new Button((7*width)/9, (4*height)/6, 300, 200, "Simulation", color(139, 175, 176), stdFont, EVENT_BUTTON3);
   mainScreen.addButton(simButton);
-  
- 
- statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "Enter text Here", "Name" );
- statScreen.addTextBox(statText);  
-  
+
+
+  statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "Enter text Here", "Name" );
+  statScreen.addTextBox(statText);
+
 
   backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
   queryButton = new Button(100, 600, 100, 75, "Query", 100, stdFont, EVENT_BUTTON6);
   mapScreen.addButton(backToMainButton);
   mapScreen.addButton(queryButton);
-  String [] airlines = {"AA", "AS", "B6","DL", "F9", "G4", "HA", "NK", "UA", "WN", "*"};
+  String [] airlines = {"AA", "AS", "B6", "DL", "F9", "G4", "HA", "NK", "UA", "WN", "*"};
   mapScreen.addDropdown(airlines, width -400, 200, "Select Airline");
   mapScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "MM/DD/YYYY", "Enter Start Date"));
   mapScreen.addTextBox(new TextBox(width -200, 400, 150, 50, "MM/DD/YYYY", "Enter End Date"));
@@ -70,73 +79,74 @@ void setup(){
   // mapScreen.addTextBox(new TextBox(width - 400, 600, 150, 50, "*","Destination State/*"));
   mapScreen.addTextBox(new TextBox(width - 400, 800, 150, 50, "*", "Origin State/*"));
   mapScreen.addTextBox(new TextBox(width - 400, 1000, 150, 50, "*", "Dest State/*"));
-  
+
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
-  
+
   backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
   mapScreen.addButton(backToMainButton);
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
-  
+
   graphScreen = new Screen(color(169, 196, 196));
   graphScreen.addTitle("Graphs", color(0), width/2-150, 100);
   backToStatButton = new Button(100, 100, 100, 75, "Back", color(169, 196, 196), stdFont, EVENT_BUTTON2);
   graphScreen.addButton(backToStatButton);
-  
+
   //toGraphScreen = new Button(200, 200, 100, 75, "Graphs", color(169, 196, 196), stdFont, EVENT_BUTTON5);
   //statScreen.addButton(toGraphScreen);
 
   currentScreen = mainScreen;
-  
+
   flightManager = new FlightManager("flights2k(1).csv");
   flightManager.loadFlights();
   // ArrayList<Flight> a = flightManager.filterFlights("01/01/2022", "01/03/2022","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
 }
 
-void mousePressed(){
+void mousePressed() {
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
-  
-  for (TextBox textBox: textBoxList)
+
+  for (TextBox textBox : textBoxList)
   {
     if (textBox.contains(mouseX, mouseY)) {
       textBox.setSelected(true);
     } else {
       textBox.setSelected(false);
+    }
   }
-  }
-  
-  switch(event){
-    case EVENT_BUTTON1:
+
+  switch(event) {
+  case EVENT_BUTTON1:
     currentScreen = mapScreen;
     break;
-    
-    case EVENT_BUTTON2:
+
+  case EVENT_BUTTON2:
     currentScreen = statScreen;
     break;
-    
-    case EVENT_BUTTON3:
+
+  case EVENT_BUTTON3:
+    currentDate = new Date();
     currentScreen = simScreen;
     break;
-    
-    case EVENT_BUTTON4:
+
+  case EVENT_BUTTON4:
     currentScreen = mainScreen;
     break;
-    
-    case EVENT_BUTTON5:
+
+  case EVENT_BUTTON5:
     currentScreen = graphScreen;
     break;
-    
-    case EVENT_BUTTON6:
+
+  case EVENT_BUTTON6:
     String airline = mapScreen.dropdownMenu.input;
     queryFlights = flightManager.filterFlights(mapScreen.mapScreenTextBoxList.get(0).text, mapScreen.mapScreenTextBoxList.get(1).text, airline,
-      mapScreen.mapScreenTextBoxList.get(2).text,mapScreen.mapScreenTextBoxList.get(4).text,mapScreen.mapScreenTextBoxList.get(3).text,mapScreen.mapScreenTextBoxList.get(5).text,-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+      mapScreen.mapScreenTextBoxList.get(2).text, mapScreen.mapScreenTextBoxList.get(4).text, mapScreen.mapScreenTextBoxList.get(3).text, mapScreen.mapScreenTextBoxList.get(5).text, -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
     mapScreenMap.getPixelPositions(queryFlights);
     break;
   }
 }
-void draw(){
+void draw() {
   background(0);
   currentScreen.draw();
   if (currentScreen == mapScreen) {
@@ -144,21 +154,32 @@ void draw(){
     // mapScreenMap.drawFlight(queryFlights.get(0));
     mapScreenMap.drawPixelPositions();
   }
-
+  if (currentScreen == simScreen) {
+    if (simulationStarted) {
+      Date tempDate = new Date();
+      if (tempDate.getTime()-currentDate.getTime() > 1000) {
+        currentDate = new Date();
+        simulatedMinutes += 1;
+        simScreen.newTitle.message = MapTools.convertMinutesToTime(simulatedMinutes);
+      }
+    }
+    simScreenMap.draw();
+  }
 }
 
 void keyPressed() {
   for (TextBox textBox : textBoxList)
   {
-  if (textBox.isSelected() && key != ENTER) {
-    if (key == BACKSPACE && textBox.getText().length() > 0) {
-      textBox.setText(textBox.getText().substring(0, textBox.getText().length() - 1));
-    } else if (key != CODED && key != BACKSPACE) {
-      textBox.setText(textBox.getText() + key);
+    if (textBox.isSelected() && key != ENTER) {
+      if (key == BACKSPACE && textBox.getText().length() > 0) {
+        textBox.setText(textBox.getText().substring(0, textBox.getText().length() - 1));
+      } else if (key != CODED && key != BACKSPACE) {
+        textBox.setText(textBox.getText() + key);
+      }
+    }
+    if (key == ENTER)
+    {
+      System.out.print(textBox.getText());
     }
   }
-  if (key == ENTER)
-  {
-    System.out.print(textBox.getText());
-  }
-}}
+}
