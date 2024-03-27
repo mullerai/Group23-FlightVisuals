@@ -65,6 +65,13 @@ void setup(){
   mapScreen.addDropdown(airlines, width -400, 200, "Select Airline");
   mapScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "YYYYMMDD", "Enter Start Date"));
   mapScreen.addTextBox(new TextBox(width -200, 400, 150, 50, "YYYYMMDD", "Enter End Date"));
+  mapScreen.addTextBox(new TextBox(width - 200, 600, 150, 50, "", "Carrier"));
+  mapScreen.addTextBox(new TextBox(width - 200, 800, 150, 50, "", "Origin Airport Code"));
+  mapScreen.addTextBox(new TextBox(width - 200, 400, 150, 50, "", "Origin State"));
+  mapScreen.addTextBox(new TextBox(width - 400, 600, 150, 50, "","Destination State"));
+  mapScreen.addTextBox(new TextBox(width - 400, 800, 150, 50, "", "Departure Time"));
+  mapScreen.addTextBox(new TextBox(width - 400, 1000, 150, 50, "", "Time"));
+  
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
   
