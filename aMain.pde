@@ -8,12 +8,20 @@ final int EVENT_BUTTON3=3;
 final int EVENT_BUTTON4=4;
 final int EVENT_BUTTON5=5;
 final int EVENT_BUTTON6=6;
+final int EVENT_BUTTON7 = 7;
+final int EVENT_BUTTON8 = 8;
+final int EVENT_BUTTON9 = 9;
 Screen mainScreen;
 Screen currentScreen;
 Screen mapScreen;
 Screen statScreen;
 Screen simScreen;
 Screen graphScreen;
+Screen pieChartScreen;
+Screen dotPlotScreen;
+Screen linePlotScreen;
+Screen flightDataScreen;
+Screen heatMapScreen;
 FlightManager flightManager;
 PImage planePic;
 PImage cloudPic;
@@ -24,9 +32,11 @@ boolean simulationStarted = false;
 int lastTime = 0;
 ArrayList<Flight> queryFlights = new ArrayList<Flight>();
 Date currentDate = new Date();
+PFont smallerstdFont;
 
 void setup() {
   stdFont=loadFont("Chalkboard-30.vlw");
+  smallerstdFont = loadFont("ComicSansMS-20.vlw");
   fullScreen(P2D);
   textFont(stdFont);
   planePic = loadImage("planePic.png");
@@ -36,7 +46,7 @@ void setup() {
   mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
   simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
 
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton;
   TextBox statText;
 
   mainScreen = new Screen(color(139, 175, 176));
@@ -84,8 +94,21 @@ void setup() {
   simScreen.addButton(backToMainButton);
 
   backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
+  pieChartButton = new Button(100, 200, 150, 50, "Pie Chart", 100, smallerstdFont, EVENT_BUTTON7);
+  dotPlotButton = new Button(100, 300, 150, 50, "Dot Plot", 100, smallerstdFont, EVENT_BUTTON8);
+  linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
+  tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON9);
+  heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON9);
+  
+  
   mapScreen.addButton(backToMainButton);
   statScreen.addButton(backToMainButton);
+  statScreen.addButton(pieChartButton);
+  statScreen.addButton(dotPlotButton);
+  statScreen.addButton(linePlotButton);
+  statScreen.addButton(tableButton);
+  statScreen.addButton(heatmapButton);
+  
   simScreen.addButton(backToMainButton);
 
   graphScreen = new Screen(color(169, 196, 196));
@@ -95,6 +118,19 @@ void setup() {
 
   //toGraphScreen = new Button(200, 200, 100, 75, "Graphs", color(169, 196, 196), stdFont, EVENT_BUTTON5);
   //statScreen.addButton(toGraphScreen);
+  
+  pieChartScreen = new Screen(color(169, 196, 196));
+  pieChartScreen.addTitle("Graphs", color(0), width/2-150, 100);
+  pieChartScreen.addButton(backToStatButton);
+  
+  dotPlotScreen = new Screen(color(169, 196, 196));
+  dotPlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
+  dotPlotScreen.addButton(backToStatButton);
+  
+  linePlotScreen = new Screen(color(169, 196, 78));
+  linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
+  linePlotScreen.addButton(backToStatButton);
+  
 
   currentScreen = mainScreen;
 
@@ -137,6 +173,7 @@ void mousePressed() {
   case EVENT_BUTTON5:
     currentScreen = graphScreen;
     break;
+ 
 
   case EVENT_BUTTON6:
     String airline = mapScreen.dropdownMenu.input;
@@ -144,6 +181,22 @@ void mousePressed() {
       mapScreen.mapScreenTextBoxList.get(2).text, mapScreen.mapScreenTextBoxList.get(4).text, mapScreen.mapScreenTextBoxList.get(3).text, mapScreen.mapScreenTextBoxList.get(5).text, -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
     mapScreenMap.getPixelPositions(queryFlights);
     break;
+    
+    case EVENT_BUTTON7:
+    currentScreen = pieChartScreen;
+    break;
+    
+    case EVENT_BUTTON8:
+     currentScreen = dotPlotScreen;
+    break;
+    
+    case EVENT_BUTTON9:
+     currentScreen = linePlotScreen;
+    break;
+    
+  
+    
+    
   }
 }
 void draw() {
