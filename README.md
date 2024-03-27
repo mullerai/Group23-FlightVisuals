@@ -32,4 +32,8 @@ Tasks - Week 27/03/2024
 - Graph Queries
 - Sort By
 - Simulation
-- 
+
+
+Airline Diversion - Dropdown menu for airline codes
+Number of flight sorted by dates - Line graph - two date text boxes
+Table to sort all flights - select date, order by time of scheduled arrival, actual, arrival time, highlight if late.  
