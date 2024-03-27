@@ -73,9 +73,9 @@ class Screen{
    newTitle = new Title(message, messageColor, x,y);
  
  }
- void addDropdown(String [] options , int x, int y)
+ void addDropdown(String [] options , int x, int y, String label)
  {
-   dropdownMenu = new dropdown(options, x, y);
+   dropdownMenu = new dropdown(options, x, y, label);
  }
  
  void placeImage(){

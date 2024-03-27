@@ -53,7 +53,7 @@ void setup(){
   mainScreen.addButton(simButton);
   
  
- statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "example");
+ statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "Enter text Here", "Name" );
  statScreen.addTextBox(statText);  
   
 
@@ -61,8 +61,10 @@ void setup(){
   queryButton = new Button(100, 600, 100, 75, "Query", 100, stdFont, EVENT_BUTTON6);
   mapScreen.addButton(backToMainButton);
   mapScreen.addButton(queryButton);
-  String [] airlines = {"AA", "AS", "B6","DL", "*"};
-  mapScreen.addDropdown(airlines, 300, height - 200);
+  String [] airlines = {"AA", "AS", "B6","DL", "F9", "G4", "HA", "NK", "UA", "WN", "*"};
+  mapScreen.addDropdown(airlines, width -400, 200, "Select Airline");
+  mapScreen.addTextBox(new TextBox(width -200, 200, 100, 50, "YYYYMMDD", "Enter Start Date"));
+  mapScreen.addTextBox(new TextBox(width -200, 400, 100, 50, "YYYYMMDD", "Enter End Date"));
   statScreen.addButton(backToMainButton);
   simScreen.addButton(backToMainButton);
   
@@ -89,7 +91,16 @@ void setup(){
 void mousePressed(){
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
-  print(currentScreen==mainScreen);
+  
+  for (TextBox textBox: textBoxList)
+  {
+    if (textBox.contains(mouseX, mouseY)) {
+      textBox.setSelected(true);
+    } else {
+      textBox.setSelected(false);
+  }
+  }
+  
   switch(event){
     case EVENT_BUTTON1:
     currentScreen = mapScreen;
@@ -128,3 +139,19 @@ void draw(){
   }
 
 }
+
+void keyPressed() {
+  for (TextBox textBox : textBoxList)
+  {
+  if (textBox.isSelected() && key != ENTER) {
+    if (key == BACKSPACE && textBox.getText().length() > 0) {
+      textBox.setText(textBox.getText().substring(0, textBox.getText().length() - 1));
+    } else if (key != CODED) {
+      textBox.setText(textBox.getText() + key);
+    }
+  }
+  if (key == ENTER)
+  {
+    System.out.print(textBox.getText());
+  }
+}}

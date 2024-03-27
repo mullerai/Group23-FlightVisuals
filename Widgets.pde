@@ -19,8 +19,8 @@ class Button
     this.y=y;
     this.width = width;
     this.height= height;
-    GAP_HEIGHT = height/3;
-    GAP_WIDTH = width/10;
+    GAP_HEIGHT = height/2;
+    GAP_WIDTH = width/2;
     this.label=label;
     this.event=event;
     this.buttonColor=buttonColor;
@@ -37,7 +37,8 @@ class Button
     rect(x, y, this.width, this.height, 5);
     fill(labelColor);
     textFont(buttonFont);
-    text(label, this.x+GAP_WIDTH, y+height-GAP_HEIGHT);
+    textAlign(CENTER, CENTER);
+    text(label, x+GAP_WIDTH, y+height-GAP_HEIGHT);
     changeColour(mouseX, mouseY);
   }
 
@@ -72,13 +73,15 @@ class dropdown
   int x;
   int y;
   String input;
+  String label;
 
-  dropdown(String[] options, int x, int y)
+  dropdown(String[] options, int x, int y, String label)
   {
     this.options = options;
     this.input = options[0];
     this.x = x;
     this.y = y;
+    this.label = label;
   }
   void draw()
   {
@@ -88,6 +91,8 @@ class dropdown
     textSize(16);
     textAlign(CENTER, CENTER);
     text((input == null)?"Select Airline":input, x + 75, y + 15);
+    textSize(16);
+    text(label, x + 45, y -15);
 
     if (dropdownActive) {
       for (int i = 0; i < options.length; i++) {
@@ -166,14 +171,16 @@ class TextBox {
   float x, y, w, h;
   String text;
   boolean selected;
+  String label;
 
-  TextBox(float x, float y, float w, float h, String text) {
+  TextBox(float x, float y, float w, float h, String text, String label) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.text = text;
     this.selected = false;
+    this.label = label;
   }
 
   void draw() {
@@ -187,10 +194,10 @@ class TextBox {
     rect(x, y, w, h);
     fill(0);
     textSize(15);
-    //textAlign(LEFT, CENTER);
-    //text(text, x + 5, y + h/2);
-    //textSize(20);
-    //text("Enter Start Date ",x, y-15);
+    textAlign(LEFT, CENTER);
+    text(text, x + 5, y + h/2);
+    textSize(20);
+    text(label,x, y-15);
   }
 
   boolean contains(float px, float py) {
