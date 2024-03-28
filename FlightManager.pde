@@ -20,6 +20,7 @@ class FlightManager { // All code in this class by Aidan Muller
       if (!cancelled && !diverted) {
         depH = Integer.parseInt(row.getString(12));
         arrH = Integer.parseInt(row.getString(14));
+        //println(depH, arrH);
         dis = Integer.parseInt(row.getString(17));
       }
       flights.add(new Flight(

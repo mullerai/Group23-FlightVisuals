@@ -11,6 +11,8 @@ final int EVENT_BUTTON6=6;
 final int EVENT_BUTTON7 = 7;
 final int EVENT_BUTTON8 = 8;
 final int EVENT_BUTTON9 = 9;
+final int EVENT_BUTTON_SIM=20;
+final int SPEED = 50;
 Screen mainScreen;
 Screen currentScreen;
 Screen mapScreen;
@@ -31,6 +33,8 @@ int simulatedMinutes = 0;
 boolean simulationStarted = false;
 int lastTime = 0;
 ArrayList<Flight> queryFlights = new ArrayList<Flight>();
+ArrayList<Flight> simFlights;
+
 Date currentDate = new Date();
 PFont smallerstdFont;
 
@@ -60,6 +64,7 @@ void setup() {
   // simScreen.addTitle("Sim", color(0), width/2 - 150, 100);
   simScreen.addTitle(MapTools.convertMinutesToTime(simulatedMinutes), color(0), width/2-150, 100);
   simScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "MM/DD/YYYY", "Enter Date"));
+  simScreen.addButton(new Button(width-500, 200, 200, 50, "Go", color(139, 175, 176), stdFont, EVENT_BUTTON_SIM));
 
   mapButton = new Button((width)/9, (4*height)/6, 300, 200, "Map", color(139, 175, 176), stdFont, EVENT_BUTTON1);
   mainScreen.addButton(mapButton);
@@ -99,8 +104,8 @@ void setup() {
   linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
   tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON9);
   heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON9);
-  
-  
+
+
   mapScreen.addButton(backToMainButton);
   statScreen.addButton(backToMainButton);
   statScreen.addButton(pieChartButton);
@@ -108,7 +113,7 @@ void setup() {
   statScreen.addButton(linePlotButton);
   statScreen.addButton(tableButton);
   statScreen.addButton(heatmapButton);
-  
+
   simScreen.addButton(backToMainButton);
 
   graphScreen = new Screen(color(169, 196, 196));
@@ -118,19 +123,19 @@ void setup() {
 
   //toGraphScreen = new Button(200, 200, 100, 75, "Graphs", color(169, 196, 196), stdFont, EVENT_BUTTON5);
   //statScreen.addButton(toGraphScreen);
-  
+
   pieChartScreen = new Screen(color(169, 196, 196));
   pieChartScreen.addTitle("Graphs", color(0), width/2-150, 100);
   pieChartScreen.addButton(backToStatButton);
-  
+
   dotPlotScreen = new Screen(color(169, 196, 196));
   dotPlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   dotPlotScreen.addButton(backToStatButton);
-  
+
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   linePlotScreen.addButton(backToStatButton);
-  
+
 
   currentScreen = mainScreen;
 
@@ -173,7 +178,7 @@ void mousePressed() {
   case EVENT_BUTTON5:
     currentScreen = graphScreen;
     break;
- 
+
 
   case EVENT_BUTTON6:
     String airline = mapScreen.dropdownMenu.input;
@@ -181,22 +186,26 @@ void mousePressed() {
       mapScreen.mapScreenTextBoxList.get(2).text, mapScreen.mapScreenTextBoxList.get(4).text, mapScreen.mapScreenTextBoxList.get(3).text, mapScreen.mapScreenTextBoxList.get(5).text, -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
     mapScreenMap.getPixelPositions(queryFlights);
     break;
-    
-    case EVENT_BUTTON7:
+
+  case EVENT_BUTTON7:
     currentScreen = pieChartScreen;
     break;
-    
-    case EVENT_BUTTON8:
-     currentScreen = dotPlotScreen;
+
+  case EVENT_BUTTON8:
+    currentScreen = dotPlotScreen;
     break;
-    
-    case EVENT_BUTTON9:
-     currentScreen = linePlotScreen;
+
+  case EVENT_BUTTON9:
+    currentScreen = linePlotScreen;
     break;
-    
-  
-    
-    
+
+  case EVENT_BUTTON_SIM:
+    simFlights = flightManager.filterFlights(simScreen.simScreenTextBoxList.get(0).text, simScreen.simScreenTextBoxList.get(0).text, "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+    simulationStarted = true;
+    for (int i = 0; i < simFlights.size(); i++) {
+      simScreenMap.getSimPixelPositions(simFlights.get(i));
+    }
+    break;
   }
 }
 void draw() {
@@ -207,16 +216,30 @@ void draw() {
     // mapScreenMap.drawFlight(queryFlights.get(0));
     mapScreenMap.drawPixelPositions();
   }
-  if (currentScreen == simScreen) {
+  if (currentScreen == simScreen) { // ALL CODE IN THIS STATEMENT BY AIDAN MULLER
     if (simulationStarted) {
       Date tempDate = new Date();
-      if (tempDate.getTime()-currentDate.getTime() > 1000) {
+      if (tempDate.getTime()-currentDate.getTime() > SPEED) {
         currentDate = new Date();
         simulatedMinutes += 1;
         simScreen.newTitle.message = MapTools.convertMinutesToTime(simulatedMinutes);
       }
     }
     simScreenMap.draw();
+    if (simulationStarted) {
+      for (Flight f : simFlights) {
+        if (f.cancelled==false && f.diverted==false) {
+          float[] renderPosition = f.getPixelPositionFromHour(simulatedMinutes);
+          if (renderPosition[0]!=-1) {
+            fill(255);
+            noStroke();
+            circle(renderPosition[0], renderPosition[1], 8);
+            fill(0);
+            stroke(0);
+          }
+        }
+      }
+    }
   }
 }
 

@@ -50,6 +50,18 @@ class Map {  // All code in this class by Aidan Muller
     color(0);
     // Code to draw a flight on map will go here
   }
+  void getSimPixelPositions(Flight f) {
+    float[] pixelPos = getCoordinatesFromIATA(f.originIATA);
+    float[] pixelPos2 = getCoordinatesFromIATA(f.destinationIATA);
+    pixelPos[0] = y+MapTools.latitudeToPixels(pixelPos[0], h);
+    pixelPos[1] = x+MapTools.longitudeToPixels(pixelPos[1], w);
+    pixelPos2[0] = y+MapTools.latitudeToPixels(pixelPos2[0], h);
+    pixelPos2[1] = x+MapTools.longitudeToPixels(pixelPos2[1], w);
+    f.pixelPositionsSim[0][0] = pixelPos[1];
+    f.pixelPositionsSim[0][1] = pixelPos[0];
+    f.pixelPositionsSim[1][0] = pixelPos2[1];
+    f.pixelPositionsSim[1][1] = pixelPos2[0];
+  }
   void getPixelPositions(ArrayList<Flight> f) {
     pixelPositions = new float[f.size()][4];
     for (int i = 0; i < f.size(); i++) {
