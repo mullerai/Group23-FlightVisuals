@@ -49,6 +49,7 @@ float countCertainValue(Table table, int colIndex, String airportCode) {
 Table fData;
   String value;
   float temp1;
+  String temp;
   fData = loadTable(filePath, "csv");
   Float [] array = new Float [getUniqueValues(fData, 3).length];
   String [] array1 = new String [getUniqueValues(fData, 3).length];
@@ -56,7 +57,7 @@ Table fData;
 
 for (int i = 0; i < array1.length ; i++) {
   temp1 = 0;
-  String temp = array1[i];
+  temp = array1[i];
   
 for (Flight flight : f)
 {
