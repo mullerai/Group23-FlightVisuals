@@ -10,11 +10,13 @@ class Screen{
   ArrayList<Button> statScreenButtonList;
   ArrayList<Button> simScreenButtonList;
   ArrayList<Button> graphScreenButtonList;
+  ArrayList<Button> linePlotScreenButtonList;
   ArrayList<TextBox> mainTextBoxList;
   ArrayList<TextBox> mapScreenTextBoxList;
   ArrayList<TextBox> statScreenTextBoxList;
   ArrayList<TextBox> simScreenTextBoxList;
   ArrayList<TextBox> graphScreenTextBoxList;
+  ArrayList<TextBox> linePlotTextBoxList;
   Title newTitle;
   dropdown dropdownMenu;
   
@@ -25,11 +27,13 @@ class Screen{
   statScreenButtonList = new ArrayList<Button>();
   simScreenButtonList = new ArrayList<Button>();
   graphScreenButtonList = new ArrayList<Button>();
+  linePlotScreenButtonList = new ArrayList<Button>();
   mainTextBoxList = new ArrayList<TextBox>();
   mapScreenTextBoxList = new ArrayList<TextBox>();
   statScreenTextBoxList = new ArrayList<TextBox>();
   simScreenTextBoxList = new ArrayList<TextBox>();
   graphScreenTextBoxList = new ArrayList<TextBox>();
+  linePlotTextBoxList = new ArrayList<TextBox>();
  }
 
  void addButton(Button button){
@@ -43,7 +47,9 @@ class Screen{
      simScreenButtonList.add(button);
    } else if(this == graphScreen){
      graphScreenButtonList.add(button);
-   }
+   } else if (this == linePlotScreen) {
+      linePlotScreenButtonList.add(button);
+    }
 }
  
  int getEvent(){
@@ -104,7 +110,10 @@ class Screen{
    } else if(currentScreen == graphScreen){
      buttonList = graphScreenButtonList;
      textBoxList = graphScreenTextBoxList;
-   }
+   } else if (currentScreen == linePlotScreen) {
+      buttonList = linePlotScreenButtonList;
+      textBoxList = linePlotTextBoxList; 
+    }
    if (newTitle != null)
    {
      newTitle.draw();
@@ -156,7 +165,9 @@ class Screen{
      simScreenTextBoxList.add(textBox);
    } else if(this == graphScreen){
      graphScreenTextBoxList.add(textBox);
-   }
+   } else if (this == linePlotScreen) {
+      linePlotTextBoxList.add(textBox);
+    }
  }
  
 }
