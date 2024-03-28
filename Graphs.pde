@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
-class Graphs
+class Graphs 
 {
 
   String[] getUniqueValues(Table table, int colIndex) {
@@ -60,7 +60,7 @@ for (int i = 0; i < array1.length ; i++) {
   
 for (Flight flight : f)
 {
-  value = flight.originIAIA;
+  value = flight.originIATA;
   
   if (temp == value)
   {
@@ -125,7 +125,7 @@ for (int i = 0; i < array1.length ; i++) { // runs through the array and counts 
   
 for (Flight flight : f)
 {
-  value = flight.destinationIAIA;
+  value = flight.destinationIATA;
   
   if (temp == value)
   {
