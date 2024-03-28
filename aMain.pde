@@ -11,6 +11,11 @@ final int EVENT_BUTTON6=6;
 final int EVENT_BUTTON7 = 7;
 final int EVENT_BUTTON8 = 8;
 final int EVENT_BUTTON9 = 9;
+final int EVENT_BUTTON10 = 10;
+int maxdate = 0;
+int[] flightsArray;
+String[] dateLabels;
+String[] yLabels;
 Screen mainScreen;
 Screen currentScreen;
 Screen mapScreen;
@@ -28,11 +33,12 @@ PImage cloudPic;
 Map mapScreenMap;
 Map simScreenMap;
 int simulatedMinutes = 0;
-boolean simulationStarted = false;
+boolean simulationStarted = false, drawingLinePlot = false;
 int lastTime = 0;
 ArrayList<Flight> queryFlights = new ArrayList<Flight>();
 Date currentDate = new Date();
 PFont smallerstdFont;
+Table flightData;
 
 void setup() {
   stdFont=loadFont("Chalkboard-30.vlw");
@@ -46,7 +52,7 @@ void setup() {
   mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
   simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
 
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2;
   TextBox statText;
 
   mainScreen = new Screen(color(139, 175, 176));
@@ -130,10 +136,15 @@ void setup() {
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   linePlotScreen.addButton(backToStatButton);
-  
+  queryButton2 = new Button(width -200, 500, 150, 50, "Query", color(169, 196, 196), stdFont, EVENT_BUTTON10);
+  linePlotScreen.addButton(queryButton2);
+  linePlotScreen.addTextBox(new TextBox(width -200, 100, 150, 50, "", "Enter End Date:"));
 
   currentScreen = mainScreen;
-
+  
+  String filePath = "flights_full.csv"; 
+  flightData = loadTable(filePath, "csv");
+  
   flightManager = new FlightManager("flights2k(1).csv");
   flightManager.loadFlights();
   // ArrayList<Flight> a = flightManager.filterFlights("01/01/2022", "01/03/2022","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
@@ -194,6 +205,20 @@ void mousePressed() {
      currentScreen = linePlotScreen;
     break;
     
+    case EVENT_BUTTON10:
+     String maxDate = linePlotScreen.linePlotTextBoxList.get(0).getText();
+     drawingLinePlot=false;
+      maxdate = 31;
+      maxdate = Integer.parseInt(maxDate);
+      flightsArray = getFlightsPerDate(flightData, maxdate); //no. of flights until max date in Jan
+  
+     dateLabels = getDateLabels(maxdate);              //x labels
+     yLabels = generateYLabels(flightsArray);          //y labels
+     LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
+     drawingLinePlot=true;
+     
+     
+    break;
   
     
     
@@ -218,6 +243,10 @@ void draw() {
     }
     simScreenMap.draw();
   }
+  if (currentScreen == linePlotScreen) {
+    linePlotScreen.draw();
+    if (drawingLinePlot==true) LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
+}
 }
 
 void keyPressed() {

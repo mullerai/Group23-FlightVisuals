@@ -1,216 +1,230 @@
-class stats_cm {
-  Table flightData;
-  Table resultsTable;
 
-  void setup() {
+//void setup() {
+//  String filePath = "flights_full.csv"; // adjust file path to wherever it is in your files
+//  flightData = loadTable(filePath, "csv");
+   
+//  fullScreen();
+//  background(255);
+  
+// //  int maxdate = 31;
+  
+//   dateInput = new TextBox(width - 200, 200, 150, 50, "", "Enter Max Date");
+  
 
-    //String filePath = "C:\\Users\\Dback\\Downloads\\flights2k(1).csv"; // adjust file path to wherever it is in your files
-    String filePath = "flights2k(1).csv"; // adjust file path to wherever it is in your files
+                                             
+//  //int[] flightsArray = getFlightsPerDate(flightData, maxdate); //no. of flights until max date in Jan
+  
+//  //String[] dateLabels = getDateLabels(maxdate);              //x labels
+//  //String[] yLabels = generateYLabels(flightsArray);          //y labels
+  
+// // LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
+//}
+
+//void draw() {
+  
+//  dateInput.draw();
+  
+//}
+//void mousePressed() {
+//  if (dateInput.contains(mouseX, mouseY)) {
+//    dateInput.setSelected(true); // Select TextBox
+//  } else {
+//    dateInput.setSelected(false); // Deselect TextBox
+//  }
+//}
+
+//void keyPressed() {
+  
+//  if (dateInput.isSelected()) {
+    
+//    if (keyCode == BACKSPACE) {
+//      if (dateInput.getText().length() > 0) {
+//        dateInput.setText(dateInput.getText().substring(0, dateInput.getText().length() - 1));
+//      }
+//    } 
+//    else if (keyCode == ENTER) {
+//      background(255);
+//      String maxDate = dateInput.getText();
+//      int maxdate = 31;
+//      maxdate = Integer.parseInt(maxDate);
+//      int[] flightsArray = getFlightsPerDate(flightData, maxdate); //no. of flights until max date in Jan
+  
+//      String[] dateLabels = getDateLabels(maxdate);              //x labels
+//      String[] yLabels = generateYLabels(flightsArray);          //y labels
+//      LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
+//    }
+//    else {
+     
+//      dateInput.setText(dateInput.getText() + key);
+//    }
+//  }
+//}
 
 
-    flightData = loadTable(filePath, "csv");
 
-    //println("flights cancelled: " + countCancelled());
-    //println("flights diverted: " + countDiverted());
-    //println("percenatage cancelled: " + cancelledPercentage() + "%");
-    //println("percenatage diverted: "+ divertedPercentage() + "%");
-    //println("average distance: " + averageDistance() + " miles");
-    //println("average departure delay: " + averageDepartureDelayTime() + " minutes");
-    //println("average arrival delay: " + averageArrivalDelayTime() + " minutes");
-
-    resultsTable = new Table();
-    for (int i = 0; i < 7; i++) {
-      TableRow newRow = resultsTable.addRow();
-      switch (i) {
-      case 0:
-        newRow.setString("Metric", "Cancelled Flights" + "\t");
-        newRow.setString("Value", str(countCancelled()));
-        break;
-      case 1:
-        newRow.setString("Metric", "Diverted Flights" + "\t");
-        newRow.setString("Value", str(countDiverted()));
-        break;
-      case 2:
-        newRow.setString("Metric", "Cancelled Percentage" + "\t");
-        newRow.setString("Value", str(cancelledPercentage()) + "%");
-        break;
-      case 3:
-        newRow.setString("Metric", "Diverted Percentage" + "\t");
-        newRow.setString("Value", str(divertedPercentage()) + "%");
-        break;
-      case 4:
-        newRow.setString("Metric", "Average Distance" + "\t");
-        newRow.setString("Value", str(averageDistance()));
-        break;
-      case 5:
-        newRow.setString("Metric", "Average Departure Delay" + "\t");
-        newRow.setString("Value", str(averageDepartureDelayTime()) + " minutes");
-        break;
-      case 6:
-        newRow.setString("Metric", "Average Arrival Delay" + "\t");
-        newRow.setString("Value", str(averageArrivalDelayTime()) + " minutes");
-        break;
-      default:
-        break;
-      }
+void printTable(Table table) {  
+  for (TableRow row : table.rows()) {
+    for (int col = 0; col < table.getColumnCount(); col++) {
+      print(row.getString(col) + "\t");
     }
-    printTable(resultsTable);
+    println();
+  }
+}
+
+int countOccurrences(Table table, int column, String value) {
+  int count = 0;
+  for (TableRow row : table.rows()) {
+    if (row.getString(column).equals(value)) {
+      count++;
+    }
+  }
+  return count;
+}
+
+float cancelledPercentage() {
+  int cancelled = 0;
+  int totalFlights = flightData.getRowCount();
+  if (totalFlights == 0) {
+    return 0;
+  }
+
+  for (TableRow row : flightData.rows()) {
+    String cancellationValue = row.getString(15);
+    if (cancellationValue != null && cancellationValue.equals("1.00")) {
+      cancelled++;
+    }
+  }
+
+  float percentageCancelled = (float)cancelled / totalFlights * 100; // Calculate percentage
+  return Float.parseFloat(String.format("%.2f", percentageCancelled));
+}
+
+float divertedPercentage() {
+  int diverted = 0;
+  int totalFlights = flightData.getRowCount();
+  if (totalFlights == 0) {
+    return 0;
+  }
+
+  for (TableRow row : flightData.rows()) {
+    String divertedValue = row.getString(16);
+    if (divertedValue != null && divertedValue.equals("1.00")) {
+      diverted++;
+    }
+  }
+
+  float percentageDiverted = (float)diverted / totalFlights * 100; 
+  return Float.parseFloat(String.format("%.2f", percentageDiverted));
+}
+
+float averageDistance() {
+  float totalDistance = 0;
+  int totalFlights = flightData.getRowCount();
+  if (totalFlights == 0) {
+    return 0;
+  }
+  for (int i = 1; i < flightData.getRowCount(); i++) {
+    TableRow row = flightData.getRow(i);
+    String dist = row.getString(17);
+    float distance = Float.parseFloat(dist);
+    totalDistance += distance;
+    
+    }
+  float averageDistance = totalDistance/ (totalFlights-1);
+  return Float.parseFloat(String.format("%.2f", averageDistance));
+}
+
+String[] getDateLabels(int max) {  //change 
+  int maxDay = max;
+
+  String[] dateLabels = new String[maxDay];
+
+  for (int i = 0; i < maxDay; i++) {
+    dateLabels[i] = Integer.toString(i + 1);
+  }
+
+  return dateLabels;
+}
+
+int[] getFlightsPerDate(Table flightData, int max) {  //change
+  flightData.removeRow(0);
+  int maxDay = max;
+
+  int[] flightsPerDate = new int[maxDay];
+
+  for (TableRow row : flightData.rows()) {
+    String[] dateParts = split(row.getString(0), '/');
+    int day = int(dateParts[1]);
+    String cancelled = row.getString(15);
+    if (day > 0 && day <= maxDay && (cancelled == null || !cancelled.equals("1.00"))) {
+      flightsPerDate[day - 1]++;
+    }
+  }
+
+  return flightsPerDate;
+}
+
+String[] generateYLabels(int[] flightsPerDate) {
+  int maxFlights = max(flightsPerDate);
+  int numTicks = 11;
+  int tickInterval = maxFlights / (numTicks - 1);
+
+  String[] yLabels = new String[numTicks];
+
+  for (int i = 0; i < numTicks; i++) {
+    int labelValue = i * tickInterval;
+    yLabels[i] = str(labelValue);
+  }
+
+  yLabels[0] = "0";
+  yLabels[numTicks - 1] = str(maxFlights);
+
+  return yLabels;
+}
+
+
+void LineGraph(int[] arrayofPoints, String[] yLabels, String[] xLabels, String yLabel,  String xLabel) {
+  float startX = width * 0.15;
+  float endX = width * 0.9;
+  float startY = height * 0.15;
+  float endY = height * 0.9;
+  float spacing = (endX - startX) / (arrayofPoints.length - 1);
+
+  line(startX, startY, startX, endY);
+
+  for (int i = 0; i < yLabels.length; i++) {
+    float y = map(i * 10, 0, 100, endY, startY); 
+    float labelY = map(i * 10, 0, 100, endY, startY); 
+    textAlign(RIGHT, CENTER);
+    fill(0);
+    text(yLabels[i], startX - 5, labelY);
+    line(startX - 5, y, startX, y); 
+  }
+
+  for (int i = 0; i < xLabels.length; i++) {
+    float x = map(i, 0, xLabels.length - 1, startX, endX);
+    
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text(xLabels[i], x, endY + 20);
+    line(x, endY, x, endY + 5);
+  }
+
+  line(startX, endY, endX, endY);
+  
+  for (int i = 0; i < arrayofPoints.length; i++) {
+    float x = startX + i * spacing; 
+    float y = map(arrayofPoints[i], 0, max(arrayofPoints), endY, startY); 
+    if(i>0){
+      float prevX = startX + (i - 1) * spacing;
+      float prevY = map(arrayofPoints[i - 1], 0, max(arrayofPoints), endY, startY);
+      line(prevX, prevY, x, y);
+    }
+    ellipse(x, y, 2, 2); 
   }
   
-  void printTable(Table table) {
-    for (TableRow row : table.rows()) {
-      for (int col = 0; col < table.getColumnCount(); col++) {
-        print(row.getString(col) + "\t");
-      }
-      println();
-    }
-  }
-  
-  int countCancelled() {
-    int cancelled = 0;
-    String filePath = "flights2k(1).csv"; // adjust file path to wherever it is in your files
-    flightData = loadTable(filePath, "csv");
-    for (TableRow row : flightData.rows()) {
-      row.getString(15);
-      if (row.getString(15).equals("1"))
-      {
-        cancelled++;
-      }
-    }
-    return cancelled;
-  }
-
-  int countDiverted() {
-    int diverted = 0;
-    String filePath = "flights2k(1).csv";
-    flightData = loadTable(filePath, "csv");
-    for (TableRow row : flightData.rows()) {
-      row.getString(16);
-      if (row.getString(16).equals("1"))
-      {
-        diverted++;
-      }
-    }
-    return diverted;
-  }
-
-  float cancelledPercentage() {
-    int cancelled = 0;
-    int totalFlights = flightData.getRowCount();
-    if (totalFlights == 0) {
-      return 0;
-    }
-
-    for (TableRow row : flightData.rows()) {
-      String cancellationValue = row.getString(15);
-      if (cancellationValue != null && cancellationValue.equals("1")) {
-        cancelled++;
-      }
-    }
-
-    float percentageCancelled = (float)cancelled / totalFlights * 100; 
-    return percentageCancelled;
-  }
-
-  float divertedPercentage() {
-    int diverted = 0;
-    int totalFlights = flightData.getRowCount();
-    if (totalFlights == 0) {
-      return 0;
-    }
-
-    for (TableRow row : flightData.rows()) {
-      String divertedValue = row.getString(16);
-      if (divertedValue != null && divertedValue.equals("1")) {
-        diverted++;
-      }
-    }
-
-    float percentageDiverted = (float)diverted / totalFlights * 100;
-    return percentageDiverted;
-  }
-
-  float averageDistance() {
-    int totalDistance = 0;
-    int totalFlights = flightData.getRowCount();
-    if (totalFlights == 0) {
-      return 0;
-    }
-    for (int i = 1; i < flightData.getRowCount(); i++) {
-      TableRow row = flightData.getRow(i);
-      String dist = row.getString(17);
-      int distance = Integer.parseInt(dist);
-      totalDistance += distance;
-    }
-    return float(totalDistance)/ (totalFlights-1);
-  }
-
-  float averageDepartureDelayTime() {
-    int totalDelay = 0;
-    int validFlights = 0;
-    flightData.removeRow(0);
-
-    for (TableRow row : flightData.rows()) {
-      String scheduledDepTimeString = row.getString(11);
-      String actualDepTimeString = row.getString(12);
-
-      // Check if both scheduled and actual departure times are present and non-empty
-      if (scheduledDepTimeString != null && actualDepTimeString != null &&
-        !scheduledDepTimeString.isEmpty() && !actualDepTimeString.isEmpty()) {
-
-        int scheduledDepTime = Integer.parseInt(scheduledDepTimeString);
-        int actualDepTime = Integer.parseInt(actualDepTimeString);
-
-        int scheduledMinutes = (scheduledDepTime / 100) * 60 + (scheduledDepTime % 100);
-        int actualMinutes = (actualDepTime / 100) * 60 + (actualDepTime % 100);
-
-        int delay = scheduledMinutes - actualMinutes;
-
-        totalDelay += delay;
-
-        validFlights++;
-      }
-    }
-
-    if (validFlights > 0) {
-      float averageDelay = (float) totalDelay / validFlights;
-      return Float.parseFloat(String.format("%.2f", averageDelay));
-    } else {
-      return 0;
-    }
-  }
-
-  float averageArrivalDelayTime() {
-    int totalDelay = 0;
-    int validFlights = 0;
-    flightData.removeRow(0);
-
-    for (TableRow row : flightData.rows()) {
-      String scheduledArrTimeString = row.getString(13);
-      String actualArrTimeString = row.getString(14);
-
-      // Check if both scheduled and actual departure times are present and non-empty
-      if (scheduledArrTimeString != null && actualArrTimeString != null &&
-        !scheduledArrTimeString.isEmpty() && !actualArrTimeString.isEmpty()) {
-
-        int scheduledArrTime = Integer.parseInt(scheduledArrTimeString);
-        int actualArrTime = Integer.parseInt(actualArrTimeString);
-
-        int scheduledMinutes = (scheduledArrTime / 100) * 60 + (scheduledArrTime % 100);
-        int actualMinutes = (actualArrTime / 100) * 60 + (actualArrTime % 100);
-
-        int delay = scheduledMinutes - actualMinutes;
-
-        totalDelay += delay;
-
-        validFlights++;
-      }
-    }
-    if (validFlights > 0) {
-      float averageDelay = (float) totalDelay / validFlights;
-      return Float.parseFloat(String.format("%.2f", averageDelay));
-    } else {
-      return 0;
-    }
-  }
+  fill(0);
+  textSize(height/40);
+  text(yLabel, startX - 100, startY + endY /2);
+  text(xLabel, startX + endX/2, endY + 50);
 }
