@@ -69,7 +69,7 @@ for (Flight flight : f)
   }
   
 }
-array[i] = temp1/100;
+array[i] = (temp1/array.length) * 100;
 }
 
   float startX = width * 0.1;
@@ -107,6 +107,7 @@ line(startX, endY, endX, endY);
   }
   
   text("% of total flights", startX, startY + endY /2);
+  text("different origin airports", startX + endX /2, startY);
 }
 
 
@@ -134,7 +135,7 @@ for (Flight flight : f)
   }
   
 }
-array[i] = temp1/100;
+array[i] = (temp1/array.length) * 100;
 }
 
   float startX = width * 0.1;
@@ -172,6 +173,7 @@ line(startX, endY, endX, endY);
   }
   
   text("% of total flights", startX, startY + endY /2);
+  text("different destination airports", startX + endX /2, startY);
 }
 
 
