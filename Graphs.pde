@@ -6,10 +6,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+Screen s;
 
-class Graphs 
+
+class DotPlot 
 {
-
+ArrayList<Flight> f;
+String filePath;
+  
+  
+  
+  
+  
+  DotPlot(ArrayList<Flight> f, String filePath)
+  {
+  this.f = f;
+  this.filePath = filePath;
+  }
+  
   String[] getUniqueValues(Table table, int colIndex) {
   ArrayList<String> uniqueValuesList = new ArrayList<String>();
  table.removeRow(0);
@@ -44,12 +58,19 @@ float countCertainValue(Table table, int colIndex, String airportCode) {
 }
   
   
-  void dotPlotOrigin(ArrayList<Flight> f , String[] yLabels, String filePath)
+  void dotPlotOrigin()
 {
 Table fData;
   String value;
   float temp1;
   String temp;
+  String[] yLabels = new String[6];
+  yLabels[0] = "0";
+  yLabels[1] = "1";
+  yLabels[2] = "2";
+  yLabels[3] = "3";
+  yLabels[4] = "4";
+  yLabels[5] = "5";
   fData = loadTable(filePath, "csv");
   Float [] array = new Float [getUniqueValues(fData, 3).length];
   String [] array1 = new String [getUniqueValues(fData, 3).length];

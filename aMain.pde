@@ -45,6 +45,7 @@ PFont smallerstdFont;
 Table flightData;
 
 void setup() {
+   
   stdFont=loadFont("Chalkboard-30.vlw");
   smallerstdFont = loadFont("ComicSansMS-20.vlw");
   fullScreen(P2D);
@@ -58,6 +59,7 @@ void setup() {
 
   Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2;
   TextBox statText;
+  DotPlot dotPlotOrigin;
 
   mainScreen = new Screen(color(139, 175, 176));
   mapScreen = new Screen(color(230, 238, 238));
@@ -110,6 +112,9 @@ void setup() {
   linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
   tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON9);
   heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON9);
+  
+ 
+  
 
 
   mapScreen.addButton(backToMainButton);
@@ -145,14 +150,22 @@ void setup() {
   linePlotScreen.addButton(queryButton2);
   linePlotScreen.addTextBox(new TextBox(width -200, 100, 150, 50, "", "Enter End Date:"));
 
-  currentScreen = mainScreen;
-  
-  String filePath = "flights_full.csv"; 
+  String filePath = "flights_full.csv";
   flightData = loadTable(filePath, "csv");
-  
   flightManager = new FlightManager("flights2k(1).csv");
   flightManager.loadFlights();
-  // ArrayList<Flight> a = flightManager.filterFlights("01/01/2022", "01/03/2022","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+
+ //ArrayList<Flight> a = flightManager.filterFlights("01/01/2022", "01/03/2022","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+  
+ // dotPlotOrigin = new DotPlot(a, filePath);
+ // dotPlotScreen.addDotPlot(dotPlotOrigin);
+
+
+  currentScreen = mainScreen;
+  
+  
+  
+  
 }
 
 void mousePressed() {

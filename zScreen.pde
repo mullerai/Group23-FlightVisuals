@@ -1,7 +1,9 @@
 ArrayList<Button> buttonList;
 ArrayList<TextBox> textBoxList;
+ArrayList<DotPlot> dotPlotList;
 int plane_xpos, plane_ypos;
 int cloud_xpos, cloud_ypos;
+FlightManager fm;
 
 class Screen{
   color backgroundColour;
@@ -17,8 +19,13 @@ class Screen{
   ArrayList<TextBox> simScreenTextBoxList;
   ArrayList<TextBox> graphScreenTextBoxList;
   ArrayList<TextBox> linePlotTextBoxList;
+  ArrayList<DotPlot> dotPlotScreenList;
+  ArrayList<DotPlot> dotPlotMainList;
+  ArrayList<Button> dotPlotScreenButtonList;
+  ArrayList<TextBox> dotPlotTextBoxList;
   Title newTitle;
   dropdown dropdownMenu;
+  
   
   Screen(color backgroundColour){
   this.backgroundColour = backgroundColour;
@@ -34,6 +41,8 @@ class Screen{
   simScreenTextBoxList = new ArrayList<TextBox>();
   graphScreenTextBoxList = new ArrayList<TextBox>();
   linePlotTextBoxList = new ArrayList<TextBox>();
+  dotPlotScreenList = new ArrayList<DotPlot>();
+  dotPlotMainList = new ArrayList<DotPlot>();
  }
 
  void addButton(Button button){
@@ -98,22 +107,34 @@ class Screen{
    if(currentScreen == mainScreen){
      buttonList = mainButtonList;
      textBoxList = mainTextBoxList;
+     dotPlotList = dotPlotMainList;
    } else if(currentScreen == mapScreen){
      buttonList = mapScreenButtonList;
      textBoxList = mapScreenTextBoxList;
+     dotPlotList = dotPlotMainList;
    } else if(currentScreen == statScreen){
      buttonList = statScreenButtonList;
      textBoxList = statScreenTextBoxList;
+     dotPlotList = dotPlotMainList;
    } else if(currentScreen == simScreen){
      buttonList = simScreenButtonList;
      textBoxList = simScreenTextBoxList;
+     dotPlotList = dotPlotMainList;
    } else if(currentScreen == graphScreen){
      buttonList = graphScreenButtonList;
      textBoxList = graphScreenTextBoxList;
+     dotPlotList = dotPlotMainList;
    } else if (currentScreen == linePlotScreen) {
       buttonList = linePlotScreenButtonList;
       textBoxList = linePlotTextBoxList; 
+      dotPlotList = dotPlotMainList;
     }
+   else if(currentScreen == dotPlotScreen)
+   {
+     //buttonList = dotPlotScreenButtonList;
+     //textBoxList = dotPlotTextBoxList;
+     dotPlotList = dotPlotScreenList;
+   }
    if (newTitle != null)
    {
      newTitle.draw();
@@ -121,6 +142,12 @@ class Screen{
    for(Button button : buttonList){
      button.draw();
    }
+   
+   //for(DotPlot dotPlot : dotPlotList)
+   //{
+   //dotPlot.dotPlotOrigin();
+   //}
+   
    for (TextBox textBox : textBoxList){
    textBox.draw();
    }
@@ -168,6 +195,14 @@ class Screen{
    } else if (this == linePlotScreen) {
       linePlotTextBoxList.add(textBox);
     }
+ }
+ 
+ void addDotPlot(DotPlot dp)
+ {
+ if (this == dotPlotScreen)
+ {
+ dotPlotScreenList.add(dp);
+ }
  }
  
 }
