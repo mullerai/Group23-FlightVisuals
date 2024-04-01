@@ -13,16 +13,19 @@ class Screen{
   ArrayList<Button> simScreenButtonList;
   ArrayList<Button> graphScreenButtonList;
   ArrayList<Button> linePlotScreenButtonList;
+  ArrayList <Button> heatMapScreenButtonList;
   ArrayList<TextBox> mainTextBoxList;
   ArrayList<TextBox> mapScreenTextBoxList;
   ArrayList<TextBox> statScreenTextBoxList;
   ArrayList<TextBox> simScreenTextBoxList;
   ArrayList<TextBox> graphScreenTextBoxList;
+  ArrayList <TextBox> heatMapScreenTextBoxList;
   ArrayList<TextBox> linePlotTextBoxList;
   ArrayList<DotPlot> dotPlotScreenList;
   ArrayList<DotPlot> dotPlotMainList;
   ArrayList<Button> dotPlotScreenButtonList;
   ArrayList<TextBox> dotPlotTextBoxList;
+  
   Title newTitle;
   dropdown dropdownMenu;
   
@@ -34,6 +37,7 @@ class Screen{
   statScreenButtonList = new ArrayList<Button>();
   simScreenButtonList = new ArrayList<Button>();
   graphScreenButtonList = new ArrayList<Button>();
+  heatMapScreenButtonList = new ArrayList<Button>();
   linePlotScreenButtonList = new ArrayList<Button>();
   mainTextBoxList = new ArrayList<TextBox>();
   mapScreenTextBoxList = new ArrayList<TextBox>();
@@ -41,6 +45,7 @@ class Screen{
   simScreenTextBoxList = new ArrayList<TextBox>();
   graphScreenTextBoxList = new ArrayList<TextBox>();
   linePlotTextBoxList = new ArrayList<TextBox>();
+  heatMapScreenTextBoxList = new ArrayList<TextBox>();
   dotPlotScreenList = new ArrayList<DotPlot>();
   dotPlotMainList = new ArrayList<DotPlot>();
  }
@@ -59,6 +64,9 @@ class Screen{
    } else if (this == linePlotScreen) {
       linePlotScreenButtonList.add(button);
     }
+    else if (this == heatMapScreen)
+    { heatMapScreenButtonList.add(button);
+    }
 }
  
  int getEvent(){
@@ -72,6 +80,10 @@ class Screen{
      buttonList = simScreenButtonList;
    } else if(currentScreen == graphScreen){
      buttonList = graphScreenButtonList;
+   }
+   else if (currentScreen == heatMapScreen)
+   {
+     buttonList = heatMapScreenButtonList;
    }
    for(Button button : buttonList){
      int event = button.getEvent(mouseX, mouseY);
@@ -135,6 +147,13 @@ class Screen{
      //textBoxList = dotPlotTextBoxList;
      dotPlotList = dotPlotScreenList;
    }
+   else if(currentScreen == heatMapScreen)
+   {
+     buttonList = heatMapScreenButtonList;
+     textBoxList = heatMapScreenTextBoxList;
+     
+   }
+   
    if (newTitle != null)
    {
      newTitle.draw();
@@ -194,6 +213,9 @@ class Screen{
      graphScreenTextBoxList.add(textBox);
    } else if (this == linePlotScreen) {
       linePlotTextBoxList.add(textBox);
+    }
+    else if (this == heatMapScreen) {
+      heatMapScreenTextBoxList.add(textBox);
     }
  }
  

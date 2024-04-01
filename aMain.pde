@@ -14,6 +14,8 @@ final int EVENT_BUTTON9 = 9;
 final int EVENT_BUTTON_SIM=20;
 final int SPEED = 50;
 final int EVENT_BUTTON10 = 10;
+final int EVENT_BUTTON11 = 11;
+final int EVENT_BUTTON12 = 12;
 int maxdate = 0;
 int[] flightsArray;
 String[] dateLabels;
@@ -34,11 +36,13 @@ PImage planePic;
 PImage cloudPic;
 Map mapScreenMap;
 Map simScreenMap;
+Heatmap heatMap;
 int simulatedMinutes = 0;
 boolean simulationStarted = false, drawingLinePlot = false;
 int lastTime = 0;
 ArrayList<Flight> queryFlights = new ArrayList<Flight>();
 ArrayList<Flight> simFlights;
+ArrayList<Flight> heatMapFlights = new ArrayList<Flight>();
 
 Date currentDate = new Date();
 PFont smallerstdFont;
@@ -57,13 +61,19 @@ void setup() {
   mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
   simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
 
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery;
   TextBox statText;
   DotPlot dotPlotOrigin;
 
   mainScreen = new Screen(color(139, 175, 176));
   mapScreen = new Screen(color(230, 238, 238));
+  heatMapScreen = new Screen(color(230, 238, 238));
+  heatMap = new Heatmap(loadImage("USA_GOOD3.png"), 450, 200);
+  heatMapScreen.addButton(new Button(width-200, height-500, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
+  heatMapScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "*", "Enter State Code"));
+  heatMapScreen.addTitle("Heat Map", color(0), width/2 - 150, 100);
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
+  
 
   statScreen = new Screen(color(169, 196, 196));
   statScreen.addTitle("Statistics", color(0), width/2 - 150, 100);
@@ -111,10 +121,16 @@ void setup() {
   dotPlotButton = new Button(100, 300, 150, 50, "Dot Plot", 100, smallerstdFont, EVENT_BUTTON8);
   linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
   tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON9);
-  heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON9);
+  heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON11);
   
  
-  
+  heatMapScreen.addButton(backToMainButton);
+  heatMapScreen.addButton(backToMainButton);
+  heatMapScreen.addButton(pieChartButton);
+  heatMapScreen.addButton(dotPlotButton);
+  heatMapScreen.addButton(linePlotButton);
+  heatMapScreen.addButton(tableButton);
+  heatMapScreen.addButton(heatmapButton);
 
 
   mapScreen.addButton(backToMainButton);
@@ -234,6 +250,8 @@ void mousePressed() {
      yLabels = generateYLabels(flightsArray);          //y labels
      LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
      drawingLinePlot=true;
+   case EVENT_BUTTON11:
+     currentScreen = heatMapScreen;
      
      
     break;
@@ -244,6 +262,10 @@ void mousePressed() {
       simScreenMap.getSimPixelPositions(simFlights.get(i));
     }
     break;
+   case EVENT_BUTTON12:
+   heatMapFlights = flightManager.filterFlights("*", "*", "*", "*", heatMapScreen.heatMapScreenTextBoxList.get(0).text, "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+   break;
+   
   }
 }
 void draw() {
@@ -283,6 +305,11 @@ void draw() {
     linePlotScreen.draw();
     if (drawingLinePlot==true) LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
 }
+  if (currentScreen == heatMapScreen) {
+      heatMap.draw();
+      
+      heatMap.drawAirports(heatMap.chooseColour(heatMapFlights));
+    }
 }
 
 void keyPressed() {

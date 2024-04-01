@@ -12,7 +12,7 @@ class Title
     this.messageColor = messageColor;
     this.x = x;
     this.y = y;
-    this.titleFont = loadFont("Arial-Black-90.vlw");
+    this.titleFont = loadFont("Chalkboard-30.vlw");
   }
   
   void draw()
