@@ -133,6 +133,12 @@ void setup() {
   heatMapScreen.addButton(heatmapButton);
 
 
+  
+  
+
+
+
+
   mapScreen.addButton(backToMainButton);
   statScreen.addButton(backToMainButton);
   statScreen.addButton(pieChartButton);
@@ -158,6 +164,14 @@ void setup() {
   dotPlotScreen = new Screen(color(169, 196, 196));
   dotPlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   dotPlotScreen.addButton(backToStatButton);
+  
+  dotPlotScreen.addButton(backToMainButton);
+  dotPlotScreen.addButton(pieChartButton);
+  dotPlotScreen.addButton(dotPlotButton);
+  dotPlotScreen.addButton(linePlotButton);
+  dotPlotScreen.addButton(tableButton);
+  dotPlotScreen.addButton(heatmapButton);
+  
 
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
@@ -171,10 +185,10 @@ void setup() {
   flightManager = new FlightManager("flights2k(1).csv");
   flightManager.loadFlights();
 
- //ArrayList<Flight> a = flightManager.filterFlights("01/01/2022", "01/03/2022","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
+ ArrayList<Flight> a = flightManager.filterFlights("*", "*","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
   
- // dotPlotOrigin = new DotPlot(a, filePath);
- // dotPlotScreen.addDotPlot(dotPlotOrigin);
+  dotPlotOrigin = new DotPlot(a, filePath);
+  dotPlotScreen.addDotPlot(dotPlotOrigin);
 
 
   currentScreen = mainScreen;
