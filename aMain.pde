@@ -1,5 +1,4 @@
 import java.util.Date;
-
 PFont stdFont;
 final int EVENT_NULL=0;
 final int EVENT_BUTTON1=1;
@@ -16,7 +15,7 @@ final int SPEED = 50;
 final int EVENT_BUTTON10 = 10;
 final int EVENT_BUTTON11 = 11;
 final int EVENT_BUTTON12 = 12;
-final int EVENT_BUTTON13 = 13;
+final int MINUTES_IN_DAY = 1440;
 int maxdate = 0;
 int[] flightsArray;
 String[] dateLabels;
@@ -68,11 +67,14 @@ void setup() {
 
   mainScreen = new Screen(color(139, 175, 176));
   mapScreen = new Screen(color(230, 238, 238));
-  heatMapScreen = new Screen(color(230, 238, 238));
+  heatMapScreen = new Screen(color(109, 154, 155));
   heatMap = new Heatmap(loadImage("USA_GOOD3.png"), 450, 200);
-  heatMapScreen.addButton(new Button(width-200, height-500, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
-  heatMapScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "*", "Enter State Code"));
+  heatMapScreen.addBorder(450, 200, 764, 600);
+  heatMapScreen.addButton(new Button(width-300, 400, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
+  heatMapScreen.addTextBox(new TextBox(width-300, 100, 200, 50, "*", "Enter State Code"));
   heatMapScreen.addTitle("Heat Map", color(0), width/2 - 150, 100);
+  String destinationSetting [] = {"Arrival", "Departure"};
+  heatMapScreen.addDropdown(destinationSetting, width -300, 200, "Arrival/Departure");
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
   
 
@@ -121,7 +123,7 @@ void setup() {
   pieChartButton = new Button(100, 200, 150, 50, "Pie Chart", 100, smallerstdFont, EVENT_BUTTON7);
   dotPlotButton = new Button(100, 300, 150, 50, "Dot Plot", 100, smallerstdFont, EVENT_BUTTON8);
   linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
-  tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON13);
+  tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON9);
   heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON11);
   
  
@@ -173,9 +175,6 @@ void setup() {
   dotPlotScreen.addButton(tableButton);
   dotPlotScreen.addButton(heatmapButton);
   
-  flightDataScreen = new Screen(color(0, 0, 0));
-  flightDataScreen.addTitle("Arrival Table", color(0), width/2-150, 100);
-  flightDataScreen.addButton(backToStatButton);
 
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
@@ -205,7 +204,7 @@ void setup() {
 void mousePressed() {
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
-
+  heatMapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
   for (TextBox textBox : textBoxList)
   {
     if (textBox.contains(mouseX, mouseY)) {
@@ -238,7 +237,7 @@ void mousePressed() {
     break;
 
 
-  case EVENT_BUTTON6:
+  case EVENT_BUTTON6:  // CODE BY AIDAN MULLER (mullerai)
     String airline = mapScreen.dropdownMenu.input;
     queryFlights = flightManager.filterFlights(mapScreen.mapScreenTextBoxList.get(0).text, mapScreen.mapScreenTextBoxList.get(1).text, airline,
       mapScreen.mapScreenTextBoxList.get(2).text, mapScreen.mapScreenTextBoxList.get(4).text, mapScreen.mapScreenTextBoxList.get(3).text, mapScreen.mapScreenTextBoxList.get(5).text, -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
@@ -257,7 +256,7 @@ void mousePressed() {
     currentScreen = linePlotScreen;
     break;
 
-    case EVENT_BUTTON10:
+    case EVENT_BUTTON10: // CODE BY AIDAN MULLER (mullerai)
      String maxDate = linePlotScreen.linePlotTextBoxList.get(0).getText();
      drawingLinePlot=false;
       maxdate = 31;
@@ -268,24 +267,23 @@ void mousePressed() {
      yLabels = generateYLabels(flightsArray);          //y labels
      LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
      drawingLinePlot=true;
+     break;
+     
    case EVENT_BUTTON11:
      currentScreen = heatMapScreen;
      
      
     break;
-  case EVENT_BUTTON_SIM:
+  case EVENT_BUTTON_SIM:  // ALL CODE IN THIS STATEMENT BY AIDAN MULLER (mullerai)
     simFlights = flightManager.filterFlights(simScreen.simScreenTextBoxList.get(0).text, simScreen.simScreenTextBoxList.get(0).text, "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
-    simulationStarted = true;
+    simulationStarted = !simulationStarted;
+    if (simulatedMinutes==MINUTES_IN_DAY) simulatedMinutes=0;
     for (int i = 0; i < simFlights.size(); i++) {
       simScreenMap.getSimPixelPositions(simFlights.get(i));
     }
     break;
    case EVENT_BUTTON12:
    heatMapFlights = flightManager.filterFlights("*", "*", "*", "*", heatMapScreen.heatMapScreenTextBoxList.get(0).text, "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
-   break;
-   
-   case EVENT_BUTTON13:
-   currentScreen = flightDataScreen;
    break;
    
   }
@@ -298,13 +296,14 @@ void draw() {
     // mapScreenMap.drawFlight(queryFlights.get(0));
     mapScreenMap.drawPixelPositions();
   }
-  if (currentScreen == simScreen) { // ALL CODE IN THIS STATEMENT BY AIDAN MULLER
+  if (currentScreen == simScreen) { // ALL CODE IN THIS STATEMENT BY AIDAN MULLER (mulerai)
     if (simulationStarted) {
       Date tempDate = new Date();
       if (tempDate.getTime()-currentDate.getTime() > SPEED) {
         currentDate = new Date();
         simulatedMinutes += 1;
         simScreen.newTitle.message = MapTools.convertMinutesToTime(simulatedMinutes);
+        if (simulatedMinutes == MINUTES_IN_DAY) simulationStarted = false;
       }
     }
     simScreenMap.draw();
@@ -328,9 +327,11 @@ void draw() {
     if (drawingLinePlot==true) LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
 }
   if (currentScreen == heatMapScreen) {
-      heatMap.draw();
       
+      heatMap.draw();
       heatMap.drawAirports(heatMap.chooseColour(heatMapFlights));
+      
+      
     }
 }
 

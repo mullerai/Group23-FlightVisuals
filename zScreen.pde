@@ -1,12 +1,12 @@
 ArrayList<Button> buttonList;
 ArrayList<TextBox> textBoxList;
 ArrayList<DotPlot> dotPlotList;
-ArrivalTable arrivalTable;
 int plane_xpos, plane_ypos;
 int cloud_xpos, cloud_ypos;
 FlightManager fm;
 
 class Screen{
+  PImage backgroundImage;
   color backgroundColour;
   ArrayList<Button> mainButtonList;
   ArrayList<Button> mapScreenButtonList;
@@ -16,7 +16,6 @@ class Screen{
   ArrayList<Button> linePlotScreenButtonList;
   ArrayList <Button> heatMapScreenButtonList;
   ArrayList <Button> dotPlotScreenButtonList;
-  ArrayList <Button> flightDataScreenButtonList;
   ArrayList<TextBox> mainTextBoxList;
   ArrayList<TextBox> mapScreenTextBoxList;
   ArrayList<TextBox> statScreenTextBoxList;
@@ -28,6 +27,7 @@ class Screen{
   ArrayList<DotPlot> dotPlotMainList;
   ArrayList<TextBox> dotPlotScreenTextBoxList;
   
+  Border newBorder;
   Title newTitle;
   dropdown dropdownMenu;
   
@@ -42,7 +42,6 @@ class Screen{
   heatMapScreenButtonList = new ArrayList<Button>();
   linePlotScreenButtonList = new ArrayList<Button>();
   dotPlotScreenButtonList = new ArrayList<Button>();
-  flightDataScreenButtonList = new ArrayList<Button>();
   mainTextBoxList = new ArrayList<TextBox>();
   mapScreenTextBoxList = new ArrayList<TextBox>();
   statScreenTextBoxList = new ArrayList<TextBox>();
@@ -55,7 +54,6 @@ class Screen{
   dotPlotMainList = new ArrayList<DotPlot>();
   
  }
- 
 
  void addButton(Button button){
    if(this == mainScreen){
@@ -76,8 +74,6 @@ class Screen{
     }
     else if (this == heatMapScreen)
     { heatMapScreenButtonList.add(button);
-    } else if(this == flightDataScreen){
-      flightDataScreenButtonList.add(button);
     }
 }
  
@@ -100,8 +96,6 @@ class Screen{
    else if (currentScreen == dotPlotScreen)
    {
    buttonList = dotPlotScreenButtonList;
-   } else if(currentScreen == flightDataScreen){
-     buttonList = flightDataScreenButtonList;
    }
    for(Button button : buttonList){
      int event = button.getEvent(mouseX, mouseY);
@@ -118,6 +112,11 @@ class Screen{
    newTitle = new Title(message, messageColor, x,y);
  
  }
+ void addBorder(int x, int y, int w, int h)
+ {
+   newBorder = new Border(x, y, w, h);
+ }
+ 
  void addDropdown(String [] options , int x, int y, String label)
  {
    dropdownMenu = new dropdown(options, x, y, label);
@@ -168,10 +167,11 @@ class Screen{
    {
      buttonList = heatMapScreenButtonList;
      textBoxList = heatMapScreenTextBoxList;
-     
-   } else if(currentScreen == flightDataScreen){
-     buttonList = flightDataScreenButtonList;
+     fill(139, 175, 176);
+     stroke(3);
+     rect(0,0, width -500, height);
    }
+   
    if (newTitle != null)
    {
      newTitle.draw();
@@ -180,17 +180,16 @@ class Screen{
      button.draw();
    }
    
+   if (newBorder != null)
+   {
+     newBorder.draw();
+   }
+   
    for(DotPlot dotPlot : dotPlotList)
    {
    dotPlot.dotPlotOrigin();
    }
-   
-  if(currentScreen == flightDataScreen){
-     arrivalTable = new ArrivalTable();
-     arrivalTable.readInFlights();
-     arrivalTable.displayTable(1, 100, 50);
-     arrivalTable.keyPressed(1, 100, 50);
-   }
+
    
    for (TextBox textBox : textBoxList){
    textBox.draw();
@@ -222,9 +221,7 @@ class Screen{
    {
      dropdownMenu.draw();
    }
-   
  }
- 
  
  void addTextBox (TextBox textBox)
  {
@@ -257,5 +254,4 @@ class Screen{
  }
  }
  
-
- }
+}
