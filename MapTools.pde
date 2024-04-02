@@ -1,3 +1,8 @@
+// #################################
+// # THIS CLASS IS BY AIDAN MULLER #
+// #          @mullerai            #
+// #################################
+
 static class MapTools {
   final static float MAP_RATIO_LNG = 6.7/23.0; // "Stretch" map image size to properly calculate longitude as coordinate
   final static float MAP_RATIO_LAT = 3.75/11.0; // "Stretch" map image size to properly calculate latitude as coordinate
