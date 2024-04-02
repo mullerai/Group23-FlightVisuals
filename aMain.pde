@@ -70,9 +70,11 @@ void setup() {
   heatMapScreen = new Screen(color(109, 154, 155));
   heatMap = new Heatmap(loadImage("USA_GOOD3.png"), 450, 200);
   heatMapScreen.addBorder(450, 200, 764, 600);
-  heatMapScreen.addButton(new Button(width-300, 200, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
+  heatMapScreen.addButton(new Button(width-300, 400, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
   heatMapScreen.addTextBox(new TextBox(width-300, 100, 200, 50, "*", "Enter State Code"));
   heatMapScreen.addTitle("Heat Map", color(0), width/2 - 150, 100);
+  String destinationSetting [] = {"Arrival", "Departure"};
+  heatMapScreen.addDropdown(destinationSetting, width -300, 200, "Arrival/Departure");
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
   
 
@@ -202,7 +204,7 @@ void setup() {
 void mousePressed() {
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
-
+  heatMapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
   for (TextBox textBox : textBoxList)
   {
     if (textBox.contains(mouseX, mouseY)) {
