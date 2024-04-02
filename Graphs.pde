@@ -84,7 +84,7 @@ for (Flight flight : f)
 {
   value = flight.originIATA;
   
-  if (temp == value)
+  if (temp.trim() == value.trim())
   {
   temp1++;
   }
@@ -93,7 +93,7 @@ for (Flight flight : f)
 array[i] = (temp1/array.length) * 100;
 }
 
-  float startX = width * 0.1;
+  float startX = width * 0.2;
 float endX = width * 0.9;
 float startY = height * 0.1;
 float endY = height * 0.9;
@@ -103,8 +103,8 @@ line(startX, startY, startX, endY);
 
   
   for (int i = 0; i < yLabels.length; i++) {
-    float y = map(i * 10, 0, 40, endY, startY); 
-    float labelY = map(i * 10, 0, 40, endY, startY); 
+    float y = map(i * 10 , 0, 40, endY, startY); 
+    float labelY = map(i * 10 , 0, 40, endY, startY); 
     textAlign(RIGHT, CENTER);
     text(yLabels[i], startX - 5, labelY);
     line(startX - 5, y, startX, y); 
@@ -122,7 +122,7 @@ for (int i = 0; i < array.length; i++) {
 line(startX, endY, endX, endY);
 
  for (int i = 0; i < array.length; i++) {
-    float x = startX + i * spacing; 
+    float x = startX  + i * spacing; 
     float y = map(array[i], 0, maxValue, endY, startY); 
     ellipse(x, y, 8, 8); 
   }
