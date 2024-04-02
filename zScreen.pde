@@ -184,6 +184,11 @@ class Screen{
    {
      newBorder.draw();
    }
+   
+   for(DotPlot dotPlot : dotPlotList)
+   {
+   dotPlot.dotPlotOrigin();
+   }
 
    
    for (TextBox textBox : textBoxList){

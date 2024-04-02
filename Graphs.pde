@@ -141,7 +141,7 @@ line(startX, endY, endX, endY);
   }
   
   text("% of total flights", startX, startY + endY /2);
-  text("different origin airports", startX + endX /2, startY + 50);
+  text("Different Origin Airports", startX + endX /2, startY + 50);
 }
 
 
