@@ -135,9 +135,6 @@ void setup() {
   heatMapScreen.addButton(linePlotButton);
   heatMapScreen.addButton(tableButton);
   heatMapScreen.addButton(heatmapButton);
-
-
-  
   
 
 

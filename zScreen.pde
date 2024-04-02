@@ -204,7 +204,7 @@ class Screen{
      arrivalTable.readInFlights();
      arrivalTable.displayTable(1, 100, 50);
      arrivalTable.keyPressed(1, 100, 50);
-
+   }
    
    for (TextBox textBox : textBoxList){
    textBox.draw();
