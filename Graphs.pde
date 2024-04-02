@@ -71,31 +71,36 @@ Table fData;
   yLabels[3] = "3";
   yLabels[4] = "4";
   yLabels[5] = "5";
-  fData = loadTable(filePath, "csv");
+  temp1 = 0;
+  //fData = loadTable(filePath, "csv");
+  fData = loadTable("../flights2k(1).csv");
   Float [] array = new Float [getUniqueValues(fData, 3).length];
   String [] array1 = new String [getUniqueValues(fData, 3).length];
   array1 = getUniqueValues(fData, 3);
+  int a = fData.getRowCount();
 
 for (int i = 0; i < array1.length ; i++) {
-  temp1 = 0;
   temp = array1[i];
   
 for (Flight flight : f)
 {
   value = flight.originIATA;
   
-  if (temp.trim() == value.trim())
+  if (temp.trim().equals(value.trim()))
   {
   temp1++;
   }
   
 }
-array[i] = (temp1/array.length) * 100;
+
+
+array[i] = (temp1 / a) * 100;
+temp1 = 0;
 }
 
   float startX = width * 0.2;
 float endX = width * 0.9;
-float startY = height * 0.1;
+float startY = height * 0.15;
 float endY = height * 0.9;
 float spacing = (endX - startX) / (array.length - 1);
 
@@ -118,6 +123,13 @@ for (int i = 0; i < array.length; i++) {
     }
 }
 
+//for (int i = 0; i < array.length ; i++)
+//{
+//println("\n " + array[i]);
+//}
+
+
+
 
 line(startX, endY, endX, endY);
 
@@ -128,7 +140,7 @@ line(startX, endY, endX, endY);
   }
   
   text("% of total flights", startX, startY + endY /2);
-  text("different origin airports", startX + endX /2, startY);
+  text("different origin airports", startX + endX /2, startY + 50);
 }
 
 

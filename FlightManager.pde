@@ -8,36 +8,36 @@ class FlightManager { // All code in this class by Aidan Muller
     flights = new ArrayList<Flight>();
     fileString = filepath;
   }
-  void loadFlights() {
-    flightTable = loadTable(fileString, "csv");
-    flightTable.removeRow(0);
-    for (TableRow row : flightTable.rows()) {
-      int depH = 0;
-      int arrH = 0;
-      int dis = 0;
-      boolean cancelled = row.getString(15).equals("1");
-      boolean diverted = row.getString(16).equals("1");
-      if (!cancelled && !diverted) {
-        depH = Integer.parseInt(row.getString(12));
-        arrH = Integer.parseInt(row.getString(14));
-        //println(depH, arrH);
-        dis = Integer.parseInt(row.getString(17));
+    void loadFlights() {
+      flightTable = loadTable(fileString, "csv");
+      flightTable.removeRow(0);
+      for (TableRow row : flightTable.rows()) {
+        int depH = 0;
+        int arrH = 0;
+        int dis = 0;
+        boolean cancelled = row.getString(15).equals("1");
+        boolean diverted = row.getString(16).equals("1");
+        if (!cancelled && !diverted) {
+          depH = Integer.parseInt(row.getString(12));
+          arrH = Integer.parseInt(row.getString(14));
+          //println(depH, arrH);
+          dis = Integer.parseInt(row.getString(17));
+        }
+        flights.add(new Flight(
+          row.getString(0),
+          row.getString(1),
+          row.getString(3),
+          row.getString(5),
+          row.getString(7),
+          row.getString(9),
+          depH,
+          arrH,
+          cancelled,
+          diverted,
+          dis
+          ));
       }
-      flights.add(new Flight(
-        row.getString(0),
-        row.getString(1),
-        row.getString(3),
-        row.getString(5),
-        row.getString(7),
-        row.getString(9),
-        depH,
-        arrH,
-        cancelled,
-        diverted,
-        dis
-        ));
     }
-  }
   String convertDate(String date) {
     String year = String.format("%c%c%c%c", date.charAt(6), date.charAt(7), date.charAt(8), date.charAt(9));
     String day = String.format("%c%c", date.charAt(3), date.charAt(4));
