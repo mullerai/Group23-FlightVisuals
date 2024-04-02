@@ -13,10 +13,9 @@ class ArrivalTable{
   
   void displayTable(int i, float originalxpos, float originalypos){
     background(0);
-    rect(originalxpos, originalypos, 600, 500 );
     textAlign(CENTER, TOP);
     float xpos = originalxpos;
-    float ypos = 10;
+    float ypos = originalypos;
     
     fill(255);
     text("Date", xpos, ypos);
