@@ -169,7 +169,7 @@ class Screen{
      textBoxList = heatMapScreenTextBoxList;
      fill(139, 175, 176);
      stroke(3);
-     rect(0,0, 1500, 1200);
+     rect(0,0, width -500, height);
    }
    
    if (newTitle != null)
@@ -180,6 +180,10 @@ class Screen{
      button.draw();
    }
    
+   if (newBorder != null)
+   {
+     newBorder.draw();
+   }
 
    
    for (TextBox textBox : textBoxList){

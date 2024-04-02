@@ -69,7 +69,7 @@ void setup() {
   mapScreen = new Screen(color(230, 238, 238));
   heatMapScreen = new Screen(color(109, 154, 155));
   heatMap = new Heatmap(loadImage("USA_GOOD3.png"), 450, 200);
-  heatMapScreen.addBorder(450, 200, 800, 600);
+  heatMapScreen.addBorder(450, 200, 764, 600);
   heatMapScreen.addButton(new Button(width-300, 200, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
   heatMapScreen.addTextBox(new TextBox(width-300, 100, 200, 50, "*", "Enter State Code"));
   heatMapScreen.addTitle("Heat Map", color(0), width/2 - 150, 100);
