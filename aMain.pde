@@ -264,6 +264,8 @@ void mousePressed() {
      yLabels = generateYLabels(flightsArray);          //y labels
      LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
      drawingLinePlot=true;
+     break;
+     
    case EVENT_BUTTON11:
      currentScreen = heatMapScreen;
      
