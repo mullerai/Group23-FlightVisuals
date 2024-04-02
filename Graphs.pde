@@ -312,7 +312,7 @@ class pieChart{
     int keyWidth = 15;
     int keyHeight = 10;
     int x = 10;
-    int y = SCREENY/4;
+    int y = 360/4;
     int increment = 20;
     if (height>500){
       keyWidth *= 3;
