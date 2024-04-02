@@ -1,6 +1,7 @@
 ArrayList<Button> buttonList;
 ArrayList<TextBox> textBoxList;
 ArrayList<DotPlot> dotPlotList;
+ArrivalTable arrivalTable;
 int plane_xpos, plane_ypos;
 int cloud_xpos, cloud_ypos;
 FlightManager fm;
@@ -16,6 +17,7 @@ class Screen{
   ArrayList<Button> linePlotScreenButtonList;
   ArrayList <Button> heatMapScreenButtonList;
   ArrayList <Button> dotPlotScreenButtonList;
+   ArrayList <Button> flightDataScreenButtonList;
   ArrayList<TextBox> mainTextBoxList;
   ArrayList<TextBox> mapScreenTextBoxList;
   ArrayList<TextBox> statScreenTextBoxList;
@@ -52,7 +54,7 @@ class Screen{
   dotPlotScreenTextBoxList = new ArrayList<TextBox>();
   dotPlotScreenList = new ArrayList<DotPlot>();
   dotPlotMainList = new ArrayList<DotPlot>();
-  
+  flightDataScreenButtonList = new ArrayList<Button>();
  }
 
  void addButton(Button button){
@@ -74,6 +76,8 @@ class Screen{
     }
     else if (this == heatMapScreen)
     { heatMapScreenButtonList.add(button);
+    } else if(this == flightDataScreen){
+      flightDataScreenButtonList.add(button);
     }
 }
  
@@ -96,7 +100,10 @@ class Screen{
    else if (currentScreen == dotPlotScreen)
    {
    buttonList = dotPlotScreenButtonList;
+   }else if(currentScreen == flightDataScreen){
+     buttonList = flightDataScreenButtonList;
    }
+   
    for(Button button : buttonList){
      int event = button.getEvent(mouseX, mouseY);
       if(event != EVENT_NULL){
@@ -170,6 +177,8 @@ class Screen{
      fill(139, 175, 176);
      stroke(3);
      rect(0,0, width -500, height);
+   }   else if(currentScreen == flightDataScreen){
+     buttonList = flightDataScreenButtonList;
    }
    
    if (newTitle != null)
@@ -189,6 +198,12 @@ class Screen{
    {
    dotPlot.dotPlotOrigin();
    }
+   
+   if(currentScreen == flightDataScreen){
+     arrivalTable = new ArrivalTable();
+     arrivalTable.readInFlights();
+     arrivalTable.displayTable(1, 100, 50);
+     arrivalTable.keyPressed(1, 100, 50);
 
    
    for (TextBox textBox : textBoxList){
