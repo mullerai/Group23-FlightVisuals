@@ -15,7 +15,7 @@ class ArrivalTable{
     background(0);
     textAlign(CENTER, TOP);
     float xpos = originalxpos;
-    float ypos = 10;
+    float ypos = originalypos;
     
     fill(255);
     text("Date", xpos, ypos);

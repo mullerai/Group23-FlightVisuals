@@ -202,8 +202,8 @@ class Screen{
    if(currentScreen == flightDataScreen){
      arrivalTable = new ArrivalTable();
      arrivalTable.readInFlights();
-     arrivalTable.displayTable(1, 100, 50);
-     arrivalTable.keyPressed(1, 100, 50);
+     arrivalTable.displayTable(1, 20, 0);
+     arrivalTable.keyPressed(1, 20, 0);
    }
    
    for (TextBox textBox : textBoxList){
