@@ -204,7 +204,7 @@ class Screen{
      arrivalTable.readInFlights();
      arrivalTable.displayTable(1, 100, 50);
      arrivalTable.keyPressed(1, 100, 50);
-
+   }
    
    for (TextBox textBox : textBoxList){
    textBox.draw();
@@ -238,8 +238,7 @@ class Screen{
    }
  }
  
- void addTextBox (TextBox textBox)
- {
+ void addTextBox(TextBox textBox){
  if(this == mainScreen){
       mainTextBoxList.add(textBox);
    } else if(this == mapScreen){
@@ -260,7 +259,6 @@ class Screen{
     
     }
  }
- 
  void addDotPlot(DotPlot dp)
  {
  if (this == dotPlotScreen)
@@ -268,5 +266,4 @@ class Screen{
  dotPlotScreenList.add(dp);
  }
  }
- 
 }
