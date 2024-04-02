@@ -6,16 +6,30 @@ class ArrivalTable{
   
   Table flightData;
   
+  float tablexpos;
+  float tableypos;
+  float tablewidth;
+  float tableheight;
+  
+  ArrivalTable(float xpos, float ypos, float width, float height){
+    
+    tablexpos = xpos;
+    tableypos = ypos;
+    tablewidth = width;
+    tableheight = height;
+  }
+  
   void readInFlights(){
     flightData = loadTable("flights2k(1).csv");
     flightData.sort(0);
   }
   
-  void displayTable(int i, float originalxpos, float originalypos){
-    background(0);
+  void displayTable(int i){
+    float xpos = tablexpos;
+    float originalxpos = tablexpos;
+    float ypos = tableypos;
     textAlign(CENTER, TOP);
-    float xpos = originalxpos;
-    float ypos = originalypos;
+    textSize(20);
     
     fill(255);
     text("Date", xpos, ypos);
@@ -75,21 +89,19 @@ class ArrivalTable{
     else return false;
   }
   
-  void keyPressed(int i, float xpos, float ypos){
+  void keyPressed(int i){
     if(key == CODED){
-      if(keyCode == DOWN && i + 20 < arrivalTable.flightData.getRowCount()){
+      if(keyCode == DOWN && (i + 20) < arrivalTable.flightData.getRowCount()){
         background(0);
+        tableypos = 75;
         i = i + 20;
-        arrivalTable.displayTable(i, xpos, ypos);
+        arrivalTable.displayTable(i);
       }
       if(keyCode == UP && i > 1){
-        ypos = 50;
-        i = i - 20;
         background(0);
-        arrivalTable.displayTable(i, xpos, ypos);
-      }
-      if(keyCode == SHIFT){
-        arrivalTable.flightData.sortReverse(0);
+        tableypos = 50;
+        i = i - 20;
+        arrivalTable.displayTable(i);
       }
     }
   }

@@ -55,6 +55,8 @@ class Screen{
   dotPlotScreenList = new ArrayList<DotPlot>();
   dotPlotMainList = new ArrayList<DotPlot>();
   flightDataScreenButtonList = new ArrayList<Button>();
+  arrivalTable = new ArrivalTable(400, 75, 100 , 50);
+  arrivalTable.readInFlights();
  }
 
  void addButton(Button button){
@@ -200,10 +202,8 @@ class Screen{
    }
    
    if(currentScreen == flightDataScreen){
-     arrivalTable = new ArrivalTable();
-     arrivalTable.readInFlights();
-     arrivalTable.displayTable(1, 20, 0);
-     arrivalTable.keyPressed(1, 20, 0);
+     arrivalTable.displayTable(1);
+     arrivalTable.keyPressed(1);
    }
    
    for (TextBox textBox : textBoxList){
@@ -265,5 +265,10 @@ class Screen{
  {
  dotPlotScreenList.add(dp);
  }
+ }
+ void keyPressed(){
+   if(currentScreen == flightDataScreen){
+     arrivalTable.keyPressed(1);
+   }
  }
 }
