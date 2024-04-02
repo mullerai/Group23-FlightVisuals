@@ -16,6 +16,7 @@ final int SPEED = 50;
 final int EVENT_BUTTON10 = 10;
 final int EVENT_BUTTON11 = 11;
 final int EVENT_BUTTON12 = 12;
+final int MINUTES_IN_DAY = 1440;
 int maxdate = 0;
 int[] flightsArray;
 String[] dateLabels;
@@ -271,7 +272,8 @@ void mousePressed() {
     break;
   case EVENT_BUTTON_SIM:
     simFlights = flightManager.filterFlights(simScreen.simScreenTextBoxList.get(0).text, simScreen.simScreenTextBoxList.get(0).text, "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
-    simulationStarted = true;
+    simulationStarted = !simulationStarted;
+    if (simulatedMinutes==MINUTES_IN_DAY) simulatedMinutes=0;
     for (int i = 0; i < simFlights.size(); i++) {
       simScreenMap.getSimPixelPositions(simFlights.get(i));
     }
@@ -297,6 +299,7 @@ void draw() {
         currentDate = new Date();
         simulatedMinutes += 1;
         simScreen.newTitle.message = MapTools.convertMinutesToTime(simulatedMinutes);
+        if (simulatedMinutes == MINUTES_IN_DAY) simulationStarted = false;
       }
     }
     simScreenMap.draw();
