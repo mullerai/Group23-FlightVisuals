@@ -6,6 +6,7 @@ int cloud_xpos, cloud_ypos;
 FlightManager fm;
 
 class Screen{
+  PImage backgroundImage;
   color backgroundColour;
   ArrayList<Button> mainButtonList;
   ArrayList<Button> mapScreenButtonList;
@@ -26,6 +27,7 @@ class Screen{
   ArrayList<DotPlot> dotPlotMainList;
   ArrayList<TextBox> dotPlotScreenTextBoxList;
   
+  Border newBorder;
   Title newTitle;
   dropdown dropdownMenu;
   
@@ -110,6 +112,11 @@ class Screen{
    newTitle = new Title(message, messageColor, x,y);
  
  }
+ void addBorder(int x, int y, int w, int h)
+ {
+   newBorder = new Border(x, y, w, h);
+ }
+ 
  void addDropdown(String [] options , int x, int y, String label)
  {
    dropdownMenu = new dropdown(options, x, y, label);
@@ -160,7 +167,9 @@ class Screen{
    {
      buttonList = heatMapScreenButtonList;
      textBoxList = heatMapScreenTextBoxList;
-     
+     fill(139, 175, 176);
+     stroke(3);
+     rect(0,0, 1500, 1200);
    }
    
    if (newTitle != null)
@@ -171,10 +180,7 @@ class Screen{
      button.draw();
    }
    
-   for(DotPlot dotPlot : dotPlotList)
-   {
-   dotPlot.dotPlotOrigin();
-   }
+
    
    for (TextBox textBox : textBoxList){
    textBox.draw();
