@@ -1,6 +1,12 @@
+// #################################
+// # THIS CLASS IS BY AIDAN MULLER #
+// #          @mullerai            #
+// #################################
+
+
 import java.time.Instant;
 
-class FlightManager { // All code in this class by Aidan Muller
+class FlightManager {
   ArrayList<Flight> flights;
   Table flightTable;
   String fileString;
