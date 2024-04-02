@@ -1,3 +1,4 @@
+// class done by Conor Tiernan
 import processing.data.Table;
 import processing.data.TableRow;
 import java.util.ArrayList;
@@ -144,36 +145,49 @@ line(startX, endY, endX, endY);
 }
 
 
-void dotPlotDestination(ArrayList<Flight> f , String[] yLabels, String filePath)
+void dotPlotDestination()
 {
 Table fData;
   String value;
   float temp1;
-  fData = loadTable(filePath, "csv");
+  String temp;
+  String[] yLabels = new String[6];
+  yLabels[0] = "0";
+  yLabels[1] = "1";
+  yLabels[2] = "2";
+  yLabels[3] = "3";
+  yLabels[4] = "4";
+  yLabels[5] = "5";
+  temp1 = 0;
+  //fData = loadTable(filePath, "csv");
+  fData = loadTable("../flights2k(1).csv");
   Float [] array = new Float [getUniqueValues(fData, 7).length];
   String [] array1 = new String [getUniqueValues(fData, 7).length];
   array1 = getUniqueValues(fData, 7);
+  int a = fData.getRowCount();
 
-for (int i = 0; i < array1.length ; i++) { // runs through the array and counts how many times a certain airport code appears and returns as a percentage into the array.
-  temp1 = 0;
-  String temp = array1[i];
+for (int i = 0; i < array1.length ; i++) {
+  temp = array1[i];
   
 for (Flight flight : f)
 {
   value = flight.destinationIATA;
   
-  if (temp == value)
+  if (temp.trim().equals(value.trim()))
   {
   temp1++;
   }
   
 }
-array[i] = (temp1/array.length) * 100;
+
+
+array[i] = (temp1 / a) * 100;
+temp1 = 0;
 }
 
-  float startX = width * 0.1;
+  float startX = width * 0.2;
 float endX = width * 0.9;
-float startY = height * 0.1;
+float startY = height * 0.15;
 float endY = height * 0.9;
 float spacing = (endX - startX) / (array.length - 1);
 
@@ -181,8 +195,8 @@ line(startX, startY, startX, endY);
 
   
   for (int i = 0; i < yLabels.length; i++) {
-    float y = map(i * 10, 0, 40, endY, startY); 
-    float labelY = map(i * 10, 0, 40, endY, startY); 
+    float y = map(i * 10 , 0, 40, endY, startY); 
+    float labelY = map(i * 10 , 0, 40, endY, startY); 
     textAlign(RIGHT, CENTER);
     text(yLabels[i], startX - 5, labelY);
     line(startX - 5, y, startX, y); 
@@ -196,14 +210,23 @@ for (int i = 0; i < array.length; i++) {
     }
 }
 
+//for (int i = 0; i < array.length ; i++)
+//{
+//println("\n " + array[i]);
+//}
+
+
+
 
 line(startX, endY, endX, endY);
 
  for (int i = 0; i < array.length; i++) {
-    float x = startX + i * spacing; 
+    float x = startX  + i * spacing; 
     float y = map(array[i], 0, maxValue, endY, startY); 
     ellipse(x, y, 8, 8); 
   }
+
+
   
   text("% of total flights", startX, startY + endY /2);
   text("different destination airports", startX + endX /2, startY);
@@ -216,7 +239,7 @@ line(startX, endY, endX, endY);
 
 
 
-
+// class done by Kellan
 class pieChart{
   float diameter;
   FloatList data;
