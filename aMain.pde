@@ -235,7 +235,7 @@ void mousePressed() {
     break;
 
 
-  case EVENT_BUTTON6:
+  case EVENT_BUTTON6:  // CODE BY AIDAN MULLER (mullerai)
     String airline = mapScreen.dropdownMenu.input;
     queryFlights = flightManager.filterFlights(mapScreen.mapScreenTextBoxList.get(0).text, mapScreen.mapScreenTextBoxList.get(1).text, airline,
       mapScreen.mapScreenTextBoxList.get(2).text, mapScreen.mapScreenTextBoxList.get(4).text, mapScreen.mapScreenTextBoxList.get(3).text, mapScreen.mapScreenTextBoxList.get(5).text, -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
@@ -254,7 +254,7 @@ void mousePressed() {
     currentScreen = linePlotScreen;
     break;
 
-    case EVENT_BUTTON10:
+    case EVENT_BUTTON10: // CODE BY AIDAN MULLER (mullerai)
      String maxDate = linePlotScreen.linePlotTextBoxList.get(0).getText();
      drawingLinePlot=false;
       maxdate = 31;
@@ -272,7 +272,7 @@ void mousePressed() {
      
      
     break;
-  case EVENT_BUTTON_SIM:
+  case EVENT_BUTTON_SIM:  // ALL CODE IN THIS STATEMENT BY AIDAN MULLER (mullerai)
     simFlights = flightManager.filterFlights(simScreen.simScreenTextBoxList.get(0).text, simScreen.simScreenTextBoxList.get(0).text, "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
     simulationStarted = !simulationStarted;
     if (simulatedMinutes==MINUTES_IN_DAY) simulatedMinutes=0;
@@ -294,7 +294,7 @@ void draw() {
     // mapScreenMap.drawFlight(queryFlights.get(0));
     mapScreenMap.drawPixelPositions();
   }
-  if (currentScreen == simScreen) { // ALL CODE IN THIS STATEMENT BY AIDAN MULLER
+  if (currentScreen == simScreen) { // ALL CODE IN THIS STATEMENT BY AIDAN MULLER (mulerai)
     if (simulationStarted) {
       Date tempDate = new Date();
       if (tempDate.getTime()-currentDate.getTime() > SPEED) {

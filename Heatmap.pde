@@ -1,6 +1,6 @@
 ArrayList <Airport> ListOfAirports;
 
-class Heatmap {  // Code in this class written by Aiden Muller
+class Heatmap { 
                   // Modified code from the Map Class
   PImage mapTexture;    // Map image texture
   int x, y;             // Map x and y position
