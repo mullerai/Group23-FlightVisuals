@@ -16,6 +16,7 @@ final int SPEED = 50;
 final int EVENT_BUTTON10 = 10;
 final int EVENT_BUTTON11 = 11;
 final int EVENT_BUTTON12 = 12;
+final int EVENT_BUTTON13 = 13;
 int maxdate = 0;
 int[] flightsArray;
 String[] dateLabels;
@@ -120,7 +121,7 @@ void setup() {
   pieChartButton = new Button(100, 200, 150, 50, "Pie Chart", 100, smallerstdFont, EVENT_BUTTON7);
   dotPlotButton = new Button(100, 300, 150, 50, "Dot Plot", 100, smallerstdFont, EVENT_BUTTON8);
   linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
-  tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON9);
+  tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON13);
   heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON11);
   
  
@@ -172,6 +173,9 @@ void setup() {
   dotPlotScreen.addButton(tableButton);
   dotPlotScreen.addButton(heatmapButton);
   
+  flightDataScreen = new Screen(color(0, 0, 0));
+  flightDataScreen.addTitle("Arrival Table", color(0), width/2-150, 100);
+  flightDataScreen.addButton(backToStatButton);
 
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
@@ -278,6 +282,10 @@ void mousePressed() {
     break;
    case EVENT_BUTTON12:
    heatMapFlights = flightManager.filterFlights("*", "*", "*", "*", heatMapScreen.heatMapScreenTextBoxList.get(0).text, "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+   break;
+   
+   case EVENT_BUTTON13:
+   currentScreen = flightDataScreen;
    break;
    
   }
