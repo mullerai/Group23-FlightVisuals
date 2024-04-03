@@ -17,6 +17,8 @@ final int EVENT_BUTTON11 = 11;
 final int EVENT_BUTTON12 = 12;
 final int MINUTES_IN_DAY = 1440;
 final int EVENT_BUTTON13 = 13;
+final int EVENT_BUTTON14 = 14;
+final int EVENT_BUTTON15 = 15;
 int maxdate = 0;
 int[] flightsArray;
 String[] dateLabels;
@@ -49,6 +51,8 @@ Date currentDate = new Date();
 PFont smallerstdFont;
 Table flightData;
 
+boolean ButtonPressed;
+
 void setup() {
    
   stdFont=loadFont("Chalkboard-30.vlw");
@@ -62,7 +66,8 @@ void setup() {
   mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
   simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
 
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, 
+  dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery, latestButton, earliestButton;
   TextBox statText;
   DotPlot dotPlotOrigin;
 
@@ -126,7 +131,8 @@ void setup() {
   linePlotButton = new Button(100, 400, 150, 50, "Line Plot", 100, smallerstdFont, EVENT_BUTTON9);
   tableButton = new Button(100, 500, 150, 50, "Flight Table", 100, smallerstdFont, EVENT_BUTTON13);
   heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON11);
-  
+  latestButton = new Button(100, 500, 150, 50, "Latest Date", 100, smallerstdFont, EVENT_BUTTON14);
+  earliestButton = new Button(100, 700, 150, 50, "Earliest Date", 100, smallerstdFont, EVENT_BUTTON15);
  
   heatMapScreen.addButton(backToMainButton);
   heatMapScreen.addButton(backToMainButton);
@@ -176,7 +182,8 @@ void setup() {
   flightDataScreen = new Screen(color(0, 0, 0));
   flightDataScreen.addTitle("Arrival Table", color(0), width/2-150, 100);
   flightDataScreen.addButton(backToStatButton);
-  
+  flightDataScreen.addButton(latestButton);
+  flightDataScreen.addButton(earliestButton);
 
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
@@ -292,7 +299,16 @@ void mousePressed() {
    currentScreen = flightDataScreen;
    break;
    
+   case EVENT_BUTTON14:
+   if(currentScreen == flightDataScreen){
+     ButtonPressed = true;
+   }
+   break;
    
+   case EVENT_BUTTON15:
+   if(currentScreen == flightDataScreen){
+     ButtonPressed = false;
+   }
   }
 }
 void draw() {
@@ -340,6 +356,26 @@ void draw() {
       
       
     }
+    
+     if(currentScreen == flightDataScreen){
+     arrivalTable.readInFlights();
+     arrivalTable.displayTable(i, 400);
+     fill(255);
+     rect(100, 200, 200, 100);
+     fill(0);
+     text("Key", 120, 210);
+     fill(255, 0, 0);
+     text("Red = Arrived Late", 200, 230);
+     fill(100, 100, 200);
+     text("Blue = Did not Arrive", 200, 250);
+     fill(255);
+     rect(100, 800, 200, 200);
+     fill(0);
+     textSize(15);
+     text("Use down arrow key", 200, 850);
+     text("to move down the table", 200, 870);
+   }
+   
 }
 
 void keyPressed() {
@@ -357,4 +393,19 @@ void keyPressed() {
       System.out.print(textBox.getText());
     }
   }
-}
+  if(currentScreen == flightDataScreen){
+    if(key == CODED){
+      if(keyCode == DOWN && i + 18 < arrivalTable.flightData.getRowCount() - 1){
+        background(0);
+        arrivalTable.displayTable(i, xpos);
+        i = i + 18;
+      }
+      if(keyCode == UP && i > 1){
+        background(0);
+        ypos = 50;
+        i = i - 18;
+        arrivalTable.displayTable(i, xpos);
+      }
+    }
+  }
+  }

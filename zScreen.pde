@@ -6,6 +6,10 @@ int plane_xpos, plane_ypos;
 int cloud_xpos, cloud_ypos;
 FlightManager fm;
 
+  int i = 1;
+  float xpos = 400;
+  float ypos = 75;
+
 class Screen{
   PImage backgroundImage;
   color backgroundColour;
@@ -56,7 +60,6 @@ class Screen{
   dotPlotMainList = new ArrayList<DotPlot>();
   flightDataScreenButtonList = new ArrayList<Button>();
   arrivalTable = new ArrivalTable(400, 75);
-  arrivalTable.readInFlights();
  }
 
  void addButton(Button button){
@@ -200,13 +203,6 @@ class Screen{
    {
    dotPlot.dotPlotOrigin();
    }
-   
-   if(currentScreen == flightDataScreen){
-     arrivalTable.displayTable(1, 400);
-     arrivalTable.keyPressed(1);
-     
-   }
-   
    for (TextBox textBox : textBoxList){
    textBox.draw();
    }
@@ -267,4 +263,4 @@ class Screen{
  dotPlotScreenList.add(dp);
  }
  }
- }
+}

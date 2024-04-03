@@ -6,23 +6,27 @@ class ArrivalTable{
   
   Table flightData;
   
-  float tablexpos;
-  float tableypos;
+  float xpos;
+  float ypos;
+
   
   ArrivalTable(float xpos, float ypos){
-    
-    tablexpos = xpos;
-    tableypos = ypos;
+    this.ypos = ypos;
+    this.xpos = xpos;
   }
   
   void readInFlights(){
     flightData = loadTable("flights2k(1).csv");
+    if(ButtonPressed == true){
+      flightData.sortReverse(0);
+    } else{
     flightData.sort(0);
+    }
   }
   
   void displayTable(int i, float originalxpos){
     float xpos = originalxpos;
-    float ypos = tableypos;
+    float ypos = 40;
     textAlign(CENTER, TOP);
     textSize(20);
     
@@ -83,23 +87,4 @@ class ArrivalTable{
     }
     else return false;
   }
- void keyPressed(int i){
-  if(currentScreen == flightDataScreen){
-    while(i + 18 < arrivalTable.flightData.getRowCount()-1){
-    if(key == CODED){
-      if(keyCode == DOWN && i + 18 < arrivalTable.flightData.getRowCount()-1){
-        background(0);
-        i = i +18;
-        arrivalTable.displayTable(i, tablexpos);
-      }
-      if(keyCode == UP && i > 18){
-        background(0);
-        i = i - 18;
-        arrivalTable.displayTable(i, tablexpos);
-      }
-    }
-    i += 18;
-  }
 } 
-}
-}
