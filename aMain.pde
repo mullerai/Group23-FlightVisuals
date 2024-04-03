@@ -54,6 +54,7 @@ Table flightData;
 boolean ButtonPressed;
 boolean isArrival;
 
+pieChart cancellationsPie;
 
 void setup() {
    
@@ -210,7 +211,7 @@ void setup() {
   currentScreen = mainScreen;
   
   
-  
+  cancellationsPie = new pieChart(flightData);
   
 }
 
@@ -397,6 +398,12 @@ void draw() {
      text("to move down the table", 200, 870);
    }
    
+   if (currentScreen == pieChartScreen){
+     cancellationsPie.draw();
+     if (mousePressed){
+       cancellationsPie.mousePressed();
+     }
+   }
 }
 
 void keyPressed() {

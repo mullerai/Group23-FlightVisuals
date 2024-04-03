@@ -185,7 +185,10 @@ class Screen{
      rect(0,0, width -500, height);
    }   else if(currentScreen == flightDataScreen){
      buttonList = flightDataScreenButtonList;
-   }
+   }  
+   //else if(currentScreen = pieChartScreen){
+     
+   //}
    
    if (newTitle != null)
    {
