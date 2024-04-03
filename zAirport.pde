@@ -1,4 +1,4 @@
-class Airport
+class Airport //Class by Anastasia O'Donnell 
 {
   int numberOfFlights = 0;
   String IATA;
@@ -16,7 +16,4 @@ class Airport
   {
     System.out.println(IATA +" "+ numberOfFlights);
   }
-  
-  
-
 }

@@ -1,4 +1,4 @@
-class Title
+class Title 
 {
   String message;
   color messageColor;

@@ -1,10 +1,10 @@
 ArrayList <Airport> ListOfAirports;
+// Code from Map class modified by Anastasia O'Donnell
 
 class Heatmap { 
-                  // Modified code from the Map Class
-  PImage mapTexture;    // Map image texture
-  int x, y;             // Map x and y position
-  private int w, h;             // Map image width & height
+  PImage mapTexture;    
+  int x, y;            
+  private int w, h;             
   float[][] pixelPositions = {};
   Flight flight;
   ArrayList <String> iatas;
@@ -120,9 +120,6 @@ ArrayList <Airport> chooseColour(ArrayList <Flight> flights, boolean destination
   return ListOfAirports;
 }
 
-
-// count the number of flights leaving from a certain airport
-// draw that airport in a colour relating to that
   void drawAirport(String IATA, color colour) {
     float[] pixelPos = getCoordinatesFromIATA(IATA);
     pixelPos[0] = y+MapTools.latitudeToPixels(pixelPos[0], h);
