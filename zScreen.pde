@@ -202,7 +202,17 @@ class Screen{
    
    for(DotPlot dotPlot : dotPlotList)
    {
-   dotPlot.dotPlotOrigin();
+   String dest = dotPlotScreen.dropdownMenu.getInput();
+   
+   if (dest == "Destination")
+   {
+   dotPlot.dotPlotDestination();
+   }
+   else
+   {
+     dotPlot.dotPlotOrigin();
+   }
+    
    }
    for (TextBox textBox : textBoxList){
    textBox.draw();

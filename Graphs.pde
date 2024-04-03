@@ -1,4 +1,4 @@
-// class done by Conor Tiernan
+// class done by Conor Tiernan, along with anything in relation to dotplots and the screen
 import processing.data.Table;
 import processing.data.TableRow;
 import java.util.ArrayList;

@@ -54,6 +54,7 @@ Table flightData;
 boolean ButtonPressed;
 boolean isArrival;
 
+
 void setup() {
    
   stdFont=loadFont("Chalkboard-30.vlw");
@@ -84,6 +85,7 @@ void setup() {
   heatMapScreen.addDropdown(destinationSetting, width -300, 200, "Origin/Destination");
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
   
+
 
   statScreen = new Screen(color(169, 196, 196));
   statScreen.addTitle("Statistics", color(0), width/2 - 150, 100);
@@ -179,6 +181,7 @@ void setup() {
   dotPlotScreen.addButton(linePlotButton);
   dotPlotScreen.addButton(tableButton);
   dotPlotScreen.addButton(heatmapButton);
+  dotPlotScreen.addDropdown(destinationSetting, 200, height - 200, "Origin/Destination");
   
   flightDataScreen = new Screen(color(0, 0, 0));
   flightDataScreen.addTitle("Arrival Table", color(0), width/2-150, 100);
@@ -215,6 +218,7 @@ void mousePressed() {
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
   heatMapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
+  dotPlotScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
   for (TextBox textBox : textBoxList)
   {
     if (textBox.contains(mouseX, mouseY)) {
@@ -368,6 +372,11 @@ void draw() {
       
       
     }
+   if (currentScreen == dotPlotScreen)
+   {
+   
+   }
+    
     
      if(currentScreen == flightDataScreen){
      arrivalTable.readInFlights();
