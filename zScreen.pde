@@ -61,6 +61,11 @@ class Screen{
   dotPlotMainList = new ArrayList<DotPlot>();
   flightDataScreenButtonList = new ArrayList<Button>();
   arrivalTable = new ArrivalTable(400, 75);
+  
+  plane_xpos = width;
+  plane_ypos = 0;
+  cloud_xpos = 0;
+  cloud_ypos = 400;
  }
 
  void addButton(Button button){
@@ -135,14 +140,6 @@ class Screen{
    dropdownMenu = new dropdown(options, x, y, label);
  }
  
- void placeImage(){
-   if(currentScreen == mainScreen){
-     plane_xpos = width;
-     plane_ypos = 0;
-     cloud_xpos = width/2;
-     cloud_ypos = 400;
-   }
- }
  
  void draw(){
    background(backgroundColour);
@@ -218,26 +215,40 @@ class Screen{
    textBox.draw();
    }
    if(planePic != null && currentScreen == mainScreen){
-     plane_xpos -=5;
-     plane_ypos +=2;
+     image(planePic, plane_xpos, plane_ypos);
+       plane_xpos -=5;
+       plane_ypos +=2;
      if(plane_xpos < (0-planePic.width)) {
        plane_xpos = (width+planePic.width);
        plane_ypos = 0;
      } if(plane_ypos >= 300){
        plane_ypos = 300;
      }
-     image(planePic, plane_xpos, plane_ypos);
    }
    if(cloudPic != null && currentScreen == mainScreen){
+     float newCloud_xpos = cloud_xpos;
+     
+     image(cloudPic, cloud_xpos, 400);
+     image(cloudPic, cloud_xpos, 200);
+     newCloud_xpos = cloud_xpos - (cloudPic.width + 100);
+     image(cloudPic, newCloud_xpos, 450);
+     image(cloudPic, newCloud_xpos, 250);
+     newCloud_xpos = newCloud_xpos - (cloudPic.width + 200);
+     image(cloudPic, newCloud_xpos, 200);
+     image(cloudPic, newCloud_xpos, 400);
+     newCloud_xpos = newCloud_xpos - (cloudPic.width + 200);
+     image(cloudPic, newCloud_xpos, 450);
+     image(cloudPic, newCloud_xpos, 250);
+     newCloud_xpos = newCloud_xpos - (cloudPic.width + 200);
+     image(cloudPic, newCloud_xpos, 150);
+     image(cloudPic, newCloud_xpos, 400);
      cloud_xpos += 2;
-     if(cloud_xpos > (width+cloudPic.width)){
+     if(cloud_xpos > (width)){
        cloud_xpos = 0;
      }
-     image(cloudPic, cloud_xpos, 400);
-     image(cloudPic, cloud_xpos - (cloudPic.width + 100), 400);
-     image(cloudPic, cloud_xpos + 10, 200);
-     image(cloudPic, cloud_xpos + 10, 200);
-     image(cloudPic, cloud_xpos + 10, 200);
+     if(newCloud_xpos > width){
+       newCloud_xpos = 0;
+     }
    }
    
    if (dropdownMenu != null)

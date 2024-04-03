@@ -377,13 +377,13 @@ void draw() {
    
    }
     
-    
      if(currentScreen == flightDataScreen){
      arrivalTable.readInFlights();
      arrivalTable.displayTable(i, 400);
-     fill(255);
-     rect(100, 200, 200, 100);
+     stroke(255);
      fill(0);
+     rect(100, 200, 200, 100);
+     fill(255);
      text("Key", 120, 210);
      fill(255, 0, 0);
      text("Red = Arrived Late", 200, 230);
@@ -395,6 +395,8 @@ void draw() {
      textSize(15);
      text("Use down arrow key", 200, 850);
      text("to move down the table", 200, 870);
+     text("Use up arrow key", 200, 890);
+     text("to move up the table", 200, 910);
    }
    
 }
