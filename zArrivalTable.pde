@@ -8,15 +8,11 @@ class ArrivalTable{
   
   float tablexpos;
   float tableypos;
-  float tablewidth;
-  float tableheight;
   
-  ArrivalTable(float xpos, float ypos, float width, float height){
+  ArrivalTable(float xpos, float ypos){
     
     tablexpos = xpos;
     tableypos = ypos;
-    tablewidth = width;
-    tableheight = height;
   }
   
   void readInFlights(){
@@ -24,9 +20,8 @@ class ArrivalTable{
     flightData.sort(0);
   }
   
-  void displayTable(int i){
-    float xpos = tablexpos;
-    float originalxpos = tablexpos;
+  void displayTable(int i, float originalxpos){
+    float xpos = originalxpos;
     float ypos = tableypos;
     textAlign(CENTER, TOP);
     textSize(20);
@@ -48,7 +43,7 @@ class ArrivalTable{
     
   
     
-    for(int x = i; x < i + 20 && x < flightData.getRowCount() - 1; x++){
+    for(int x = i; x < i + 18 && x < flightData.getRowCount() - 1; x++){
       TableRow row = flightData.getRow(x);
       
       if(isLate(row) == true){
@@ -88,22 +83,23 @@ class ArrivalTable{
     }
     else return false;
   }
-  
-  void keyPressed(int i){
+ void keyPressed(int i){
+  if(currentScreen == flightDataScreen){
+    while(i + 18 < arrivalTable.flightData.getRowCount()-1){
     if(key == CODED){
-      if(keyCode == DOWN && (i + 20) < arrivalTable.flightData.getRowCount()){
+      if(keyCode == DOWN && i + 18 < arrivalTable.flightData.getRowCount()-1){
         background(0);
-        tableypos = 75;
-        i = i + 20;
-        arrivalTable.displayTable(i);
+        i = i +18;
+        arrivalTable.displayTable(i, tablexpos);
       }
-      if(keyCode == UP && i > 1){
+      if(keyCode == UP && i > 18){
         background(0);
-        tableypos = 50;
-        i = i - 20;
-        arrivalTable.displayTable(i);
+        i = i - 18;
+        arrivalTable.displayTable(i, tablexpos);
       }
     }
+    i += 18;
   }
-  
+} 
+}
 }

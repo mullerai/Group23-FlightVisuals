@@ -357,8 +357,4 @@ void keyPressed() {
       System.out.print(textBox.getText());
     }
   }
-  
-  if(currentScreen == flightDataScreen){
-    flightDataScreen.keyPressed();
-  }
 }
