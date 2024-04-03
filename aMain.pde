@@ -52,6 +52,7 @@ PFont smallerstdFont;
 Table flightData;
 
 boolean ButtonPressed;
+boolean isArrival;
 
 void setup() {
    
@@ -79,8 +80,8 @@ void setup() {
   heatMapScreen.addButton(new Button(width-300, 400, 200, 50, "Query", color(139, 175, 176), stdFont, EVENT_BUTTON12));
   heatMapScreen.addTextBox(new TextBox(width-300, 100, 200, 50, "*", "Enter State Code"));
   heatMapScreen.addTitle("Heat Map", color(0), width/2 - 150, 100);
-  String destinationSetting [] = {"Arrival", "Departure"};
-  heatMapScreen.addDropdown(destinationSetting, width -300, 200, "Arrival/Departure");
+  String destinationSetting [] = {"Origin", "Destination"};
+  heatMapScreen.addDropdown(destinationSetting, width -300, 200, "Origin/Destination");
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
   
 
@@ -293,6 +294,16 @@ void mousePressed() {
     break;
    case EVENT_BUTTON12:
    heatMapFlights = flightManager.filterFlights("*", "*", "*", "*", heatMapScreen.heatMapScreenTextBoxList.get(0).text, "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+   String dest = heatMapScreen.dropdownMenu.input;
+      isArrival = false;
+      if (dest == "Destination")
+      { 
+        isArrival = true;
+      }
+      else 
+      {
+        isArrival = false;
+      }
    break;
    
     case EVENT_BUTTON13:
@@ -352,7 +363,8 @@ void draw() {
   if (currentScreen == heatMapScreen) {
       
       heatMap.draw();
-      heatMap.drawAirports(heatMap.chooseColour(heatMapFlights));
+      
+      heatMap.drawAirports(heatMap.chooseColour(heatMapFlights, isArrival));
       
       
     }

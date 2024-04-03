@@ -22,17 +22,25 @@ class Heatmap {
     fill(color(255,0,0));
     rect(x, y + h + 20, 20, 20);
     fill(0);
-    text("Very Busy",x + 30, y + h+30);
+    text(" Very Busy",x + 70, y + h+30);
     
-    fill(color(255, 204, 0));
+    fill(color(255,165,0));
     rect(x, y + h + 50, 20, 20);
     fill(0);
-    text("Busy",x + 30, y + h+60);
+    text(" Busy ",x + 50, y + h+60);
     
-    fill(color(0,255,0));
+    fill(color(255, 204, 0));
     rect(x, y + h + 80, 20, 20);
     fill(0);
-    text("Not Busy",x + 30, y + h+90);
+    text(" Moderately Busy",x + 90, y + h+90);
+    
+    fill(color(0,255,0));
+    rect(x, y + h + 110, 20, 20);
+    fill(0);
+    text(" Not Busy",x + 70, y + h+120);
+    
+    
+    
     
   }
   
@@ -80,17 +88,19 @@ class Heatmap {
   }
 }
 
-ArrayList <Airport> chooseColour(ArrayList <Flight> flights)
+ArrayList <Airport> chooseColour(ArrayList <Flight> flights, boolean destination)
 {
   iatas = new ArrayList<String>();
   ListOfAirports = new ArrayList<Airport>();
   for (int i = 0; i <flights.size(); i ++)
   {
     Flight flight = flights.get(i);
-    if (!(iatas.contains(flight.originIATA)))
+    
+   String dest = (destination == true)? flight.destinationIATA : flight.originIATA;
+    if (!(iatas.contains(dest)))
     {
-      iatas.add(flight.originIATA);
-      ListOfAirports.add(new Airport(flight.originIATA));
+      iatas.add(dest);
+      ListOfAirports.add(new Airport(dest));
     }
   }
 
@@ -99,7 +109,8 @@ ArrayList <Airport> chooseColour(ArrayList <Flight> flights)
     
     for (int j = 0; j < flights.size(); j ++)
     {
-      if (flights.get(j).originIATA.equals(ListOfAirports.get(i).IATA))
+      String dest = (destination == true)? flights.get(j).destinationIATA : flights.get(j).originIATA;
+      if (dest.equals(ListOfAirports.get(i).IATA))
       {
         ListOfAirports.get(i).increment();
       }
