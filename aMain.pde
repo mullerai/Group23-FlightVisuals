@@ -192,6 +192,11 @@ void setup() {
   linePlotScreen = new Screen(color(169, 196, 78));
   linePlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   linePlotScreen.addButton(backToStatButton);
+  linePlotScreen.addButton(pieChartButton);
+  linePlotScreen.addButton(dotPlotButton);
+  linePlotScreen.addButton(linePlotButton);
+  linePlotScreen.addButton(tableButton);
+  linePlotScreen.addButton(heatmapButton);
   queryButton2 = new Button(width -200, 500, 150, 50, "Query", color(169, 196, 196), stdFont, EVENT_BUTTON10);
   linePlotScreen.addButton(queryButton2);
   linePlotScreen.addTextBox(new TextBox(width -200, 300, 150, 50, "", "Enter End Date:"));

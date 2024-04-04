@@ -189,10 +189,10 @@ String[] generateYLabels(int[] flightsPerDate) {
 
 
 void LineGraph(int[] arrayofPoints, String[] yLabels, String[] xLabels, String yLabel,  String xLabel) {
-  float startX = width * 0.15;
-  float endX = width * 0.9;
-  float startY = height * 0.15;
-  float endY = height * 0.9;
+  float startX = width * 0.2;
+  float endX = width * 0.85;
+  float startY = height * 0.2;
+  float endY = height * 0.85;
   float spacing = (endX - startX) / (arrayofPoints.length - 1);
 
   line(startX, startY, startX, endY);
