@@ -108,10 +108,6 @@ void setup() {
   mainScreen.addButton(simButton);
 
 
-  statText = new TextBox (width / 2, (2 * height) / 3, 100, 50, "Enter text Here", "Name" );
-  statScreen.addTextBox(statText);
-
-
   backToMainButton = new Button(100, 100, 100, 75, "Back", 100, stdFont, EVENT_BUTTON4);
   queryButton = new Button(100, 600, 100, 75, "Query", 100, stdFont, EVENT_BUTTON6);
   mapScreen.addButton(backToMainButton);
