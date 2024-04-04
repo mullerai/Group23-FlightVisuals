@@ -217,6 +217,7 @@ class pieChart{
   //}
   
   void getData(Table table){
+    table.removeRow(0);
     for (TableRow row : table.rows()) {
       String carrier = row.getString(1);
       int diverted = row.getInt(16);
