@@ -65,6 +65,8 @@ Table fData;
   String value;
   float temp1;
   String temp;
+  int temp3 = 0;
+  int temp2 = 0;
   String[] yLabels = new String[6];
   yLabels[0] = "0";
   yLabels[1] = "1";
@@ -121,8 +123,20 @@ float maxValue = Float.MIN_VALUE;
 for (int i = 0; i < array.length; i++) {
     if (array[i] > maxValue) {
         maxValue = array[i];
+        temp2 = i;
     }
 }
+
+float minValue = Float.MAX_VALUE;
+for (int i = 0; i < array.length; i++) {
+        if (array[i] < minValue) {
+            minValue = array[i];
+            temp3 = i;
+        }
+    }
+
+
+
 
 //for (int i = 0; i < array.length ; i++)
 //{
@@ -140,8 +154,17 @@ line(startX, endY, endX, endY);
     ellipse(x, y, 8, 8); 
   }
   
-  text("% of total flights", startX, startY + endY /2);
+  text("% of total flights", startX, (startY + endY /2) + 20);
   text("Different Origin Airports", startX + endX /2, startY + 50);
+  fill(0,255,0);
+  
+  text("Busiest Aiport: " + array1[temp2], width - 50, 50);
+  
+  fill(255,0,0);
+  
+  text("Quietest Airport:" + array1[temp3], width - 50, 70);
+  
+  
 }
 
 
@@ -151,6 +174,8 @@ Table fData;
   String value;
   float temp1;
   String temp;
+  int temp3 = 0;
+  int temp2 = 0;
   String[] yLabels = new String[6];
   yLabels[0] = "0";
   yLabels[1] = "1";
@@ -207,8 +232,19 @@ float maxValue = Float.MIN_VALUE;
 for (int i = 0; i < array.length; i++) {
     if (array[i] > maxValue) {
         maxValue = array[i];
+        temp2 = i;
     }
 }
+
+float minValue = Float.MAX_VALUE;
+for (int i = 0; i < array.length; i++) {
+        if (array[i] < minValue) {
+            minValue = array[i];
+            temp3 = i;
+        }
+    }
+
+
 
 //for (int i = 0; i < array.length ; i++)
 //{
@@ -228,8 +264,19 @@ line(startX, endY, endX, endY);
 
 
   
-  text("% of total flights", startX, startY + endY /2);
+  text("% of total flights", startX, (startY + endY /2) + 20);
   text("different destination airports", startX + endX /2, startY);
+  
+   fill(0,255,0);
+  
+  text("Busiest Aiport: " + array1[temp2], width - 50, 50);
+  
+  fill(255,0,0);
+  
+  text("Quietest Airport:" + array1[temp3], width - 50, 70);
+  
+  
+  
 }
 
 

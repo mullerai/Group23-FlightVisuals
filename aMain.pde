@@ -11,7 +11,7 @@ final int EVENT_BUTTON7 = 7;
 final int EVENT_BUTTON8 = 8;
 final int EVENT_BUTTON9 = 9;
 final int EVENT_BUTTON_SIM=20;
-final int SPEED = 50;
+final int SPEED = 20;
 final int EVENT_BUTTON10 = 10;
 final int EVENT_BUTTON11 = 11;
 final int EVENT_BUTTON12 = 12;
@@ -47,6 +47,8 @@ int lastTime = 0;
 ArrayList<Flight> queryFlights = new ArrayList<Flight>();
 ArrayList<Flight> simFlights;
 ArrayList<Flight> heatMapFlights = new ArrayList<Flight>();
+boolean firstSimulation = true;
+String lastDate = "";
 
 Date currentDate = new Date();
 PFont smallerstdFont;
@@ -58,7 +60,7 @@ boolean isArrival;
 pieChart cancellationsPie;
 
 void setup() {
-   
+
   stdFont=loadFont("Chalkboard-30.vlw");
   smallerstdFont = loadFont("ComicSansMS-20.vlw");
   fullScreen(P2D);
@@ -70,8 +72,8 @@ void setup() {
   mapScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
   simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
 
-  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton, 
-  dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery, latestButton, earliestButton;
+  Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton,
+    dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery, latestButton, earliestButton;
   TextBox statText;
   DotPlot dotPlotOrigin;
 
@@ -86,7 +88,7 @@ void setup() {
   String destinationSetting [] = {"Origin", "Destination"};
   heatMapScreen.addDropdown(destinationSetting, width -300, 200, "Origin/Destination");
   mapScreen.addTitle("Map", color(0), width/2 - 150, 100);
-  
+
 
 
   statScreen = new Screen(color(169, 196, 196));
@@ -134,7 +136,7 @@ void setup() {
   heatmapButton = new Button(100, 600, 150, 50, "Heatmap", 100, smallerstdFont, EVENT_BUTTON11);
   latestButton = new Button(100, 500, 150, 50, "Latest Date", 100, smallerstdFont, EVENT_BUTTON14);
   earliestButton = new Button(100, 700, 150, 50, "Earliest Date", 100, smallerstdFont, EVENT_BUTTON15);
- 
+
   heatMapScreen.addButton(backToMainButton);
   heatMapScreen.addButton(backToMainButton);
   heatMapScreen.addButton(pieChartButton);
@@ -142,7 +144,7 @@ void setup() {
   heatMapScreen.addButton(linePlotButton);
   heatMapScreen.addButton(tableButton);
   heatMapScreen.addButton(heatmapButton);
-  
+
 
 
 
@@ -172,7 +174,7 @@ void setup() {
   dotPlotScreen = new Screen(color(169, 196, 196));
   dotPlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   dotPlotScreen.addButton(backToStatButton);
-  
+
   dotPlotScreen.addButton(backToMainButton);
   dotPlotScreen.addButton(pieChartButton);
   dotPlotScreen.addButton(dotPlotButton);
@@ -180,7 +182,7 @@ void setup() {
   dotPlotScreen.addButton(tableButton);
   dotPlotScreen.addButton(heatmapButton);
   dotPlotScreen.addDropdown(destinationSetting, 200, height - 200, "Origin/Destination");
-  
+
   flightDataScreen = new Screen(color(0, 0, 0));
   flightDataScreen.addTitle("Arrival Table", color(0), width/2-150, 100);
   flightDataScreen.addButton(backToStatButton);
@@ -205,17 +207,16 @@ void setup() {
   flightManager = new FlightManager("flights2k(1).csv");
   flightManager.loadFlights();
 
- ArrayList<Flight> a = flightManager.filterFlights("*", "*","*","*","*","*","*",-1,MapTools.Setting.EITHER,MapTools.Setting.EITHER,-1);
-  
+  ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+
   dotPlotOrigin = new DotPlot(a, filePath);
   dotPlotScreen.addDotPlot(dotPlotOrigin);
 
 
   currentScreen = mainScreen;
-  
-  
+
+
   cancellationsPie = new pieChart(flightData);
-  
 }
 
 void mousePressed() {
@@ -297,38 +298,45 @@ void mousePressed() {
     simFlights = flightManager.filterFlights(simScreen.simScreenTextBoxList.get(0).text, simScreen.simScreenTextBoxList.get(0).text, "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
     simulationStarted = !simulationStarted;
     if (simulatedMinutes==MINUTES_IN_DAY) simulatedMinutes=0;
-    for (int i = 0; i < simFlights.size(); i++) {
-      simScreenMap.getSimPixelPositions(simFlights.get(i));
+    if (!simScreen.simScreenTextBoxList.get(0).text.equals(lastDate)) {
+      firstSimulation = true;
+      simulatedMinutes = 0;
+    }
+    if (firstSimulation) {
+      for (int i = 0; i < simFlights.size(); i++) {
+        simScreenMap.getSimPixelPositions(simFlights.get(i));
+      }
+    }
+    firstSimulation = false;
+    lastDate = simScreen.simScreenTextBoxList.get(0).text;
+    break;
+  case EVENT_BUTTON12:
+    heatMapFlights = flightManager.filterFlights("*", "*", "*", "*", heatMapScreen.heatMapScreenTextBoxList.get(0).text, "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+    String dest = heatMapScreen.dropdownMenu.input;
+    isArrival = false;
+    if (dest == "Destination")
+    {
+      isArrival = true;
+    } else
+    {
+      isArrival = false;
     }
     break;
-   case EVENT_BUTTON12:
-   heatMapFlights = flightManager.filterFlights("*", "*", "*", "*", heatMapScreen.heatMapScreenTextBoxList.get(0).text, "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
-   String dest = heatMapScreen.dropdownMenu.input;
-      isArrival = false;
-      if (dest == "Destination")
-      { 
-        isArrival = true;
-      }
-      else 
-      {
-        isArrival = false;
-      }
-   break;
-   
-    case EVENT_BUTTON13:
-   currentScreen = flightDataScreen;
-   break;
-   
-   case EVENT_BUTTON14:
-   if(currentScreen == flightDataScreen){
-     ButtonPressed = true;
-   }
-   break;
-   
-   case EVENT_BUTTON15:
-   if(currentScreen == flightDataScreen){
-     ButtonPressed = false;
-   }
+
+  case EVENT_BUTTON13:
+    currentScreen = flightDataScreen;
+    break;
+
+  case EVENT_BUTTON14:
+    if (currentScreen == flightDataScreen) {
+      ButtonPressed = true;
+    }
+    break;
+
+  case EVENT_BUTTON15:
+    if (currentScreen == flightDataScreen) {
+      ButtonPressed = false;
+    }
   }
 }
 void draw() {
@@ -350,7 +358,7 @@ void draw() {
       }
     }
     simScreenMap.draw();
-    if (simulationStarted) {
+    if (firstSimulation==false) {
       for (Flight f : simFlights) {
         if (f.cancelled==false && f.diverted==false) {
           float[] renderPosition = f.getPixelPositionFromHour(simulatedMinutes);
@@ -368,49 +376,46 @@ void draw() {
   if (currentScreen == linePlotScreen) {
     linePlotScreen.draw();
     if (drawingLinePlot==true) LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
-}
+  }
   if (currentScreen == heatMapScreen) {
-      
-      heatMap.draw();
-      
-      heatMap.drawAirports(heatMap.chooseColour(heatMapFlights, isArrival));
-      
-      
+
+    heatMap.draw();
+
+    heatMap.drawAirports(heatMap.chooseColour(heatMapFlights, isArrival));
+  }
+  if (currentScreen == dotPlotScreen)
+  {
+  }
+
+
+  if (currentScreen == flightDataScreen) {
+    arrivalTable.readInFlights();
+    arrivalTable.displayTable(i, 400);
+    stroke(255);
+    fill(0);
+    rect(100, 200, 200, 100);
+    fill(255);
+    text("Key", 120, 210);
+    fill(255, 0, 0);
+    text("Red = Arrived Late", 200, 230);
+    fill(100, 100, 200);
+    text("Blue = Did not Arrive", 200, 250);
+    fill(255);
+    rect(100, 800, 200, 200);
+    fill(0);
+    textSize(15);
+    text("Use down arrow key", 200, 850);
+    text("to move down the table", 200, 870);
+    text("Use up arrow key", 200, 890);
+    text("to move up the table", 200, 910);
+  }
+
+  if (currentScreen == pieChartScreen) {
+    cancellationsPie.draw();
+    if (mousePressed) {
+      cancellationsPie.mousePressed();
     }
-   if (currentScreen == dotPlotScreen)
-   {
-   
-   }
-  
-    
-     if(currentScreen == flightDataScreen){
-     arrivalTable.readInFlights();
-     arrivalTable.displayTable(i, 400);
-     stroke(255);
-     fill(0);
-     rect(100, 200, 200, 100);
-     fill(255);
-     text("Key", 120, 210);
-     fill(255, 0, 0);
-     text("Red = Arrived Late", 200, 230);
-     fill(100, 100, 200);
-     text("Blue = Did not Arrive", 200, 250);
-     fill(255);
-     rect(100, 800, 200, 200);
-     fill(0);
-     textSize(15);
-     text("Use down arrow key", 200, 850);
-     text("to move down the table", 200, 870);
-     text("Use up arrow key", 200, 890);
-     text("to move up the table", 200, 910);
-   }
-   
-   if (currentScreen == pieChartScreen){
-     cancellationsPie.draw();
-     if (mousePressed){
-       cancellationsPie.mousePressed();
-     }
-   }
+  }
 }
 
 void keyPressed() {
@@ -428,14 +433,14 @@ void keyPressed() {
       System.out.print(textBox.getText());
     }
   }
-  if(currentScreen == flightDataScreen){
-    if(key == CODED){
-      if(keyCode == DOWN && i + 18 < arrivalTable.flightData.getRowCount() - 1){
+  if (currentScreen == flightDataScreen) {
+    if (key == CODED) {
+      if (keyCode == DOWN && i + 18 < arrivalTable.flightData.getRowCount() - 1) {
         background(0);
         arrivalTable.displayTable(i, xpos);
         i = i + 18;
       }
-      if(keyCode == UP && i > 1){
+      if (keyCode == UP && i > 1) {
         background(0);
         ypos = 50;
         i = i - 18;
@@ -443,4 +448,4 @@ void keyPressed() {
       }
     }
   }
-  }
+}
