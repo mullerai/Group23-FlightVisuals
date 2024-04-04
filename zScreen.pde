@@ -32,6 +32,7 @@ class Screen{
   ArrayList<TextBox> linePlotTextBoxList;
   ArrayList<DotPlot> dotPlotScreenList;
   ArrayList<DotPlot> dotPlotMainList;
+  ArrayList<DotPlot> notDotPlotScreenList;
   ArrayList<TextBox> dotPlotScreenTextBoxList;
   
   Border newBorder;
@@ -60,6 +61,7 @@ class Screen{
   dotPlotScreenList = new ArrayList<DotPlot>();
   dotPlotMainList = new ArrayList<DotPlot>();
   flightDataScreenButtonList = new ArrayList<Button>();
+  notDotPlotScreenList = new ArrayList<DotPlot>();
   arrivalTable = new ArrivalTable(400, 75);
   
   plane_xpos = width;
@@ -166,6 +168,7 @@ class Screen{
    } else if (currentScreen == linePlotScreen) {
       buttonList = linePlotScreenButtonList;
       textBoxList = linePlotTextBoxList; 
+      dotPlotList = notDotPlotScreenList;
     }
    else if(currentScreen == dotPlotScreen)
    {
@@ -183,9 +186,9 @@ class Screen{
    }   else if(currentScreen == flightDataScreen){
      buttonList = flightDataScreenButtonList;
    }  
-   //else if(currentScreen = pieChartScreen){
-     
-   //}
+   else if(currentScreen == pieChartScreen){
+   dotPlotList = notDotPlotScreenList;  
+   }
    
    if (newTitle != null)
    {
