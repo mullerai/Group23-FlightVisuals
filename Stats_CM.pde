@@ -134,30 +134,35 @@ float averageDistance() {
   return Float.parseFloat(String.format("%.2f", averageDistance));
 }
 
-String[] getDateLabels(int max) {  //change 
+String[] getDateLabels(int min, int max) {  //change 
+  int minDay = min;
   int maxDay = max;
 
-  String[] dateLabels = new String[maxDay];
+  String[] dateLabels = new String[maxDay - minDay + 1];
+  int index = 0;
 
-  for (int i = 0; i < maxDay; i++) {
-    dateLabels[i] = Integer.toString(i + 1);
+  for (int i = minDay; i <= maxDay; i++) {
+    dateLabels[index] = Integer.toString(i);
+    index++;
   }
 
   return dateLabels;
 }
 
-int[] getFlightsPerDate(Table flightData, int max) {  //change
+int[] getFlightsPerDate(Table flightData, int min, int max) {  //change
   flightData.removeRow(0);
+  int minDay = min;
   int maxDay = max;
 
-  int[] flightsPerDate = new int[maxDay];
+  int[] flightsPerDate = new int[maxDay - minDay + 1];
 
   for (TableRow row : flightData.rows()) {
     String[] dateParts = split(row.getString(0), '/');
     int day = int(dateParts[1]);
     String cancelled = row.getString(15);
-    if (day > 0 && day <= maxDay && (cancelled == null || !cancelled.equals("1.00"))) {
-      flightsPerDate[day - 1]++;
+    if (day >= minDay && day <= maxDay && (cancelled == null || !cancelled.equals("1.00"))) {
+      flightsPerDate[day - minDay]++;
+      
     }
   }
 

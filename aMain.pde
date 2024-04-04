@@ -19,6 +19,7 @@ final int MINUTES_IN_DAY = 1440;
 final int EVENT_BUTTON13 = 13;
 final int EVENT_BUTTON14 = 14;
 final int EVENT_BUTTON15 = 15;
+int mindate = 0;
 int maxdate = 0;
 int[] flightsArray;
 String[] dateLabels;
@@ -191,7 +192,8 @@ void setup() {
   linePlotScreen.addButton(backToStatButton);
   queryButton2 = new Button(width -200, 500, 150, 50, "Query", color(169, 196, 196), stdFont, EVENT_BUTTON10);
   linePlotScreen.addButton(queryButton2);
-  linePlotScreen.addTextBox(new TextBox(width -200, 100, 150, 50, "", "Enter End Date:"));
+  linePlotScreen.addTextBox(new TextBox(width -200, 300, 150, 50, "", "Enter End Date:"));
+  linePlotScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "", "Enter Start Date:"));
 
   String filePath = "flights_full.csv";
   flightData = loadTable(filePath, "csv");
@@ -268,13 +270,14 @@ void mousePressed() {
     break;
 
     case EVENT_BUTTON10: // CODE BY AIDAN MULLER (mullerai)
-     String maxDate = linePlotScreen.linePlotTextBoxList.get(0).getText();
+    String maxDate = linePlotScreen.linePlotTextBoxList.get(0).getText();
+     String minDate = linePlotScreen.linePlotTextBoxList.get(1).getText();
      drawingLinePlot=false;
-      maxdate = 31;
+      mindate = Integer.parseInt(minDate);
       maxdate = Integer.parseInt(maxDate);
-      flightsArray = getFlightsPerDate(flightData, maxdate); //no. of flights until max date in Jan
+      flightsArray = getFlightsPerDate(flightData, mindate, maxdate); //no. of flights until end date in Jan
   
-     dateLabels = getDateLabels(maxdate);              //x labels
+     dateLabels = getDateLabels(mindate, maxdate);              //x labels
      yLabels = generateYLabels(flightsArray);          //y labels
      LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
      drawingLinePlot=true;
