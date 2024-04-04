@@ -270,24 +270,28 @@ void mousePressed() {
     currentScreen = linePlotScreen;
     break;
 
-    case EVENT_BUTTON10: // CODE BY AIDAN MULLER (mullerai)
+  case EVENT_BUTTON10: // CODE BY AIDAN MULLER (mullerai)
     String maxDate = linePlotScreen.linePlotTextBoxList.get(0).getText();
-     String minDate = linePlotScreen.linePlotTextBoxList.get(1).getText();
-     drawingLinePlot=false;
+    String minDate = linePlotScreen.linePlotTextBoxList.get(1).getText();
+    try {
+      drawingLinePlot=false;
       mindate = Integer.parseInt(minDate);
       maxdate = Integer.parseInt(maxDate);
       flightsArray = getFlightsPerDate(flightData, mindate, maxdate); //no. of flights until end date in Jan
-  
-     dateLabels = getDateLabels(mindate, maxdate);              //x labels
-     yLabels = generateYLabels(flightsArray);          //y labels
-     LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
-     drawingLinePlot=true;
-     break;
-     
-   case EVENT_BUTTON11:
-     currentScreen = heatMapScreen;
-     
-     
+
+      dateLabels = getDateLabels(mindate, maxdate);              //x labels
+      yLabels = generateYLabels(flightsArray);          //y labels
+      LineGraph(flightsArray, yLabels, dateLabels, "Flights", "January 2022");
+      drawingLinePlot=true;
+    }
+    catch (Exception e) {
+    }
+    break;
+
+  case EVENT_BUTTON11:
+    currentScreen = heatMapScreen;
+
+
     break;
   case EVENT_BUTTON_SIM:  // ALL CODE IN THIS STATEMENT BY AIDAN MULLER (mullerai)
     simFlights = flightManager.filterFlights(simScreen.simScreenTextBoxList.get(0).text, simScreen.simScreenTextBoxList.get(0).text, "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
