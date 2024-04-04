@@ -1,3 +1,4 @@
+
 import processing.data.Table;
 import processing.data.TableRow;
 
@@ -59,6 +60,10 @@ class ArrivalTable{
     if(didNotArrive(row) == true){
       fill(100, 100, 200);
     }
+    
+    if(arrivedEarly(row) == true){
+      fill(0, 200, 0);
+    }
       
       text(row.getString(0), originalxpos, ypos);
       text(row.getString(1), originalxpos+200, ypos);
@@ -87,4 +92,14 @@ class ArrivalTable{
     }
     else return false;
   }
+  
+  boolean arrivedEarly(TableRow row){
+    int arrivalTime = row.getInt(14);
+    int scharrivalTime = row.getInt(13);
+    if(arrivalTime < scharrivalTime && arrivalTime > 0){
+      return true;
+    } else {
+      return false;
+  }
 } 
+}
