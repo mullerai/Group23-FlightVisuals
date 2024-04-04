@@ -376,6 +376,7 @@ void draw() {
    {
    
    }
+  
     
      if(currentScreen == flightDataScreen){
      arrivalTable.readInFlights();
