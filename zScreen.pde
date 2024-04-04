@@ -287,7 +287,20 @@ class Screen{
  {
  if (this == dotPlotScreen)
  {
+ dotPlotScreenList = notDotPlotScreenList;
  dotPlotScreenList.add(dp);
  }
  }
+ 
+ void removeDotPlot()
+ {
+ if (this == dotPlotScreen)
+ {
+ if (dotPlotScreenList.size() != notDotPlotScreenList.size())
+ {
+  dotPlotScreenList.remove(0);
+ }
+ }
+ }
+ 
 }

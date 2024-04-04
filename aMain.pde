@@ -351,10 +351,27 @@ void mousePressed() {
    {
    if (currentScreen == dotPlotScreen)
    {
-   ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", dotPlotTextBox.text, "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+  dotPlotScreen.removeDotPlot();
+     String dest1 = dotPlotScreen.dropdownMenu.getInput();
   String filePath = "flights_full.csv";
-  dotPlotOrigin = new DotPlot(a, filePath);
+     if (dest1 == "Destination")
+   {
+   ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", "*", "*", dotPlotTextBox.text, "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+   dotPlotOrigin = new DotPlot(a, filePath, dotPlotTextBox.text);
   dotPlotScreen.addDotPlot(dotPlotOrigin);
+   }
+   else
+   {
+      ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", dotPlotTextBox.text, "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+      dotPlotOrigin = new DotPlot(a, filePath, dotPlotTextBox.text);
+  dotPlotScreen.addDotPlot(dotPlotOrigin);
+   }
+  
+  
+  
+  
+   
+   
    }
    }
   }

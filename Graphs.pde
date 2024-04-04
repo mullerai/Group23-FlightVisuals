@@ -14,15 +14,17 @@ class DotPlot
 {
 ArrayList<Flight> f;
 String filePath;
+String text;
   
   
   
   
   
-  DotPlot(ArrayList<Flight> f, String filePath)
+  DotPlot(ArrayList<Flight> f, String filePath, String text)
   {
   this.f = f;
   this.filePath = filePath;
+  this.text = text;
   }
   
   String[] getUniqueValues(Table table, int colIndex) {
@@ -75,6 +77,7 @@ Table fData;
   yLabels[4] = "4";
   yLabels[5] = "5";
   temp1 = 0;
+ 
   //fData = loadTable(filePath, "csv");
   fData = loadTable("../flights2k(1).csv");
   Float [] array = new Float [getUniqueValues(fData, 3).length];
