@@ -1,4 +1,3 @@
-
 ArrayList<Button> buttonList;
 ArrayList<TextBox> textBoxList;
 ArrayList<DotPlot> dotPlotList;
@@ -281,7 +280,7 @@ class Screen{
       heatMapScreenTextBoxList.add(textBox);
     }
     else if (this == dotPlotScreen){
-    
+    dotPlotScreenTextBoxList.add(textBox);
     }
  }
  void addDotPlot(DotPlot dp)
