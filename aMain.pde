@@ -193,7 +193,7 @@ void setup() {
   queryButton2 = new Button(width -200, 500, 150, 50, "Query", color(169, 196, 196), stdFont, EVENT_BUTTON10);
   linePlotScreen.addButton(queryButton2);
   linePlotScreen.addTextBox(new TextBox(width -200, 300, 150, 50, "", "Enter End Date:"));
-  linePlotScreen.addTextBox(new TextBox(width -200, 200, 150, 50, "", "Enter Start Date:"));
+  linePlotScreen.addTextBox(new TextBox(width -200, 100, 150, 50, "", "Enter Start Date:"));
 
   String filePath = "flights_full.csv";
   flightData = loadTable(filePath, "csv");
