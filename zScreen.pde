@@ -296,7 +296,7 @@ class Screen{
  {
  if (this == dotPlotScreen)
  {
- if (dotPlotScreenList.size() != notDotPlotScreenList.size())
+ if (dotPlotScreenList.size() != 0)
  {
   dotPlotScreenList.remove(0);
  }
