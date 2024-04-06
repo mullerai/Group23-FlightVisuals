@@ -19,6 +19,7 @@ final int MINUTES_IN_DAY = 1440;
 final int EVENT_BUTTON13 = 13;
 final int EVENT_BUTTON14 = 14;
 final int EVENT_BUTTON15 = 15;
+final int EVENT_BUTTON69 = 69;
 int mindate = 0;
 int maxdate = 0;
 int[] flightsArray;
@@ -36,6 +37,7 @@ Screen linePlotScreen;
 Screen flightDataScreen;
 Screen heatMapScreen;
 FlightManager flightManager;
+TextBox dotPlotTextBox;
 PImage planePic;
 PImage cloudPic;
 Map mapScreenMap;
@@ -73,9 +75,10 @@ void setup() {
   simScreenMap = new Map(loadImage("USA_GOOD3.png"), 450, 200);
 
   Button mapButton, statButton, simButton, backToMainButton, backToStatButton, queryButton, pieChartButton,
-    dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery, latestButton, earliestButton;
-  TextBox statText;
-  DotPlot dotPlotOrigin;
+    dotPlotButton, linePlotButton, tableButton, heatmapButton, queryButton2, heatMapQuery, latestButton, earliestButton, dpEnter;
+  TextBox statText; 
+  
+  
 
   mainScreen = new Screen(color(139, 175, 176));
   mapScreen = new Screen(color(230, 238, 238));
@@ -182,6 +185,11 @@ void setup() {
   dotPlotScreen.addButton(tableButton);
   dotPlotScreen.addButton(heatmapButton);
   dotPlotScreen.addDropdown(destinationSetting, 200, height - 200, "Origin/Destination");
+  dotPlotTextBox = new TextBox(width - 300, 100, 150, 50, "*", "Enter Airport Code");
+  dotPlotScreen.addTextBox( dotPlotTextBox);
+  dpEnter = new Button(width - 300, 500, 150, 50, "Enter", 100, smallerstdFont, EVENT_BUTTON69 );
+  dotPlotScreen.addButton(dpEnter);
+
 
   flightDataScreen = new Screen(color(0, 0, 0));
   flightDataScreen.addTitle("Arrival Table", color(0), width/2-150, 100);
@@ -207,10 +215,7 @@ void setup() {
   flightManager = new FlightManager("flights2k(1).csv");
   flightManager.loadFlights();
 
-  ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", "*", "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
-
-  dotPlotOrigin = new DotPlot(a, filePath);
-  dotPlotScreen.addDotPlot(dotPlotOrigin);
+  
 
 
   currentScreen = mainScreen;
@@ -220,6 +225,7 @@ void setup() {
 }
 
 void mousePressed() {
+  DotPlot dotPlotOrigin;
   int event = currentScreen.getEvent();
   mapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
   heatMapScreen.dropdownMenu.checkMouseOver(mouseX, mouseY);
@@ -341,6 +347,33 @@ void mousePressed() {
     if (currentScreen == flightDataScreen) {
       ButtonPressed = false;
     }
+   case EVENT_BUTTON69:
+   {
+   if (currentScreen == dotPlotScreen)
+   {
+  dotPlotScreen.removeDotPlot();
+     String dest1 = dotPlotScreen.dropdownMenu.getInput();
+  String filePath = "flights_full.csv";
+     if (dest1 == "Destination")
+   {
+   ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", "*", "*", dotPlotTextBox.text, "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+   dotPlotOrigin = new DotPlot(a, filePath, dotPlotTextBox.text);
+  dotPlotScreen.addDotPlot(dotPlotOrigin);
+   }
+   else
+   {
+      ArrayList<Flight> a = flightManager.filterFlights("*", "*", "*", dotPlotTextBox.text, "*", "*", "*", -1, MapTools.Setting.EITHER, MapTools.Setting.EITHER, -1);
+      dotPlotOrigin = new DotPlot(a, filePath, dotPlotTextBox.text);
+  dotPlotScreen.addDotPlot(dotPlotOrigin);
+   }
+  
+  
+  
+  
+   
+   
+   }
+   }
   }
   
   if(currentScreen == pieChartScreen)
