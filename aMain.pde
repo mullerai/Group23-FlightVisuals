@@ -342,6 +342,11 @@ void mousePressed() {
       ButtonPressed = false;
     }
   }
+  
+  if(currentScreen == pieChartScreen)
+  {
+    cancellationsPie.mousePressed();
+  }
 }
 void draw() {
   background(0);
@@ -414,12 +419,49 @@ void draw() {
     text("to move up the table", 200, 910);
   }
 
-  if (currentScreen == pieChartScreen) {
-    cancellationsPie.draw();
-    if (mousePressed) {
-      cancellationsPie.mousePressed();
-    }
-  }
+//  if (currentScreen == pieChartScreen) {
+ //   cancellationsPie.draw();
+  //  if (mousePressed) {
+ //     cancellationsPie.mousePressed();
+ //   }
+//  }
+   if (currentScreen == dotPlotScreen)
+   {
+   
+   }
+  
+    
+     if(currentScreen == flightDataScreen){
+     arrivalTable.readInFlights();
+     arrivalTable.displayTable(i, 400);
+     stroke(255);
+     fill(0);
+     rect(50, 200, 250, 100);
+     fill(255);
+     text("Key:", 75, 210);
+     fill(255, 0, 0);
+     text("Red = Arrived Late", 155, 230);
+     fill(100, 100, 200);
+     text("Blue = Cancelled/Diverted", 185, 250);
+     fill(0, 200, 0);
+     text("Green = Arrived Early", 155, 270);
+     fill(255);
+     rect(100, 800, 200, 200);
+     fill(0);
+     textSize(15);
+     text("Use down arrow key", 200, 850);
+     text("to move down the table", 200, 870);
+     text("Use up arrow key", 200, 890);
+     text("to move up the table", 200, 910);
+   }
+   
+   if (currentScreen == pieChartScreen){
+     cancellationsPie.draw();
+     if (mousePressed){
+       cancellationsPie.mousePressed();
+     }
+   }
+
 }
 
 void keyPressed() {
@@ -452,4 +494,7 @@ void keyPressed() {
       }
     }
   }
+
 }
+
+  
