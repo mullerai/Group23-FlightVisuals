@@ -1,4 +1,8 @@
-class Button // All Code in this class by Anastasia O'Donnell
+/** This class by Anastasia O'Donnell
+**/
+
+// Button Widget
+class Button 
 {
 
   int EVENT_NULL = 0;
@@ -28,7 +32,7 @@ class Button // All Code in this class by Anastasia O'Donnell
     this.buttonColor= buttonColor;
     this.originalColour = buttonColor;
   }
-
+  // draws the button
   void draw()
   {
     stroke(0);
@@ -41,7 +45,7 @@ class Button // All Code in this class by Anastasia O'Donnell
     text(label, x+GAP_WIDTH, y+height-GAP_HEIGHT);
     changeColour(mouseX, mouseY);
   }
-
+  // returns the button event
   int getEvent(int mX, int mY)
   {
     if (mX>x && mX < x+width && mY >y && mY <y+height)
@@ -50,7 +54,7 @@ class Button // All Code in this class by Anastasia O'Donnell
     }
     return EVENT_NULL;
   }
-
+  //Changes the colour of the button depending on mouse position
   void changeColour(int mX, int mY)
   {
     if (mX>x && mX < x+width && mY >y && mY <y+height)
@@ -62,7 +66,7 @@ class Button // All Code in this class by Anastasia O'Donnell
     }
   }
 }
-
+//Dropdown Widget
 class dropdown
 {
   boolean dropdownActive = false;
@@ -95,7 +99,7 @@ class dropdown
     text(label, x + 45, y -15);
 
     if (dropdownActive) {
-      for (int i = 0; i < options.length; i++) {
+      for (int i = 0; i < options.length; i++) { //Iterate through each option
         fill(155);
         if (mouseX > x &&
           mouseX < x + dropdownWidth && mouseY > y + (i+1) * optionHeight &&
@@ -109,6 +113,9 @@ class dropdown
       }
     }
   }
+  //Checks if the mouse is over the dropdown 
+  //Sets the variable dropdownActive accordiningly
+  
   void checkMouseOver(float mouseX, float mouseY)
   {
     if (dropdownActive) {
@@ -129,11 +136,13 @@ class dropdown
       dropdownActive = !dropdownActive;
     }
   }
+  //Returns a string of the current option chosen
   String getInput()
   {
     return input;
   }
 }
+//Checkbox Widget
 class Checkbox {
   float x, y; // Position of the checkbox
   float size; // Size of the checkbox
@@ -167,6 +176,7 @@ class Checkbox {
   }
 }
 
+//TextBox Widget
 class TextBox {
   float x, y, w, h;
   String text;
@@ -200,22 +210,23 @@ class TextBox {
     text(label,x, y-15);
   }
 
+//Returns the if the mouse is on top of the TextBox
   boolean contains(float px, float py) {
     return px > x && px < x + w && py > y && py < y + h;
   }
-
+// Sets whether or not the TextBox is selected
   void setSelected(boolean selected) {
     this.selected = selected;
   }
-
+//Returns if the TextBox is selected
   boolean isSelected() {
     return selected;
   }
-
+//Sets the text variable
   void setText(String text) {
     this.text = text;
   }
-
+//Returns the entered text
   String getText() {
     return text;
   }
