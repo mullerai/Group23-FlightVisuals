@@ -1,4 +1,6 @@
-class Airport //Class by Anastasia O'Donnell 
+//Class by Anastasia O'Donnell 
+
+class Airport
 {
   int numberOfFlights = 0;
   String IATA;

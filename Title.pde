@@ -1,3 +1,7 @@
+/** This class by Anastasia O'Donnell
+**/
+
+//This class sets a standard title with a standard font
 class Title 
 {
   String message;
@@ -24,13 +28,14 @@ class Title
   }
 
 }
-
+//Creates a border that can be drawn around an object
 class Border
 {
   int x;
   int y;
   int w;
   int h;
+  //Constructor
   Border(int x, int y, int w, int h)
   {
     this.x = x;
@@ -38,6 +43,7 @@ class Border
     this.w = w;
     this.h = h;
   }
+  // Draws a border around object with a padding of 20px
   void draw()
   {
     fill (color(109, 154, 155));
