@@ -1,3 +1,5 @@
+// All members contributed to this class
+
 import java.util.Date;
 PFont stdFont;
 final int EVENT_NULL=0;
@@ -171,7 +173,11 @@ void setup() {
   //statScreen.addButton(toGraphScreen);
 
   pieChartScreen = new Screen(color(169, 196, 196));
+<<<<<<< Updated upstream
   //pieChartScreen.addTitle("Graphs", color(0), width/2-150, 100);
+=======
+  pieChartScreen.addTitle("Cancellations", color(0), width/2-150, 100);
+>>>>>>> Stashed changes
   pieChartScreen.addButton(backToStatButton);
 
   dotPlotScreen = new Screen(color(169, 196, 196));
@@ -366,12 +372,6 @@ void mousePressed() {
       dotPlotOrigin = new DotPlot(a, filePath, dotPlotTextBox.text);
   dotPlotScreen.addDotPlot(dotPlotOrigin);
    }
-  
-  
-  
-  
-   
-   
    }
    }
   }
