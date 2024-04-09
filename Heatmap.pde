@@ -1,6 +1,6 @@
 ArrayList <Airport> ListOfAirports;
-// Code from Map class modified by Anastasia O'Donnell
-
+/** Code from Map class modified by Anastasia O'Donnell
+**/
 class Heatmap { 
   PImage mapTexture;    
   int x, y;            
@@ -16,10 +16,18 @@ class Heatmap {
     w = texture.width;
     h = texture.height;
   }
+  
+  
+/**
+ * This method draws a map along with a key indicating the level of busyness.
+ * The map is drawn using a specified image.
+ * Four rectangles are drawn representing different levels of busyness, along with corresponding text labels.
+ * 
+ */
   void draw() {
-    image(mapTexture, x, y);
+    image(mapTexture, x, y); //Draw map
     
-    fill(color(255,0,0));
+    fill(color(255,0,0));         // Draw Key 
     rect(x, y + h + 20, 20, 20);
     fill(0);
     text(" Very Busy",x + 70, y + h+30);
@@ -64,30 +72,49 @@ class Heatmap {
     }
     return returnValue;
   }
+  
+  /**
+ * This method draws airports on a graphical display based on the number of flights associated with each airport.
+ * The color of the airport marker is determined by the number of flights as follows:
+ * - If the number of flights is 20 or more, the color is set to red.
+ * - If the number of flights is between 5 and 19 (inclusive), the color is set to orange.
+ * - If the number of flights is between 2 and 4 (inclusive), the color is set to yellow.
+ * - If the number of flights is less than 2, the color is set to green.
+ * 
+ * @param airports An ArrayList of Airport objects representing the airports to be drawn.
+ */
 
  void drawAirports(ArrayList <Airport> airports) {
     color colour;
   for (int i = 0; i < airports.size(); i++) {
     if (airports.get(i).numberOfFlights >= 20)
     {
-      colour = color(255,0,0);
+      colour = color(255,0,0); // color = red
     }
     else if (airports.get(i).numberOfFlights >= 5 && airports.get(i).numberOfFlights < 20)
     {
-      colour = color(255,165,0);
+      colour = color(255,165,0); // color = orange
     } 
     else if (airports.get(i).numberOfFlights >= 2 && airports.get(i).numberOfFlights < 5)
     {
-      colour = color(255, 204, 0);
+      colour = color(255, 204, 0); //color = yellow
     }
     else
     {
-      colour = color(0,255,0);
+      colour = color(0,255,0); // color = green
     }
       drawAirport(airports.get(i).IATA, colour);
   }
 }
 
+/**
+ * This method takes a list of flights and a boolean indicating whether to consider destination or origin airports.
+ * It creates a list of unique airports based on the given criteria and counts the number of flights associated with each airport.
+ * 
+ * @param flights The list of flights to be considered.
+ * @param destination A boolean indicating whether to consider destination (true) or origin (false) airports.
+ * @return An ArrayList of Airport objects containing unique airports with their respective flight counts.
+ */
 ArrayList <Airport> chooseColour(ArrayList <Flight> flights, boolean destination)
 {
   iatas = new ArrayList<String>();
@@ -115,7 +142,6 @@ ArrayList <Airport> chooseColour(ArrayList <Flight> flights, boolean destination
         ListOfAirports.get(i).increment();
       }
     }
-   ListOfAirports.get(i).printStuff();
   }
   return ListOfAirports;
 }

@@ -113,9 +113,9 @@ class dropdown
       }
     }
   }
+  
   //Checks if the mouse is over the dropdown 
   //Sets the variable dropdownActive accordiningly
-  
   void checkMouseOver(float mouseX, float mouseY)
   {
     if (dropdownActive) {
