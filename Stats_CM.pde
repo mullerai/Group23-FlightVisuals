@@ -1,6 +1,6 @@
 //code written by Conor McCarthy
 
-int countOccurrences(Table table, int column, String value) {
+int countOccurrences(Table table, int column, String value) { //counts occurences of a particular column
   int count = 0;
   for (TableRow row : table.rows()) {
     if (row.getString(column).equals(value)) {
@@ -63,7 +63,7 @@ float averageDistance() {
   return Float.parseFloat(String.format("%.2f", averageDistance));
 }
 
-String[] getDateLabels(int min, int max) {  //change 
+String[] getDateLabels(int min, int max) {  //gets date label from start to end date
   int minDay = min;
   int maxDay = max;
 
@@ -78,7 +78,7 @@ String[] getDateLabels(int min, int max) {  //change
   return dateLabels;
 }
 
-int[] getFlightsPerDate(Table flightData, int min, int max) {  //change
+int[] getFlightsPerDate(Table flightData, int min, int max) {  //gets amount of flights for corresponding dates
   flightData.removeRow(0);
   int minDay = min;
   int maxDay = max;
@@ -98,7 +98,7 @@ int[] getFlightsPerDate(Table flightData, int min, int max) {  //change
   return flightsPerDate;
 }
 
-String[] generateYLabels(int[] flightsPerDate) {
+String[] generateYLabels(int[] flightsPerDate) { //generates y labels creating 10 ticks starting at highest value
   int maxFlights = max(flightsPerDate);
   int numTicks = 11;
   int tickInterval = maxFlights / (numTicks - 1);
@@ -117,7 +117,7 @@ String[] generateYLabels(int[] flightsPerDate) {
 }
 
 
-void LineGraph(int[] arrayofPoints, String[] yLabels, String[] xLabels, String yLabel,  String xLabel) {
+void LineGraph(int[] arrayofPoints, String[] yLabels, String[] xLabels, String yLabel,  String xLabel) { //draws Line Graph
   float startX = width * 0.2;
   float endX = width * 0.85;
   float startY = height * 0.2;
