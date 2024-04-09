@@ -152,7 +152,7 @@ line(startX, endY, endX, endY);
   }
   
   text("% of total flights", startX, (startY + endY /2) + 20);
-  text("Different Origin Airports", startX + endX /2, startY + 50);
+  text("Different Origin Airports", width/2, startY);
   fill(0,255,0);
   
   text("Busiest Aiport: " + array1[temp2], width - 50, 50);
@@ -257,7 +257,7 @@ line(startX, endY, endX, endY);
 
   
   text("% of total flights", startX, (startY + endY /2) + 20);
-  text("different destination airports", startX + endX /2, startY);
+  text("Different Destination Airports", width/2, startY);
   
    fill(0,255,0);
   

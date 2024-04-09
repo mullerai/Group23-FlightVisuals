@@ -175,12 +175,17 @@ void setup() {
   pieChartScreen = new Screen(color(169, 196, 196));
   //pieChartScreen.addTitle("Graphs", color(0), width/2-150, 100);
 
-  pieChartScreen.addTitle("Cancellations", color(0), width/2-150, 100);
+  //pieChartScreen.addTitle("Cancellations", color(0), width/2-150, 100);
 
   pieChartScreen.addButton(backToStatButton);
+  pieChartScreen.addButton(pieChartButton);
+  pieChartScreen.addButton(dotPlotButton);
+  pieChartScreen.addButton(linePlotButton);
+  pieChartScreen.addButton(tableButton);
+  pieChartScreen.addButton(heatmapButton);
 
   dotPlotScreen = new Screen(color(169, 196, 196));
-  dotPlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
+  //dotPlotScreen.addTitle("Graphs", color(0), width/2-150, 100);
   dotPlotScreen.addButton(backToStatButton);
 
   dotPlotScreen.addButton(backToMainButton);

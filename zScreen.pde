@@ -25,11 +25,13 @@ class Screen {
   ArrayList <Button> heatMapScreenButtonList;
   ArrayList <Button> dotPlotScreenButtonList;
   ArrayList <Button> flightDataScreenButtonList;
+  ArrayList<Button> pieChartScreenButtonList;
   ArrayList<TextBox> mainTextBoxList;
   ArrayList<TextBox> mapScreenTextBoxList;
   ArrayList<TextBox> statScreenTextBoxList;
   ArrayList<TextBox> simScreenTextBoxList;
   ArrayList<TextBox> graphScreenTextBoxList;
+  ArrayList<TextBox> pieChartScreenTextBoxList;
   ArrayList <TextBox> heatMapScreenTextBoxList;
   ArrayList<TextBox> linePlotTextBoxList;
   ArrayList<DotPlot> dotPlotScreenList;
@@ -64,6 +66,8 @@ class Screen {
     dotPlotMainList = new ArrayList<DotPlot>();
     flightDataScreenButtonList = new ArrayList<Button>();
     notDotPlotScreenList = new ArrayList<DotPlot>();
+    pieChartScreenButtonList = new ArrayList<Button>();
+    pieChartScreenTextBoxList = new ArrayList<TextBox>();
     arrivalTable = new ArrivalTable(400, 75);
 
     plane_xpos = width;
@@ -93,6 +97,10 @@ class Screen {
     } else if (this == flightDataScreen) {
       flightDataScreenButtonList.add(button);
     }
+    else if (this == pieChartScreen)
+    {
+    pieChartScreenButtonList.add(button);
+    }
   }
 
   int getEvent() {
@@ -114,6 +122,10 @@ class Screen {
       buttonList = dotPlotScreenButtonList;
     } else if (currentScreen == flightDataScreen) {
       buttonList = flightDataScreenButtonList;
+    }
+    else if (currentScreen == pieChartScreen)
+    {
+    buttonList = pieChartScreenButtonList;
     }
 
     for (Button button : buttonList) {
@@ -167,7 +179,9 @@ class Screen {
       buttonList = linePlotScreenButtonList;
       textBoxList = linePlotTextBoxList;
       dotPlotList = notDotPlotScreenList;
-    } else if (currentScreen == dotPlotScreen)
+    } 
+    
+    else if (currentScreen == dotPlotScreen)
     {
       buttonList = dotPlotScreenButtonList;
       textBoxList = dotPlotScreenTextBoxList;
@@ -183,6 +197,8 @@ class Screen {
       buttonList = flightDataScreenButtonList;
     } else if (currentScreen == pieChartScreen) {
       dotPlotList = notDotPlotScreenList;
+      buttonList = pieChartScreenButtonList;
+      textBoxList = pieChartScreenTextBoxList;
     }
 
     if (newTitle != null)
