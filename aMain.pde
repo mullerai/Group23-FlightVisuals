@@ -171,7 +171,7 @@ void setup() {
   //statScreen.addButton(toGraphScreen);
 
   pieChartScreen = new Screen(color(169, 196, 196));
-  pieChartScreen.addTitle("Graphs", color(0), width/2-150, 100);
+  //pieChartScreen.addTitle("Graphs", color(0), width/2-150, 100);
   pieChartScreen.addButton(backToStatButton);
 
   dotPlotScreen = new Screen(color(169, 196, 196));
