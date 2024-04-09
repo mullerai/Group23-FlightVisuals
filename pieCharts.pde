@@ -69,14 +69,14 @@ class pieChart{
     float lastAngle = 0;
     int keyWidth = 15;
     int keyHeight = 10;
-    int x = 10;
-    int y = 360/4;
+    int x = (width/2)+((int)diameter/2)+75;
+    int y = 360/3;
     int increment = 20;
     int titlePos = 30;
     if (height>500){
       keyWidth *= 3;
       keyHeight *= 3;
-      x *= 3;
+      //x *= 3;
       y *= 3;
       increment *= 3;
       titlePos *= 3;
@@ -151,13 +151,13 @@ class pieChart{
   void buttonPressed(boolean b[]){
     int keyWidth = 15;
     int keyHeight = 10;
-    int x = 10;
-    int y = 360/4;
+    int x = (width/2)+((int)diameter/2)+75;
+    int y = 360/3;
     int increment = 20;
     if (height>500){
       keyWidth *= 3;
       keyHeight *= 3;
-      x *= 3;
+      //x *= 3;
       y *= 3;
       increment *= 3;
     }
