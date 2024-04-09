@@ -1,7 +1,7 @@
 // Class ArrivalTable done by Mairead O'Dwyer
 // This class is used to read in a table of data and display that table on screen
 // this table focuses on the arrival of the flights
-import processing.data.Table;    // importing library to work with tables
+import processing.data.Table;    // importing library to work with tables and tablerows
 import processing.data.TableRow;
 
 

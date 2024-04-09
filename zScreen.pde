@@ -1,3 +1,6 @@
+//basis of class done by Mairead O'Dwyer
+// All members contributed to changes in this class
+
 ArrayList<Button> buttonList;
 ArrayList<TextBox> textBoxList;
 ArrayList<DotPlot> dotPlotList;
