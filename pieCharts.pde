@@ -1,17 +1,12 @@
 // pie chart class created by kellan
 class pieChart{
   Table table;
-  //StringList carriers;
   IntList diversions;
   IntList cancellations;
   FloatList diversionAngles;
-  //FloatList cancellationAngles;
   IntList totalFlights;
   FloatList diversionPercentages;
   FloatList cancellationPercentages;
-  //int totalDiversions;
-  //int totalCancellations;
-  
   PFont keyFont;
   PFont keyFontTitle;
   PFont keyFont2;
@@ -30,34 +25,21 @@ class pieChart{
   int lastClickTime2;
   int clickCooldown;
   String next;
-  //pieChart(float diameter, FloatList data, StringList airlines, PFont font, PFont title, String TITLE, String nextChart){ //data is just a list of angles
   pieChart(Table inputData){
     this.diameter =(height/3)*2;
-    //this.data = data;
-    //this.airlines = airlines;
     font = loadFont("3ds-Light-48.vlw");
     this.title = loadFont("BodoniMT-Bold-84.vlw");
     this.TITLE ="Cancellations";   
-    //this.next = nextChart;
     
-    
-    //for (int i=0; i<data.size();i++){
-    //  println(codeToName(airlines.get(i))+": "+ data.get(i));
-    //}
     
     
   airlines = new StringList();
   diversions = new IntList();
   cancellations = new IntList();
-  //diversionAngles = new FloatList();
   data = new FloatList();
   totalFlights = new IntList();
   diversionPercentages = new FloatList();
   cancellationPercentages = new FloatList();
-  //keyFont = loadFont("3ds-Light-16.vlw");
-  //keyFontTitle = loadFont("BodoniMT-Bold-28.vlw");
-  //keyFont2 = loadFont("3ds-Light-48.vlw");
-  //keyFontTitle2 = loadFont("BodoniMT-Bold-84.vlw");
   getData(inputData);
   buttons = new boolean[data.size()];
     adjustedAngles = data;
@@ -76,7 +58,6 @@ class pieChart{
     if (height>500){
       keyWidth *= 3;
       keyHeight *= 3;
-      //x *= 3;
       y *= 3;
       increment *= 3;
       titlePos *= 3;
@@ -87,8 +68,6 @@ class pieChart{
     text(TITLE, (width/2), titlePos);
     for (int i = 0; i < data.size(); i++) {
       textAlign(LEFT, TOP);
-      //float gray = map(i, 0, data.size(), 0, 255);
-      //fill(gray);
       float red = map(i, 0, data.size(), 0, 255);
       float green = map(i, 0, data.size()/2, 0, 255);
       float blue = map(i, 0, data.size()/4, 0, 255);
@@ -107,12 +86,6 @@ class pieChart{
       text(airline,x+keyWidth+10, y);
       y+=increment;
     }
-    //noFill();
-    //rect(width-510, height-150-40, 300, 50);
-    //fill(255);
-    //text(next, width-500, height-150);
-    //buttonPressed(buttons);
-    //adjustedAngles = angleAdjustment(data, buttons);
   }
   
   void keyPressed(){
@@ -206,16 +179,6 @@ class pieChart{
     //adjustedAngles = angleAdjustment(data, b);
     return output;
   }
-  
-  //boolean nextChart(){
-  //  if (mouseX>width-510 && mouseX<=width-510+300 && mouseY>=height-150-40 && mouseY<=height-150-40+50 &&  millis() - lastClickTime2 >= clickCooldown){
-  //    lastClickTime2 = millis();
-  //    println("clicked");
-  //    return true;
-  //  }
-  //  return false;
-  //}
-  
   void getData(Table table){
     table.removeRow(0);
     for (TableRow row : table.rows()) {
@@ -255,11 +218,6 @@ class pieChart{
   }
   
   
-  //for(int i=0; i<carriers.size(); i++){
-  //  println(carriers.get(i)+" had "+ diversions.get(i) +" diversions and " + cancellations.get(i) + " cancelations out of " +totalFlights.get(i)+" flights and the angle is "+ diversionPercentages.get(i));
-  //  totalDiversions += diversions.get(i);
-  //  totalCancellations += cancellations.get(i);
-  //}
   
   for(int i=0; i<airlines.size(); i++){
     //diversionAngles.append(((float)diversions.get(i)/(float)totalDiversions) * 360.0);
@@ -267,9 +225,5 @@ class pieChart{
     //cancellationAngles.append(((float)cancellations.get(i)/(float)totalCancellations) * 360.0);
     data.append((cancellationPercentages.get(i)/totalCPercentage)*360.0);
   }
-  //if (height > 500){
-  //  keyFont = keyFont2;
-  //  keyFontTitle = keyFontTitle2;
-  //}
   }
 }
