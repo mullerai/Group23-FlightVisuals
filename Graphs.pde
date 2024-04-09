@@ -19,14 +19,14 @@ String text;
   
   
   
-  
+  // initialises the dotplot object
   DotPlot(ArrayList<Flight> f, String filePath, String text)
   {
   this.f = f;
   this.filePath = filePath;
   this.text = text;
   }
-  
+  // counts the unique values in a column of a table and returns an array of them
   String[] getUniqueValues(Table table, int colIndex) {
   ArrayList<String> uniqueValuesList = new ArrayList<String>();
  table.removeRow(0);
@@ -44,6 +44,8 @@ String text;
   return uniqueValuesArray;
 }
 
+
+//returns the % of  times a certain value appears in a column of a table 
 float countCertainValue(Table table, int colIndex, String airportCode) {
   int result = 0;
   int totalCount = 0;
@@ -60,7 +62,7 @@ float countCertainValue(Table table, int colIndex, String airportCode) {
   return (float) result / totalCount * 100;
 }
   
-  
+  // draws a dotplot for the origin airports
   void dotPlotOrigin()
 {
 Table fData;
@@ -112,7 +114,7 @@ float spacing = (endX - startX) / (array.length - 1);
 
 line(startX, startY, startX, endY);
 
-  
+  //displays y labels
   for (int i = 0; i < yLabels.length; i++) {
     float y = map(i * 10 , 0, 40, endY, startY); 
     float labelY = map(i * 10 , 0, 40, endY, startY); 
@@ -141,16 +143,8 @@ for (int i = 0; i < array.length; i++) {
 
 
 
-//for (int i = 0; i < array.length ; i++)
-//{
-//println("\n " + array[i]);
-//}
-
-
-
-
 line(startX, endY, endX, endY);
-
+// displays dots
  for (int i = 0; i < array.length; i++) {
     float x = startX  + i * spacing; 
     float y = map(array[i], 0, maxValue, endY, startY); 
@@ -170,7 +164,7 @@ line(startX, endY, endX, endY);
   
 }
 
-
+// draws a dotplot for the destination airports
 void dotPlotDestination()
 {
 Table fData;
@@ -221,7 +215,7 @@ float spacing = (endX - startX) / (array.length - 1);
 
 line(startX, startY, startX, endY);
 
-  
+  // displays Y labels
   for (int i = 0; i < yLabels.length; i++) {
     float y = map(i * 10 , 0, 40, endY, startY); 
     float labelY = map(i * 10 , 0, 40, endY, startY); 
@@ -249,16 +243,11 @@ for (int i = 0; i < array.length; i++) {
 
 
 
-//for (int i = 0; i < array.length ; i++)
-//{
-//println("\n " + array[i]);
-//}
-
 
 
 
 line(startX, endY, endX, endY);
-
+// displays dots
  for (int i = 0; i < array.length; i++) {
     float x = startX  + i * spacing; 
     float y = map(array[i], 0, maxValue, endY, startY); 

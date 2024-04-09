@@ -1,6 +1,5 @@
 /** This class by Anastasia O'Donnell
 **/
-
 //This class sets a standard title with a standard font
 class Title 
 {

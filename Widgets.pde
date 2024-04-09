@@ -2,6 +2,11 @@
 **/
 
 // Button Widget
+/**
+ * This class represents a button with specified characteristics such as position, size, label, color, and event.
+ * It provides methods for drawing the button, retrieving the button event, and changing the button color based on mouse position.
+ */
+ 
 class Button 
 {
 
@@ -67,6 +72,10 @@ class Button
   }
 }
 //Dropdown Widget
+/**
+ * This class represents a dropdown menu with a list of options.
+ * It provides methods for drawing the dropdown menu, selecting options, and retrieving the current selection.
+ */
 class dropdown
 {
   boolean dropdownActive = false;
@@ -143,6 +152,10 @@ class dropdown
   }
 }
 //Checkbox Widget
+/**
+ * This class represents a checkbox with specified characteristics such as position and size.
+ * It provides methods for drawing the checkbox, checking if the mouse is over the checkbox, and toggling its state.
+ */
 class Checkbox {
   float x, y; // Position of the checkbox
   float size; // Size of the checkbox
@@ -177,6 +190,12 @@ class Checkbox {
 }
 
 //TextBox Widget
+// 
+/**
+ * This class represents a text box with specified characteristics such as position, size, text, and label.
+ * It provides methods for drawing the text box, checking if the mouse is on top of the text box,
+ * setting and retrieving the selection state, setting and retrieving the text content.
+ */
 class TextBox {
   float x, y, w, h;
   String text;
