@@ -25,6 +25,7 @@ class pieChart{
   int lastClickTime2;
   int clickCooldown;
   String next;
+  //data coming is handled in the constructor with the call to getData method
   pieChart(Table inputData){
     this.diameter =(height/3)*2;
     font = loadFont("3ds-Light-48.vlw");
@@ -47,6 +48,7 @@ class pieChart{
     lastClickTime2 = 0;
     clickCooldown = 500; // 0.5 seconds in milliseconds
   }
+  // pie chart and key is drawn here
   void draw() {
     float lastAngle = 0;
     int keyWidth = 15;
@@ -88,13 +90,15 @@ class pieChart{
     }
   }
   
-  void keyPressed(){
-     buttonPressed(buttons);
-  }
+  //void keyPressed(){
+  //   buttonPressed(buttons);
+  //}
   
+  //calls function to handle that way the pie chart is changed
   void mousePressed(){
     buttonPressed(buttons);
   }
+  // function to return the name associated with the airline code
   String codeToName(String airlineCode){
     switch(airlineCode){
       case "AA":
@@ -121,6 +125,7 @@ class pieChart{
         return airlineCode;
     }
   }
+  // handle the buttonpressed within the pie chart class
   void buttonPressed(boolean b[]){
     int keyWidth = 15;
     int keyHeight = 10;
@@ -151,6 +156,7 @@ class pieChart{
     }
     
   }
+  // this adjusts the angles of the pie chart accoring to which buttons have been pressed
   FloatList angleAdjustment(FloatList input, boolean[] b){
     FloatList output;
     float missingAngle = 0;
@@ -179,6 +185,7 @@ class pieChart{
     //adjustedAngles = angleAdjustment(data, b);
     return output;
   }
+  // this method formats the data in way that it usable for the pie chart
   void getData(Table table){
     table.removeRow(0);
     for (TableRow row : table.rows()) {
