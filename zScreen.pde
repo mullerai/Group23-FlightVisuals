@@ -190,6 +190,7 @@ class Screen {
     {
       buttonList = heatMapScreenButtonList;
       textBoxList = heatMapScreenTextBoxList;
+      dotPlotList = notDotPlotScreenList;
       fill(139, 175, 176);
       stroke(3);
       rect(0, 0, width -500, height);
